@@ -7,7 +7,7 @@ using Utilities.MemoryHandling;
 
 namespace D3_Adventures
 {
-    class Actions
+    public static class Actions
     {
         private static ReadWriteMemory mem = Program.mem;
 
