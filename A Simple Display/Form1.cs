@@ -30,19 +30,46 @@ namespace A_Simple_Display
         {
             foreach (Data.gameObject o in objs)
             {
-                TreeNode tn = new TreeNode(o.name, new TreeNode[]
+                if (o.data == 2 && o.data2 == -1) // just items 
+                //if (o.data2 == 29944) // monsters
                 {
-                    new TreeNode("Guid: " + o.guid), 
-                    new TreeNode("Dist From Me: " + o.distanceFromMe),
-                    new TreeNode("X: " + o.position.x),
-                    new TreeNode("Y: " + o.position.y),
-                    new TreeNode("Z: " + o.position.z),
-                    new TreeNode("Data1: " + o.data),
-                    new TreeNode("Data2: " + o.data2),
-                    new TreeNode("Data3: " + o.data3)
-                });
-                treeView1.Nodes.Add(tn);
+                    TreeNode tn = new TreeNode(o.name, new TreeNode[]
+                    {
+                        new TreeNode("Guid: " + o.guid), 
+                        new TreeNode("Dist From Me: " + o.distanceFromMe),
+                        new TreeNode("X: " + o.position.x),
+                        new TreeNode("Y: " + o.position.y),
+                        new TreeNode("Z: " + o.position.z),
+                        new TreeNode("Data1: " + o.data),
+                        new TreeNode("Data2: " + o.data2),
+                        new TreeNode("Data3: " + o.data3)
+                    });
+                    treeView1.Nodes.Add(tn);
+                }
             }
         }
+
+        private TreeNode getRootNode(TreeNode node)
+        {
+            TreeNode n = node;
+            while (n.Parent != null)
+            {
+                n = n.Parent;
+            }
+            return n;
+        }
+
+        private Data.gameObject getObjectByName(string name)
+        {
+            return objs.Where(o => o.name == name).FirstOrDefault();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show(getRootNode(treeView1.SelectedNode).Text);
+            Data.gameObject obj = getObjectByName(getRootNode(treeView1.SelectedNode).Text);
+            Actions.interactGUID(obj.guid, 0x7545);
+        }
+
     }
 }
