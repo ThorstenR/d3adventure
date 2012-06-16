@@ -51,15 +51,31 @@ namespace D3_Adventures
             }
         }
 
-        private static uint fixSpeed = 0x20; // 69736
-        private static uint toggleMove = 0x34;
-        private static uint moveToXoffset = 0x3c;
-        private static uint moveToYoffset = 0x40;
-        private static uint moveToZoffset = 0x44;
-        private static uint currentX = 0xA4;
-        private static uint currentY = 0xA8;
-        private static uint currentZ = 0xAC;
-        private static uint rotationOffset = 0x170;
+        public static uint interact = 0x01580A14;
+        public static uint interactOffsetA = 0xA8;
+        public static uint interactOffsetB = 0x58;
+        public static uint interactOffsetUNK1 = 0x7F20; // set to 777C
+        public static uint interactOffsetUNK2 = 0x7F44; // set to 1 for NPC interaction
+        public static uint interactOffsetUNK3 = 0x7F7C; // set to 7546 for NPC interaction, 7545 for loot interaction
+        public static uint interactOffsetUNK4 = 0x7F80; // set to 7546 for NPC interaction, 7545 for loot interaction
+        public static uint interactOffsetMousestate = 0x7F84; // mouse state 1 = clicked, 2 = mouse down
+        public static uint interactOffsetGUID = 0x7F88; // set to the GUID of the actor you want to interact with
+
+        public static uint itrInteractA = mem.ReadMemoryAsUint(interact);
+        public static uint itrInteractB = mem.ReadMemoryAsUint(itrInteractA);
+        public static uint itrInteractC = mem.ReadMemoryAsUint(itrInteractB);
+        public static uint itrInteractD = mem.ReadMemoryAsUint(itrInteractC + interactOffsetA);
+        public static uint itrInteractE = itrInteractD + interactOffsetB;
+
+        public static uint fixSpeed = 0x20; // 69736
+        public static uint toggleMove = 0x34;
+        public static uint moveToXoffset = 0x3c;
+        public static uint moveToYoffset = 0x40;
+        public static uint moveToZoffset = 0x44;
+        public static uint currentX = 0xA4;
+        public static uint currentY = 0xA8;
+        public static uint currentZ = 0xAC;
+        public static uint rotationOffset = 0x170;
 
         public static uint clickToMoveMain = mem.ReadMemoryAsUint(myToon + objmanagerActorLinkToCTM);
         public static uint clickToMoveRotation = clickToMoveMain + rotationOffset;

@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="MemoryHandling.cs" />
     <Compile Include="Offsets.cs" />

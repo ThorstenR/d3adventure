@@ -10,7 +10,6 @@ namespace D3_Adventures
     public static class Data
     {
         private static ReadWriteMemory mem = Program.mem;
-        private static bool screwWarden = false; // turn to true to use things that use memory writing
 
         public struct Vec2  { 
             public float x;    // 0x000 
@@ -31,14 +30,6 @@ namespace D3_Adventures
             public float w;    // 0x00C 
         };
 
-        // checks if you want to use possibly dangerous functions
-        //  and throws an error if you haven't set the screwWarden Boolean to true
-        private static void wardenCheck()
-        {
-            if (!screwWarden)
-                throw new Exception("This action may be dangerous and cause warden to detect and ban you, if you want to use this function set screwWarden to true in Data.cs");
-        }
-
         public static uint getActorCount()
         {
             uint count = mem.ReadMemoryAsUint(Offsets.itrObjectManagerCount);
@@ -50,34 +41,11 @@ namespace D3_Adventures
         {
             Vec3 ret;
             ret.x = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurX);
-            ret.y = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurY); ;
-            ret.z = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurZ); ;
+            ret.y = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurY);
+            ret.z = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurZ);
+            // if all three == 0 then the user needs to click first
+            //  could throw an error or just send a click to the center of the window
             return ret;
-        }
-
-        private static System.Timers.Timer movementTimer = new System.Timers.Timer(10);
-
-        // NEEDS TO BE THREADED! or timer'ed ; )
-        //  timered for now until someone changes it, or sees how it works first 
-        public static void moveToPos(float x, float y, float z)
-        {
-            wardenCheck();
-            mem.WriteMemoryAsFloat(Offsets.clickToMoveToX, x);
-            mem.WriteMemoryAsFloat(Offsets.clickToMoveToY, y);
-            mem.WriteMemoryAsFloat(Offsets.clickToMoveToZ, z);
-            mem.WriteMemoryAsInt(Offsets.clickToMoveToggle, 1);
-            mem.WriteMemoryAsInt(Offsets.clickToMoveFix, 69736);
-
-            movementTimer.Elapsed +=new System.Timers.ElapsedEventHandler(movementTimer_Elapsed);
-            movementTimer.Enabled=true;
-        }
-
-        static void movementTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            Vec3 pos = getCurrentPos();
-            double distance = Math.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
-            if (distance < 2) movementTimer.Enabled = false;
-            if (mem.ReadMemoryAsFloat(Offsets.clickToMoveToggle) == 0) movementTimer.Enabled = false;
         }
 
         public struct gameObject
