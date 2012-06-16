@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ *  Original Credits goto UnknOwned
+ *      http://www.ownedcore.com/forums/diablo-3/diablo-3-bots-programs/diablo-3-memory-editing/356250-autoit-diablo-3-click-move-interaction-actor-indexing.html
+ *  Conversion by UserNamex32
+ *      http://code.google.com/p/d3adventure/
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
