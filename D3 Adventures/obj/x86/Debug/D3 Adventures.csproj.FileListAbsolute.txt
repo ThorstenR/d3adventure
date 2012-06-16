@@ -1,0 +1,6 @@
+C:\Users\UserNamex64\Documents\Visual Studio 2010\Projects\D3 Adventures\D3 Adventures\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\UserNamex64\Documents\Visual Studio 2010\Projects\D3 Adventures\D3 Adventures\bin\Debug\D3 Adventures.exe
+C:\Users\UserNamex64\Documents\Visual Studio 2010\Projects\D3 Adventures\D3 Adventures\bin\Debug\D3 Adventures.pdb
+C:\Users\UserNamex64\Documents\Visual Studio 2010\Projects\D3 Adventures\D3 Adventures\obj\x86\Debug\D3 Adventures.exe
+C:\Users\UserNamex64\Documents\Visual Studio 2010\Projects\D3 Adventures\D3 Adventures\obj\x86\Debug\D3 Adventures.pdb
+C:\Users\UserNamex64\Documents\Visual Studio 2010\Projects\D3 Adventures\D3 Adventures\bin\Debug\D3 Adventures.exe.config
