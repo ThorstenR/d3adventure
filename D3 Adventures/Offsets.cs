@@ -11,6 +11,7 @@ namespace D3_Adventures
     public static class Offsets
     {
         private static ReadWriteMemory mem = Program.mem;
+        public static uint uielements = 0x19aa2000;
 
         public static uint objectManager = 0x01580A2C;
         public static uint objmanagerActorOffsetA = 0x8b0;

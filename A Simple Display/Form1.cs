@@ -30,7 +30,7 @@ namespace A_Simple_Display
         {
             foreach (Data.gameObject o in objs)
             {
-                if (o.data == 2 && o.data2 == -1) // just items 
+                //if (o.data == 2 && o.data2 == -1) // just items 
                 //if (o.data2 == 29944) // monsters
                 {
                     TreeNode tn = new TreeNode(o.name, new TreeNode[]
