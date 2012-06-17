@@ -9,7 +9,7 @@ namespace D3_Adventures
 {
     public static class Actions
     {
-        private static ReadWriteMemory mem = Program.mem;
+        private static MemoryManager mem = Program.mem;
 
         private static System.Timers.Timer movementTimer = new System.Timers.Timer(10);
 

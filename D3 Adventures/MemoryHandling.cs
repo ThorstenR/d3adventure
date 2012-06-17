@@ -107,14 +107,14 @@ namespace Utilities.MemoryHandling
 
     }
 
-    public class ReadWriteMemory
+    public class MemoryManager
     {
         private IntPtr m_lpHandle;
         private int m_lpBytesWrote;
         private int m_lpBytesRead;
 
         #region Constructors & Destructor
-        public ReadWriteMemory(IntPtr hwnd)
+        public MemoryManager(IntPtr hwnd)
         {
             uint idOut;
             Imports.GetWindowThreadProcessId(hwnd, out idOut);
@@ -126,7 +126,7 @@ namespace Utilities.MemoryHandling
             }
         }
 
-        public ReadWriteMemory(int hwnd)
+        public MemoryManager(int hwnd)
         {
             m_lpHandle = Imports.OpenProcess(Imports.ProcessAccessFlags.All, false, hwnd);
 
@@ -136,7 +136,7 @@ namespace Utilities.MemoryHandling
             }
         }
 
-        ~ReadWriteMemory()
+        ~MemoryManager()
         {
             Imports.CloseHandle(m_lpHandle);
         }

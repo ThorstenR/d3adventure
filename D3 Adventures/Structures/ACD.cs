@@ -26,13 +26,13 @@ namespace D3_Adventures.Structures
         fixed byte unknown_10C[4];  // 0x10C 
         uint id_owner;              // 0x110 
         fixed byte unknown_114[12]; // 0x114 
-        uint id_attrib;            // 0x120 
-        uint id_unk3;              // 0x124 
+        uint id_attrib;             // 0x120 
+        uint id_unk3;               // 0x124 
         fixed byte unknown_128[244];// 0x128 
-        byte NBAD848;         // 0x21C 
-        byte RadiusType;      // 0x21D 
-        byte NBB56E9;         // 0x21E 
-        byte NBBA038;         // 0x21F 
+        byte NBAD848;               // 0x21C 
+        byte RadiusType;            // 0x21D 
+        byte NBB56E9;               // 0x21E 
+        byte NBBA038;               // 0x21F 
         fixed byte unknown_220[24]; // 0x220 
         float RadiusScaled;         // 0x238 
         fixed byte  unknown_23C[148];// 0x23C 

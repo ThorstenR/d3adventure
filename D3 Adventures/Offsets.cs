@@ -10,7 +10,7 @@ namespace D3_Adventures
 {
     public static class Offsets
     {
-        private static ReadWriteMemory mem = Program.mem;
+        private static MemoryManager mem = Program.mem;
         public static uint uielements = 0x19aa2000;
 
         #region Object Manager

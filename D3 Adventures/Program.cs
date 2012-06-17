@@ -17,10 +17,10 @@ using System.IO;
 
 namespace D3_Adventures
 {
-    class Program
+    public class Program
     {
         public static string exeName = "Diablo III";
-        public static ReadWriteMemory mem = new ReadWriteMemory(Utilities.GetProcessHandle(exeName));
+        public static MemoryManager mem = new MemoryManager(Utilities.GetProcessHandle(exeName));
         public static bool debugMessages = false;
         public static bool screwWarden = true; // turn to true to use things that use memory writing. Such actions might be detectable by warden in the future.
 
