@@ -323,10 +323,10 @@ namespace Utilities.MemoryHandling
 
         public uint ReadMemory(uint pointer, uint[] offsets)
         {
-            uint currentLocation = pointer;
+            uint currentLocation = ReadMemoryAsUint(pointer);
             foreach (uint o in offsets)
             {
-                currentLocation = ReadMemoryAsUint(currentLocation) + o;
+                currentLocation = ReadMemoryAsUint(currentLocation + o) ;
             }
             return currentLocation;
         }
@@ -390,7 +390,7 @@ namespace Utilities.MemoryHandling
 
         public bool WriteMemory(IntPtr memoryLocation, int bufferLength, ref byte[] lpBuffer)
         {
-            wardenCheck()
+            wardenCheck();
             if (m_lpHandle.ToInt32() == 0) return false;
             if (Imports.WriteProcessMemory(m_lpHandle, memoryLocation, lpBuffer, bufferLength, out m_lpBytesWrote) == false)
             {

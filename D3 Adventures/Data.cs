@@ -725,10 +725,5 @@ namespace D3_Adventures
             ZombieKillerGrab = 0x6eb
         }
 
-        public struct ActorCommonData
-        {
-            
-        }
-
     }
 }
