@@ -31,6 +31,8 @@ namespace D3_Adventures
             public float w;    // 0x00C 
         };
 
+        public static uint toonID = 0x77BC0000; // your toon's guid
+
         public static uint getActorCount()
         {
             uint count = mem.ReadMemoryAsUint(Offsets.itrObjectManagerCount);

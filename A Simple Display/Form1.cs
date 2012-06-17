@@ -46,14 +46,14 @@ namespace A_Simple_Display
                 //if (o.data2 == 29944) // monsters
                 tn = new TreeNode(o.name, new TreeNode[]
                 {
-                    new TreeNode("Guid: " + o.guid), 
+                    new TreeNode("Guid: " + o.guid.ToString("X")), 
                     new TreeNode("Dist From Me: " + o.distanceFromMe),
                     new TreeNode("X: " + o.position.x),
                     new TreeNode("Y: " + o.position.y),
                     new TreeNode("Z: " + o.position.z),
-                    new TreeNode("Data1: " + o.data),
-                    new TreeNode("Data2: " + o.data2),
-                    new TreeNode("Data3: " + o.data3)
+                    new TreeNode("Data1: " + o.data.ToString("X")),
+                    new TreeNode("Data2: " + o.data2.ToString("X")),
+                    new TreeNode("Data3: " + o.data3.ToString("X"))
                 });
                 treeViewObjects.Nodes.Add(tn);
 
@@ -61,14 +61,14 @@ namespace A_Simple_Display
                 {
                     tn = new TreeNode(o.name, new TreeNode[]
                     {
-                        new TreeNode("Guid: " + o.guid), 
+                        new TreeNode("Guid: " + o.guid.ToString("X")), 
                         new TreeNode("Dist From Me: " + o.distanceFromMe),
                         new TreeNode("X: " + o.position.x),
                         new TreeNode("Y: " + o.position.y),
                         new TreeNode("Z: " + o.position.z),
-                        new TreeNode("Data1: " + o.data),
-                        new TreeNode("Data2: " + o.data2),
-                        new TreeNode("Data3: " + o.data3)
+                        new TreeNode("Data1: " + o.data.ToString("X")),
+                        new TreeNode("Data2: " + o.data2.ToString("X")),
+                        new TreeNode("Data3: " + o.data3.ToString("X"))
                     });
                     treeViewItems.Nodes.Add(tn);
                 }
@@ -77,14 +77,14 @@ namespace A_Simple_Display
                 {
                     tn = new TreeNode(o.name, new TreeNode[]
                     {
-                        new TreeNode("Guid: " + o.guid), 
+                        new TreeNode("Guid: " + o.guid.ToString("X")), 
                         new TreeNode("Dist From Me: " + o.distanceFromMe),
                         new TreeNode("X: " + o.position.x),
                         new TreeNode("Y: " + o.position.y),
                         new TreeNode("Z: " + o.position.z),
-                        new TreeNode("Data1: " + o.data),
-                        new TreeNode("Data2: " + o.data2),
-                        new TreeNode("Data3: " + o.data3)
+                        new TreeNode("Data1: " + o.data.ToString("X")),
+                        new TreeNode("Data2: " + o.data2.ToString("X")),
+                        new TreeNode("Data3: " + o.data3.ToString("X"))
                     });
                     treeViewMonsters.Nodes.Add(tn);
                 }
@@ -98,9 +98,33 @@ namespace A_Simple_Display
                 tn = new TreeNode(acd.name, new TreeNode[]
                 {
                     // Todo Serialize/display
+                    new TreeNode("Owner: " + acd.id_owner.ToString("X")),
+                    new TreeNode("SNO: " + acd.id_snow.ToString("X")),
+                    new TreeNode("Attribute: " + acd.id_attrib.ToString("X")),
+                    new TreeNode("X: " + acd.PosWorld.x),
+                    new TreeNode("Y: " + acd.PosWorld.y),
+                    new TreeNode("Z: " + acd.PosWorld.z)
                 });
                 treeViewACD.Nodes.Add(tn);
+
+                if (acd.id_owner == Data.toonID)
+                {
+                    tn = new TreeNode(acd.name, new TreeNode[]
+                    {
+                        // Todo Serialize/display
+                        new TreeNode("Owner: " + acd.id_owner.ToString("X")),
+                        new TreeNode("SNO: " + acd.id_snow.ToString("X")),
+                        new TreeNode("Attribute: " + acd.id_attrib.ToString("X")),
+                        new TreeNode("X: " + acd.PosWorld.x),
+                        new TreeNode("Y: " + acd.PosWorld.y),
+                        new TreeNode("Z: " + acd.PosWorld.z)
+                    });
+                    treeViewMyItems.Nodes.Add(tn);
+                }
+
             }
+
+
 
         }
 

@@ -42,7 +42,7 @@ namespace D3_Adventures
                 {
                     uint guid = mem.ReadMemoryAsUint(curOffset + 0x4);
                     string name = mem.ReadMemoryAsString(curOffset + 0x8, 64);
-                    if (guid == 0x77BC0000) // your toon's guid
+                    if (guid == Data.toonID) // your toon's guid
                     {
                         if (Program.debugMessages) Console.WriteLine("My toon located at: " + curOffset.ToString("X") + " GUID: " + guid.ToString("X") + " Name: " + name);
                         return curOffset;
