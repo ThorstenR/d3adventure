@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Utilities.MemoryHandling;
+using D3_Adventures.Enumerations;
 
 namespace D3_Adventures
 {
@@ -63,6 +64,11 @@ namespace D3_Adventures
             interactTimer.Elapsed += new System.Timers.ElapsedEventHandler(interactTimer_Elapsed);
             interactTimer.Enabled = true;
             interactTimer.Start();
+        }
+
+        public static void interactGUID(uint guid, SNO.SNOPowerId snoPower)
+        {
+            interactGUID(guid, (uint)snoPower);
         }
 
         static void interactTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

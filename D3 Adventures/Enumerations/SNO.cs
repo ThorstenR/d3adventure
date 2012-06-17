@@ -5,7 +5,7 @@ using System.Text;
 
 namespace D3_Adventures.Enumerations
 {
-    class SNO
+    public class SNO
     {
         public enum SNOPowerId
         {
