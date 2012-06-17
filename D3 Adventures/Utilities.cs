@@ -11,7 +11,7 @@ using System.Security.Principal;
 
 namespace D3_Adventures
 {
-    class Utilities
+    public class Utilities
     {
         public static int GetProcessID(string processName)
         {

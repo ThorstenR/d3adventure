@@ -11,21 +11,12 @@ namespace D3_Adventures
     {
         private static ReadWriteMemory mem = Program.mem;
 
-        // checks if you want to use possibly dangerous functions
-        //  and throws an error if you haven't set the screwWarden Boolean to true
-        private static void wardenCheck()
-        {
-            if (!Program.screwWarden)
-                throw new Exception("This action may be dangerous and cause warden to detect and ban you, if you want to use this function set screwWarden to true in Data.cs");
-        }
-
         private static System.Timers.Timer movementTimer = new System.Timers.Timer(10);
 
         // NEEDS TO BE THREADED! or timer'ed ; )
         //  timered for now until someone changes it, or sees how it works first 
         public static void moveToPos(float x, float y, float z)
         {
-            wardenCheck();
             mem.WriteMemoryAsFloat(Offsets.clickToMoveToX, x);
             mem.WriteMemoryAsFloat(Offsets.clickToMoveToY, y);
             mem.WriteMemoryAsFloat(Offsets.clickToMoveToZ, z);
@@ -54,8 +45,6 @@ namespace D3_Adventures
         //  timered for now until someone changes it, or sees how it works first 
         public static void interactGUID(uint guid, uint snoPower)
         {
-            wardenCheck();
-
             Data.Vec3 pos = Data.getCurrentPos();
             
             mem.WriteMemoryAsInt(Offsets.itrInteractE + Offsets.interactOffsetUNK1, 0x777C);

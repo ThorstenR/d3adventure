@@ -724,5 +724,11 @@ namespace D3_Adventures
             ZombieFemale_Projectile = 0x1afb6,
             ZombieKillerGrab = 0x6eb
         }
+
+        public struct ActorCommonData
+        {
+            
+        }
+
     }
 }

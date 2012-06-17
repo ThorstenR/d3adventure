@@ -13,6 +13,7 @@ namespace D3_Adventures
         private static ReadWriteMemory mem = Program.mem;
         public static uint uielements = 0x19aa2000;
 
+        #region Object Manager
         public static uint objectManager = 0x01580A2C;
         public static uint objmanagerActorOffsetA = 0x8b0;
         public static uint objmanagerActorCount = 0x108;
@@ -28,7 +29,7 @@ namespace D3_Adventures
 
         public static uint itrObjectManagerD = mem.ReadMemoryAsUint(itrObjectManagerC);
         public static uint itrObjectManagerE = mem.ReadMemoryAsUint(itrObjectManagerD);
-
+        #endregion
         public static uint myToon
         {
             get
@@ -41,7 +42,7 @@ namespace D3_Adventures
                 {
                     uint guid = mem.ReadMemoryAsUint(curOffset + 0x4);
                     string name = mem.ReadMemoryAsString(curOffset + 0x8, 64);
-                    if (guid == 0x77BC0000)
+                    if (guid == 0x77BC0000) // your toon's guid
                     {
                         if (Program.debugMessages) Console.WriteLine("My toon located at: " + curOffset.ToString("X") + " GUID: " + guid.ToString("X") + " Name: " + name);
                         return curOffset;
@@ -52,6 +53,7 @@ namespace D3_Adventures
             }
         }
 
+        #region Interaction
         public static uint interact = 0x01580A14;
         public static uint interactOffsetA = 0xA8;
         public static uint interactOffsetB = 0x58;
@@ -88,5 +90,21 @@ namespace D3_Adventures
         public static uint clickToMoveToZ = clickToMoveMain + moveToZoffset;
         public static uint clickToMoveToggle = clickToMoveMain + toggleMove;
         public static uint clickToMoveFix = clickToMoveMain + fixSpeed;
+        #endregion
+
+        #region Actor Common Data 
+        // http://www.ownedcore.com/forums/diablo-3/diablo-3-bots-programs/diablo-3-memory-editing/356250-autoit-diablo-3-click-move-interaction-actor-indexing.html#post2311789
+        public static uint ACDBase = 0x01580A2C;
+        public static uint ACDOffset1 = 0x850;
+        public static uint ACDOffset2 = 0;
+        public static uint ACDOffset3 = 0x11C;
+        public static uint ACDOffset4 = 0x148;
+        public static uint ACDOffset5 = 0;
+        public static uint ACDCount = mem.ReadMemory(ACDBase, new uint[] { ACDOffset1, ACDOffset2, ACDOffset3 });
+        public static uint firstACD = mem.ReadMemory(ACDBase, new uint[] { ACDOffset1, ACDOffset2, ACDOffset4, ACDOffset5 });
+        public static uint ACDSize = 0x2D0;
+        #endregion
+
+        // UI elements pointer table is : 0x19AA2000
     }
 }

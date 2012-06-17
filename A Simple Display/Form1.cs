@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using D3_Adventures;
+using Utilities.GlobalKeyboardHook;
 
 namespace A_Simple_Display
 {
@@ -24,6 +25,43 @@ namespace A_Simple_Display
         {
             objs = Data.iterateObjectList();
             display();
+
+            MessageBox.Show(Offsets.myToon.ToString("X"));
+            MessageBox.Show(Offsets.ACDCount.ToString());
+
+            GKH gkh = new GKH();
+            //gkh.Hook().ToString();
+            gkh.KeyDown += new KeyEventHandler(gkh_KeyDown);
+        }
+
+        static void gkh_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+            //MessageBox.Show(e.KeyCode.ToString());
+
+            Data.Vec3 pos = Data.getCurrentPos();
+            /*
+            if (e.KeyCode == Keys.W)
+                Actions.moveToPos(pos.x, pos.y + 5, pos.z);
+            if (e.KeyCode == Keys.S)
+                Actions.moveToPos(pos.x, pos.y - 5, pos.z);
+            if (e.KeyCode == Keys.A)
+                Actions.moveToPos(pos.x - 5, pos.y, pos.z);
+            if (e.KeyCode == Keys.D)
+                Actions.moveToPos(pos.x + 5, pos.y, pos.z);
+             */
+            if (e.KeyCode == Keys.W || e.KeyCode == Keys.S || e.KeyCode == Keys.A || e.KeyCode == Keys.D)
+                e.SuppressKeyPress = true;
+
+            if (e.KeyCode == Keys.W)
+                Actions.moveToPos(pos.x - 5, pos.y - 5, pos.z);
+            if (e.KeyCode == Keys.S)
+                Actions.moveToPos(pos.x + 5, pos.y + 5, pos.z);
+            if (e.KeyCode == Keys.A)
+                Actions.moveToPos(pos.x + 5, pos.y - 5, pos.z);
+            if (e.KeyCode == Keys.D)
+                Actions.moveToPos(pos.x - 5, pos.y + 5, pos.z);
+
         }
 
         private void display()

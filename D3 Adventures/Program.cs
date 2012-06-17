@@ -22,7 +22,7 @@ namespace D3_Adventures
         public static string exeName = "Diablo III";
         public static ReadWriteMemory mem = new ReadWriteMemory(Utilities.GetProcessHandle(exeName));
         public static bool debugMessages = false;
-        public static bool screwWarden = false; // turn to true to use things that use memory writing
+        public static bool screwWarden = true; // turn to true to use things that use memory writing. Such actions might be detectable by warden in the future.
 
         static void Main(string[] args)
         {

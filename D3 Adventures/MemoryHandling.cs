@@ -321,6 +321,16 @@ namespace Utilities.MemoryHandling
             return sb.ToString().Trim();
         }
 
+        public uint ReadMemory(uint pointer, uint[] offsets)
+        {
+            uint currentLocation = pointer;
+            foreach (uint o in offsets)
+            {
+                currentLocation = ReadMemoryAsUint(currentLocation) + o;
+            }
+            return currentLocation;
+        }
+
         public bool WriteMemoryAsInt(uint location, int integer)
         {
             byte[] bytes = BitConverter.GetBytes(integer);
@@ -369,8 +379,18 @@ namespace Utilities.MemoryHandling
         #endregion
 
         #region WriteMemory
+
+        // checks if you want to use possibly dangerous functions
+        //  and throws an error if you haven't set the screwWarden Boolean to true
+        private static void wardenCheck()
+        {
+            if (!D3_Adventures.Program.screwWarden)
+                throw new Exception("This action may be dangerous and cause warden to detect and ban you, if you want to use this function set screwWarden to true in Data.cs");
+        }
+
         public bool WriteMemory(IntPtr memoryLocation, int bufferLength, ref byte[] lpBuffer)
         {
+            wardenCheck()
             if (m_lpHandle.ToInt32() == 0) return false;
             if (Imports.WriteProcessMemory(m_lpHandle, memoryLocation, lpBuffer, bufferLength, out m_lpBytesWrote) == false)
             {
