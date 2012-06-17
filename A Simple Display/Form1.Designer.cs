@@ -45,12 +45,15 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.treeViewItems = new System.Windows.Forms.TreeView();
             this.treeViewMonsters = new System.Windows.Forms.TreeView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.treeViewACD = new System.Windows.Forms.TreeView();
             this.contextMenuStripTreeNode.SuspendLayout();
             this.tabControlDisplay.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewObjects
@@ -81,6 +84,7 @@
             this.tabControlDisplay.Controls.Add(this.tabPage1);
             this.tabControlDisplay.Controls.Add(this.tabPage2);
             this.tabControlDisplay.Controls.Add(this.tabPage3);
+            this.tabControlDisplay.Controls.Add(this.tabPage4);
             this.tabControlDisplay.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tabControlDisplay.Location = new System.Drawing.Point(0, 27);
             this.tabControlDisplay.Name = "tabControlDisplay";
@@ -193,6 +197,26 @@
             this.treeViewMonsters.Size = new System.Drawing.Size(615, 360);
             this.treeViewMonsters.TabIndex = 1;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.treeViewACD);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(621, 366);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "ACD";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // treeViewACD
+            // 
+            this.treeViewACD.ContextMenuStrip = this.contextMenuStripTreeNode;
+            this.treeViewACD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewACD.Location = new System.Drawing.Point(3, 3);
+            this.treeViewACD.Name = "treeViewACD";
+            this.treeViewACD.Size = new System.Drawing.Size(615, 360);
+            this.treeViewACD.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,6 +234,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,6 +257,8 @@
         private System.Windows.Forms.TreeView treeViewMonsters;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TreeView treeViewACD;
     }
 }
 

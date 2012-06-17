@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Utilities.MemoryHandling;
+using D3_Adventures.Structures;
 
 namespace D3_Adventures
 {
@@ -103,6 +104,27 @@ namespace D3_Adventures
                 curOffset = curOffset + Offsets.objmanagerStrucSize;
             }
             return objects;
+        }
+
+        public static ActorCommonData[] iterateACD()
+        {
+            if (Program.debugMessages)
+            {
+                Console.WriteLine("Iterating through ACD");
+                Console.WriteLine("First ACD Location At: " + Offsets.firstACD.ToString("X"));
+            }
+
+            uint curOffset = Offsets.firstACD;
+            uint count = Offsets.ACDCount;
+            ActorCommonData[] acds = new ActorCommonData[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                acds[i] = (ActorCommonData)mem.ReadMemory(curOffset, typeof(ActorCommonData));
+                curOffset = curOffset + Offsets.ACDSize;
+            }
+
+            return acds;
         }
     }
 }

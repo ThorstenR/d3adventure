@@ -32,6 +32,8 @@ namespace A_Simple_Display
 
         private void display()
         {
+            TreeNode tn;
+
             objs = Data.iterateObjectList();
 
             treeViewObjects.Nodes.Clear();
@@ -42,7 +44,7 @@ namespace A_Simple_Display
             {
                 //if (o.data == 2 && o.data2 == -1) // just items 
                 //if (o.data2 == 29944) // monsters
-                TreeNode tn = new TreeNode(o.name, new TreeNode[]
+                tn = new TreeNode(o.name, new TreeNode[]
                 {
                     new TreeNode("Guid: " + o.guid), 
                     new TreeNode("Dist From Me: " + o.distanceFromMe),
@@ -86,6 +88,18 @@ namespace A_Simple_Display
                     });
                     treeViewMonsters.Nodes.Add(tn);
                 }
+            }
+
+            ActorCommonData[] acds = Data.iterateACD();
+            treeViewACD.Nodes.Clear();
+
+            foreach (ActorCommonData acd in acds)
+            {
+                tn = new TreeNode(acd.name, new TreeNode[]
+                {
+                    // Todo Serialize/display
+                });
+                treeViewACD.Nodes.Add(tn);
             }
 
         }
