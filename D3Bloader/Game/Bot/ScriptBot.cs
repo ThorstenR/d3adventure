@@ -6,6 +6,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using D3Bloader.Scripting;
+using D3Bloader.Game.Objects;
+
+using D3_Adventures;
+using D3_Adventures.Structures;
+using D3_Adventures.Enumerations;
 
 namespace D3Bloader.Game
 {
@@ -35,6 +40,8 @@ namespace D3Bloader.Game
         /// </summary>
         public override bool init()
         {
+            EventObjects.eventInit(this, true);
+
             //Load the associated scripts
             _scripts = Scripts.instanceScripts(this, _scriptType);
 
@@ -54,6 +61,14 @@ namespace D3Bloader.Game
                 script.poll();
 
             return true;
+        }
+
+        /// <summary>
+        /// Simple Item Pickup
+        /// </summary>
+        public override void pickItem(Data.gameObject itm)
+        {
+            callsync("Toon.ItemPickup", false, new Item());
         }
     }
 }

@@ -41,10 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\CSScriptLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="D3 Adventures, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\D3 Adventures.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\Bot.cs" />
-    <Compile Include="Game\ScriptBot.cs" />
+    <Compile Include="Game\Bot\Bot.cs" />
+    <Compile Include="Game\Bot\ScriptBot.cs" />
+    <Compile Include="Game\Objects\Monster.cs" />
+    <Compile Include="Game\Objects\Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripting\Events\Events.cs" />
@@ -87,6 +85,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Game\Bot\Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D3 Adventures\D3 Adventures.csproj">
+      <Project>{116D87D7-EDD2-4262-88F8-49E155D89B71}</Project>
+      <Name>D3 Adventures</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

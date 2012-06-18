@@ -12,7 +12,7 @@ namespace D3Bloader
     {
         static Game.Bot _bot;
         public static string exeName = "Diablo III";
-        public static ReadWriteMemory mem;
+        public static MemoryManager mem;
         public static bool debugMessages = false;
         public static bool screwWarden = true; // turn to true to use things that use memory writing
 
@@ -55,7 +55,7 @@ namespace D3Bloader
             }
 
             //Start our R/W Class
-            mem = new ReadWriteMemory(pHandle);
+            mem = new MemoryManager(pHandle);
 
             //Initilize the bot!
             Game.Bot bot = new Game.Bot();

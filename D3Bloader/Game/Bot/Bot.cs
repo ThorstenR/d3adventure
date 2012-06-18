@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using D3_Adventures;
-using D3Bloader.Scripting;
-
 using System.Diagnostics;
+
+using D3Bloader.Scripting;
+using D3Bloader.Game.Objects;
 
 using Utilities.MemoryHandling;
 using Utilities;
+
+using D3_Adventures;
+using D3_Adventures.Structures;
+using D3_Adventures.Enumerations;
 
 namespace D3Bloader.Game
 {
@@ -21,7 +25,9 @@ namespace D3Bloader.Game
         public ConfigSetting _config;
         private Thread _botThread;
         public int _tickLastMove;
+        public Data.gameObject[] objs;
 
+        #region Member Functions
         ///////////////////////////////////////////////////
         // Member Functions
         ///////////////////////////////////////////////////
@@ -107,12 +113,11 @@ namespace D3Bloader.Game
         }
         #endregion
 
-
         /// <summary>
         /// Generic Constructor
         /// </summary>
         public Bot()
-        {   
+        {
         }
 
         /// <summary>
@@ -213,18 +218,86 @@ namespace D3Bloader.Game
         /// </summary>
         public virtual bool poll()
         {
+            objs = Data.iterateObjectList();
             return true;
+        }
+        #endregion
+
+        #region Accessors
+        ///////////////////////////////////////////////////
+        // Accessors
+        ///////////////////////////////////////////////////
+        private Data.gameObject getObjectByName(string name)
+        {
+            return objs.Where(o => o.name == name).FirstOrDefault();
         }
 
         /// <summary>
-        /// Used for moving from point a to b :x
+        /// Returns a sorted list of mobs in a given range.
+        /// </summary>
+        public List<Monster> getMobsInRange(float x, float y, int range)
+        {
+            List<Monster> mobs = new List<Monster>();
+            List<Data.gameObject> objList = new List<Data.gameObject>();
+
+            //Grab monsters in our given range...
+            objList = objs.Where(mob => mob.data2 == 29944 && mob.distanceFromMe <= range).ToList();
+            
+            // Sort by distance to Toon
+            objList.OrderBy(mob => mob.distanceFromMe);
+
+            foreach (Data.gameObject m in objList)
+            {
+                Monster mob = new Monster();
+                mob.mobID = m.guid;
+                mobs.Add(mob);
+            }
+
+            return mobs;
+        }
+
+        /// <summary>
+        /// Returns a sorted list of items in a given range.
+        /// </summary>
+        public List<Item> getItemsInRange(float x, float y, int range)
+        {
+            List<Item> items = new List<Item>();
+            List<Data.gameObject> objList = new List<Data.gameObject>();
+
+            //Grab items in our given range...
+            objList = objs.Where(itm => itm.data == 2 && itm.data2 == -1 && itm.distanceFromMe <= range).ToList();
+
+            // Sort by distance to Toon
+            objList.OrderBy(itm => itm.distanceFromMe);
+
+            foreach (Data.gameObject i in objList)
+            {
+                Item itm = new Item();
+                itm.itemID = i.guid;
+                items.Add(itm);
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Simple Item Pickup
+        /// </summary>
+        public virtual void pickItem(Data.gameObject itm)
+        {
+        }
+
+
+        /// <summary>
+        /// Used for moving from point a to b
         /// </summary>
         public void moveTo(float x, float y, float z)
         {
             Log.write(String.Format("Moving to {0},{1}", x, y));
             Actions.moveToPos(x, y, z);
             _tickLastMove = Environment.TickCount;
-            
         }
+
+        #endregion
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using D3Bloader.Game;
+using D3Bloader.Game.Objects;
 using D3Bloader.Scripting;
 ///////////////////////////////////////////////////
 // This isn't much to go off of, but I'm very limited time-wise atm so all of this including the loader is a very basic
@@ -44,6 +45,23 @@ namespace D3Bloader.Script.SimpleBot
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Triggered when an item is picked.
+        /// </summary>
+        [Scripts.Event("Toon.ItemPickup")]
+        public bool itemPickup(Item itm)
+        {
+            return true;
+        }
+
+        public void doRun()
+        {
+        }
+
+        public void stopRun()
+        {
         }
     }
 }
