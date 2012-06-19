@@ -81,7 +81,7 @@ namespace D3_Adventures.Structures
         {
             if (mem_location == null)
                 throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
-            return (id_actor == Program.mem.ReadMemoryAsUint(mem_location));
+            return (id_acd == Program.mem.ReadMemoryAsUint(mem_location+0x4));
         }
     }
 

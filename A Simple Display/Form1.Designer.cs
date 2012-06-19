@@ -49,6 +49,8 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStripTreeNode.SuspendLayout();
             this.tabControlDisplay.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -196,7 +198,9 @@
             this.toolStripSeparator1,
             this.toolStripButton2,
             this.toolStripSeparator2,
-            this.toolStripButton3});
+            this.toolStripButton3,
+            this.toolStripSeparator3,
+            this.toolStripButton4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(629, 25);
@@ -243,6 +247,21 @@
             this.toolStripButton3.Text = "Interact With NPC";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(45, 22);
+            this.toolStripButton4.Text = "isAlive";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,6 +307,8 @@
         private System.Windows.Forms.TreeView treeViewACD;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TreeView treeViewMyItems;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
     }
 }
 
