@@ -13,7 +13,7 @@ namespace D3_Adventures
     {
         private static MemoryManager mem = Program.mem;
 
-        private static System.Timers.Timer movementTimer = new System.Timers.Timer(10);
+        public static System.Timers.Timer movementTimer = new System.Timers.Timer(10);
 
         // NEEDS TO BE THREADED! or timer'ed ; )
         //  timered for now until someone changes it, or sees how it works first 
@@ -30,7 +30,7 @@ namespace D3_Adventures
             movementTimer.Start();
         }
 
-        static void movementTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private static void movementTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             Vec3 pos = Data.getCurrentPos();
             double distance = Math.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
@@ -41,7 +41,7 @@ namespace D3_Adventures
             }
         }
 
-        private static System.Timers.Timer interactTimer = new System.Timers.Timer(10);
+        public static System.Timers.Timer interactTimer = new System.Timers.Timer(10);
 
         // NEEDS TO BE THREADED! or timer'ed ; )
         //  timered for now until someone changes it, or sees how it works first 
@@ -72,7 +72,7 @@ namespace D3_Adventures
             interactGUID(guid, (uint)snoPower);
         }
 
-        static void interactTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private static void interactTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             int temp = mem.ReadMemoryAsInt(Offsets.itrInteractE + Offsets.interactOffsetUNK2);
             if (temp != 1)
