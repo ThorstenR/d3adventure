@@ -162,7 +162,9 @@ namespace Utilities.MemoryHandling
 
         public bool ReadMemory(uint memoryLocation, int bufferLength, out byte[] lpBuffer)
         {
+            
             lpBuffer = new byte[bufferLength];
+            if (memoryLocation > int.MaxValue) return false;
             if (m_lpHandle.ToInt32() == 0) return false;
             if (Imports.ReadProcessMemory(m_lpHandle, (IntPtr)memoryLocation, lpBuffer, bufferLength, out m_lpBytesRead) == false)
             {
@@ -174,8 +176,10 @@ namespace Utilities.MemoryHandling
 
         public bool ReadMemoryRetry(uint memoryLocation, int bufferLength, out byte[] lpBuffer)
         {
+            
             bool worked = false;
             lpBuffer = new byte[bufferLength];
+            if (memoryLocation > int.MaxValue) return false;
             if (m_lpHandle.ToInt32() == 0) return false;
             while (!worked)
             {
@@ -227,6 +231,7 @@ namespace Utilities.MemoryHandling
 
         public Object ReadMemory(uint address, Type type) // Thanks ApacheChief @ http://www.edgeofnowhere.cc/viewtopic.php?p=3117314
         {
+            if (address > Int32.MaxValue) return null;
             return ReadMemory((IntPtr)address, type);
         }
 

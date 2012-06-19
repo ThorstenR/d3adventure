@@ -26,39 +26,14 @@ namespace D3_Adventures
 
         static void Main(string[] args)
         {
-            var elem1 = (UIElement)mem.ReadMemory(0x1cba8344, typeof(UIElement));
-            Console.Write(elem1.GetName());
-            uint counter = 0;
-            uint uielemePointer;
-            List<UIElement> Elems = new List<UIElement>();
-            while ((Offsets.uielements + counter * 4) < 0x19aa4000)
-            {
-                try
-                {
-                    uielemePointer = mem.ReadMemoryAsUint((Offsets.uielements + counter * 4));
-                    counter++;
-                    if (uielemePointer == 0) continue;
-                    var elem = (UIElement)mem.ReadMemory(uielemePointer, typeof(UIElement));
-                    File.AppendAllText(@"c:\Toto.txt","PARENT : " +  elem.GetName() + "\r\n");
-                    while (elem.ParentElement != 0)
-                    {
-                        elem = (UIElement)mem.ReadMemory(elem.ParentElement, typeof(UIElement));
-                        File.AppendAllText(@"c:\Toto.txt", "\t\t" + elem.GetName() + "\r\n");
-                    }
-                    //Elems.Add(elem);
-                    
-                }
-                catch { }
-                //elem.Unknown.wh
-                
-            }
-            var u = Elems.Where(p => p.ParentElement != 0).Take(20).ToList();
-            foreach (var child in u)
-            {
-                var parent = (UIElement)mem.ReadMemory(child.ParentElement, typeof(UIElement));
-                File.AppendAllText(@"c:\Toto.txt",parent.GetName() + "\r\n");
-                File.AppendAllText(@"c:\Toto.txt", "\t\t" + child.GetName() + "\r\n");
-            }
+            ulong hash = 11552879775495564696;
+            UIElement elem1 = UIElement.GetByHash(hash);
+            int t = (int)(hash >> 20);
+            int t2 = (int)hash;
+            var elems = UIElement.GetAll().OrderBy(p => p.Name).ToList();
+            var pri = elems.Where(p => p.Text != null && p.Name.Contains("Root.NormalLayer.BattleNetAuctionHouse_main.LayoutRoot.OverlayContainer.TabContentContainer.SearchTabContent.SearchListContent.SearchItemList.ItemListContainer.ItemList.item 0 list.")).ToList();
+            foreach (var elem in elems)
+                File.AppendAllText(@"c:\UIDump.txt", "Hash: " + elem.Hash + " " + elem.Name + Environment.NewLine);
             Console.Read();
             /*if (!Utilities.isAdmin(System.Diagnostics.Process.GetCurrentProcess().ProcessName))
             {

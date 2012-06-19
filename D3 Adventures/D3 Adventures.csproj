@@ -43,6 +43,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Internals\Extensions.cs" />
     <Compile Include="Enumerations\SNO.cs" />
     <Compile Include="MemoryHandling.cs" />
     <Compile Include="Offsets.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Structures\Actor.cs" />
     <Compile Include="Structures\Common.cs" />
     <Compile Include="Structures\UIElements.cs" />
+    <Compile Include="Structures\Label.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>

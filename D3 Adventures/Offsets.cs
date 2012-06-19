@@ -11,8 +11,20 @@ namespace D3_Adventures
     public static class Offsets
     {
         private static MemoryManager mem = Program.mem;
-        public static uint uielements = 0x19aa2000;
-
+        public static uint uielements
+        {
+            get
+            {
+                return mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(objectManager) + 0x924)) + 0x08);
+            }
+        }
+        public static uint UIelementCount
+        {
+            get
+            {
+                return mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(objectManager) + 0x924)) + 0x40);
+            }
+        }
         #region Object Manager
         public static uint objectManager = 0x01580A2C;
         public static uint objmanagerActorOffsetA = 0x8b0;
