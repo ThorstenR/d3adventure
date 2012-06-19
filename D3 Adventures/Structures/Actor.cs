@@ -71,12 +71,14 @@ namespace D3_Adventures.Structures
             {
                 // old code from original AU3 was using pos1 @ 0xB0
 
-                return Math.Sqrt(Pos.x * Pos.x + Pos.y * Pos.y + Pos.z * Pos.z);
+                return Math.Sqrt(Pos1.x * Pos1.x + Pos1.y * Pos1.y + Pos1.z * Pos1.z);
             }
         }
 
         public bool isAlive()
         {
+            if (mem_location == null)
+                throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
             return (id_actor == Program.mem.ReadMemoryAsUint(mem_location));
         }
     }
