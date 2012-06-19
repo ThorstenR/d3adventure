@@ -11,26 +11,7 @@ namespace D3_Adventures
     public static class Data
     {
         private static MemoryManager mem = Program.mem;
-
-        public struct Vec2  { 
-            public float x;    // 0x000 
-            public float y;    // 0x004 
-        };
-
-        public struct Vec3  {
-            public float x;    // 0x000 
-            public float y;    // 0x004 
-            public float z;    // 0x008 
-        };
-
-        public struct Vec4
-        {
-            public float x;    // 0x000 
-            public float y;    // 0x004 
-            public float z;    // 0x008 
-            public float w;    // 0x00C 
-        };
-
+        
         public static uint toonID = 0x77BC0000; // your toon's guid
 
         public static uint getActorCount()
@@ -51,6 +32,7 @@ namespace D3_Adventures
             return ret;
         }
 
+        // Obsolete with new Actor struct.
         public struct gameObject
         {
             public uint guid;
@@ -62,6 +44,7 @@ namespace D3_Adventures
             public double distanceFromMe;
         }
 
+        // Obsolete with new IterateActors
         public static gameObject[] iterateObjectList()
         {
             if (Program.debugMessages)
@@ -106,6 +89,28 @@ namespace D3_Adventures
                 curOffset = curOffset + Offsets.objmanagerStrucSize;
             }
             return objects;
+        }
+
+        public static Actor[] IterateActors()
+        {
+            if (Program.debugMessages)
+            {
+                Console.WriteLine("Iterating through Actors");
+                Console.WriteLine("First Actor Location At: " + Offsets.itrObjectManagerD.ToString("X"));
+            }
+
+            uint curOffset = Offsets.itrObjectManagerD;
+            uint count = getActorCount();
+            Actor[] actors = new Actor[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                actors[i] = (Actor)mem.ReadMemory(curOffset, typeof(Actor));
+                actors[i].mem_location = curOffset;
+                curOffset = curOffset + Offsets.objmanagerStrucSize;
+            }
+
+            return actors;
         }
 
         public static ActorCommonData[] iterateACD()

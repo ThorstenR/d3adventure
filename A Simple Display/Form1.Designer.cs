@@ -41,22 +41,22 @@
             this.treeViewMonsters = new System.Windows.Forms.TreeView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.treeViewACD = new System.Windows.Forms.TreeView();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.treeViewMyItems = new System.Windows.Forms.TreeView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.treeViewMyItems = new System.Windows.Forms.TreeView();
             this.contextMenuStripTreeNode.SuspendLayout();
             this.tabControlDisplay.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewObjects
@@ -106,7 +106,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(621, 366);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Objects";
+            this.tabPage1.Text = "Actors";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -169,6 +169,26 @@
             this.treeViewACD.Size = new System.Drawing.Size(615, 360);
             this.treeViewACD.TabIndex = 2;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.treeViewMyItems);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(621, 366);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "My Items";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // treeViewMyItems
+            // 
+            this.treeViewMyItems.ContextMenuStrip = this.contextMenuStripTreeNode;
+            this.treeViewMyItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewMyItems.Location = new System.Drawing.Point(3, 3);
+            this.treeViewMyItems.Name = "treeViewMyItems";
+            this.treeViewMyItems.Size = new System.Drawing.Size(615, 360);
+            this.treeViewMyItems.TabIndex = 3;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -223,26 +243,6 @@
             this.toolStripButton3.Text = "Interact With NPC";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.treeViewMyItems);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(621, 366);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "My Items";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // treeViewMyItems
-            // 
-            this.treeViewMyItems.ContextMenuStrip = this.contextMenuStripTreeNode;
-            this.treeViewMyItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewMyItems.Location = new System.Drawing.Point(3, 3);
-            this.treeViewMyItems.Name = "treeViewMyItems";
-            this.treeViewMyItems.Size = new System.Drawing.Size(615, 360);
-            this.treeViewMyItems.TabIndex = 3;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,9 +259,9 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

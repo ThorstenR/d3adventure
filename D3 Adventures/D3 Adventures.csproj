@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\ACD.cs" />
     <Compile Include="Structures\Actor.cs" />
+    <Compile Include="Structures\Common.cs" />
     <Compile Include="Structures\UIElements.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>

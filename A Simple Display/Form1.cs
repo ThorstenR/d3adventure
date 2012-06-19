@@ -17,7 +17,7 @@ namespace A_Simple_Display
 {
     public partial class Form1 : Form
     {
-        private Data.gameObject[] objs;
+        private Actor[] actors;
         private MemoryManager mem = D3_Adventures.Program.mem;
 
         public Form1()
@@ -34,57 +34,57 @@ namespace A_Simple_Display
         {
             TreeNode tn;
 
-            objs = Data.iterateObjectList();
+            actors = Data.IterateActors();
 
             treeViewObjects.Nodes.Clear();
             treeViewItems.Nodes.Clear();
             treeViewMonsters.Nodes.Clear();
 
-            foreach (Data.gameObject o in objs)
+            foreach (Actor a in actors)
             {
                 //if (o.data == 2 && o.data2 == -1) // just items 
                 //if (o.data2 == 29944) // monsters
-                tn = new TreeNode(o.name, new TreeNode[]
+                tn = new TreeNode(a.name, new TreeNode[]
                 {
-                    new TreeNode("Guid: " + o.guid.ToString("X")), 
-                    new TreeNode("Dist From Me: " + o.distanceFromMe),
-                    new TreeNode("X: " + o.position.x),
-                    new TreeNode("Y: " + o.position.y),
-                    new TreeNode("Z: " + o.position.z),
-                    new TreeNode("Data1: " + o.data.ToString("X")),
-                    new TreeNode("Data2: " + o.data2.ToString("X")),
-                    new TreeNode("Data3: " + o.data3.ToString("X"))
+                    new TreeNode("ID: " + a.id_actor.ToString("X")), 
+                    new TreeNode("Dist From Me: " + a.distanceFromMe),
+                    new TreeNode("X: " + a.Pos.x),
+                    new TreeNode("Y: " + a.Pos.y),
+                    new TreeNode("Z: " + a.Pos.z),
+                    new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
+                    new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
+                    new TreeNode("Data3: " + a.unknown_data3.ToString("X"))
                 });
                 treeViewObjects.Nodes.Add(tn);
 
-                if (o.data == 2 && o.data2 == -1) // just items 
+                if (a.unknown_data1 == 2 && a.unknown_data2 == -1) // just items 
                 {
-                    tn = new TreeNode(o.name, new TreeNode[]
+                    tn = new TreeNode(a.name, new TreeNode[]
                     {
-                        new TreeNode("Guid: " + o.guid.ToString("X")), 
-                        new TreeNode("Dist From Me: " + o.distanceFromMe),
-                        new TreeNode("X: " + o.position.x),
-                        new TreeNode("Y: " + o.position.y),
-                        new TreeNode("Z: " + o.position.z),
-                        new TreeNode("Data1: " + o.data.ToString("X")),
-                        new TreeNode("Data2: " + o.data2.ToString("X")),
-                        new TreeNode("Data3: " + o.data3.ToString("X"))
+                        new TreeNode("ID: " + a.id_actor.ToString("X")), 
+                        new TreeNode("Dist From Me: " + a.distanceFromMe),
+                        new TreeNode("X: " + a.Pos.x),
+                        new TreeNode("Y: " + a.Pos.y),
+                        new TreeNode("Z: " + a.Pos.z),
+                        new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
+                        new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
+                        new TreeNode("Data3: " + a.unknown_data3.ToString("X"))
                     });
                     treeViewItems.Nodes.Add(tn);
                 }
 
-                if (o.data2 == 29944) // monsters
+                if (a.unknown_data2 == 29944) // monsters
                 {
-                    tn = new TreeNode(o.name, new TreeNode[]
+                    tn = new TreeNode(a.name, new TreeNode[]
                     {
-                        new TreeNode("Guid: " + o.guid.ToString("X")), 
-                        new TreeNode("Dist From Me: " + o.distanceFromMe),
-                        new TreeNode("X: " + o.position.x),
-                        new TreeNode("Y: " + o.position.y),
-                        new TreeNode("Z: " + o.position.z),
-                        new TreeNode("Data1: " + o.data.ToString("X")),
-                        new TreeNode("Data2: " + o.data2.ToString("X")),
-                        new TreeNode("Data3: " + o.data3.ToString("X"))
+                        new TreeNode("ID: " + a.id_actor.ToString("X")), 
+                        new TreeNode("Dist From Me: " + a.distanceFromMe),
+                        new TreeNode("X: " + a.Pos.x),
+                        new TreeNode("Y: " + a.Pos.y),
+                        new TreeNode("Z: " + a.Pos.z),
+                        new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
+                        new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
+                        new TreeNode("Data3: " + a.unknown_data3.ToString("X"))
                     });
                     treeViewMonsters.Nodes.Add(tn);
                 }
@@ -138,16 +138,16 @@ namespace A_Simple_Display
             return n;
         }
 
-        private Data.gameObject getObjectByName(string name)
+        private Actor getObjectByName(string name)
         {
-            return objs.Where(o => o.name == name).FirstOrDefault();
+            return actors.Where(o => o.name == name).FirstOrDefault();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(getRootNode(treeView1.SelectedNode).Text);
-            Data.gameObject obj = getObjectByName(getRootNode(treeViewObjects.SelectedNode).Text);
-            Actions.interactGUID(obj.guid, SNO.SNOPowerId.Axe_Operate_Gizmo);
+            Actor actor = getObjectByName(getRootNode(treeViewObjects.SelectedNode).Text);
+            Actions.interactGUID(actor.id_actor, SNO.SNOPowerId.Axe_Operate_Gizmo);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -157,17 +157,17 @@ namespace A_Simple_Display
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            Data.gameObject obj;
+            Actor actor;
             switch (tabControlDisplay.SelectedIndex)
             {
                 case 0:
-                    obj = getObjectByName(getRootNode(treeViewObjects.SelectedNode).Text);
-                    if (obj.data == 2 && obj.data2 == -1)
-                        Actions.interactGUID(obj.guid, SNO.SNOPowerId.Axe_Operate_Gizmo);
+                    actor = getObjectByName(getRootNode(treeViewObjects.SelectedNode).Text);
+                    if (actor.unknown_data1 == 2 && actor.unknown_data2 == -1)
+                        Actions.interactGUID(actor.id_actor, SNO.SNOPowerId.Axe_Operate_Gizmo);
                     break;
                 case 1:
-                    obj = getObjectByName(getRootNode(treeViewItems.SelectedNode).Text);
-                    Actions.interactGUID(obj.guid, SNO.SNOPowerId.Axe_Operate_Gizmo);
+                    actor = getObjectByName(getRootNode(treeViewItems.SelectedNode).Text);
+                    Actions.interactGUID(actor.id_actor, SNO.SNOPowerId.Axe_Operate_Gizmo);
                     break;
                 case 2:
                     MessageBox.Show("Too Many Bad Dead Bodies");
@@ -177,20 +177,20 @@ namespace A_Simple_Display
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            Data.gameObject obj;
+            Actor actor;
             switch (tabControlDisplay.SelectedIndex)
             {
                 case 0:
-                    obj = getObjectByName(getRootNode(treeViewObjects.SelectedNode).Text);
-                    if (obj.data2 == 29944)
-                        Actions.interactGUID(obj.guid, SNO.SNOPowerId.Axe_Operate_NPC);
+                    actor = getObjectByName(getRootNode(treeViewObjects.SelectedNode).Text);
+                    if (actor.unknown_data2 == 29944)
+                        Actions.interactGUID(actor.id_actor, SNO.SNOPowerId.Axe_Operate_NPC);
                     break;
                 case 1:
                     MessageBox.Show("Too Many Bad Dead Bodies");
                     break;
                 case 2:
-                    obj = getObjectByName(getRootNode(treeViewMonsters.SelectedNode).Text);
-                    Actions.interactGUID(obj.guid, SNO.SNOPowerId.Axe_Operate_NPC);
+                    actor = getObjectByName(getRootNode(treeViewMonsters.SelectedNode).Text);
+                    Actions.interactGUID(actor.id_actor, SNO.SNOPowerId.Axe_Operate_NPC);
                     break;
             }
         }

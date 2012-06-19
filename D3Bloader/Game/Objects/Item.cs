@@ -9,10 +9,11 @@ namespace D3Bloader.Game.Objects
     {
         public uint itemID;
 
+        /*
         public Enum itemType
         {
         }
-
+        */
         public Item()
         {
         }

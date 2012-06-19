@@ -5,6 +5,7 @@ using System.Text;
 
 using Utilities.MemoryHandling;
 using D3_Adventures.Enumerations;
+using D3_Adventures.Structures;
 
 namespace D3_Adventures
 {
@@ -31,7 +32,7 @@ namespace D3_Adventures
 
         static void movementTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Data.Vec3 pos = Data.getCurrentPos();
+            Vec3 pos = Data.getCurrentPos();
             double distance = Math.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
             if (distance < 2 || mem.ReadMemoryAsFloat(Offsets.clickToMoveToggle) == 0)
             {
@@ -46,7 +47,7 @@ namespace D3_Adventures
         //  timered for now until someone changes it, or sees how it works first 
         public static void interactGUID(uint guid, uint snoPower)
         {
-            Data.Vec3 pos = Data.getCurrentPos();
+            Vec3 pos = Data.getCurrentPos();
             
             mem.WriteMemoryAsInt(Offsets.itrInteractE + Offsets.interactOffsetUNK1, 0x777C);
             mem.WriteMemoryAsInt(Offsets.itrInteractE + Offsets.interactOffsetUNK2, 0x1);

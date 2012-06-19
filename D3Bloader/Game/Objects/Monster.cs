@@ -9,12 +9,14 @@ namespace D3Bloader.Game.Objects
     {
         public uint mobID;
 
+        /*
         public Enum monsterType
         {
         }
-
+*/ 
         public Monster()
         {
         }
+         
     }
 }
