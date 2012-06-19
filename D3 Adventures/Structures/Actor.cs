@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-using Utilities.MemoryHandling;
 
 namespace D3_Adventures.Structures
 {
@@ -70,8 +69,11 @@ namespace D3_Adventures.Structures
             get
             {
                 // old code from original AU3 was using pos1 @ 0xB0
-
-                return Math.Sqrt(Pos1.x * Pos1.x + Pos1.y * Pos1.y + Pos1.z * Pos1.z);
+                Vec3 currentLoc = Data.getCurrentPos();
+                float xd = Pos1.x - currentLoc.x;
+                float yd = Pos1.y - currentLoc.y;
+                float zd = Pos1.z - currentLoc.z;
+                return Math.Sqrt(xd * xd + yd * yd + zd * zd);
             }
         }
 
