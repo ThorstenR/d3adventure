@@ -68,7 +68,6 @@ namespace D3Bloader.Game
         /// </summary>
         public override void pickItem(Data.gameObject itm)
         {
-            callsync("Toon.ItemPickup", false, new Item());
         }
     }
 }

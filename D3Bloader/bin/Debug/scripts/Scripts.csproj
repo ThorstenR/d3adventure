@@ -37,6 +37,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\D3 Adventures\D3 Adventures.csproj">
+      <Project>{116D87D7-EDD2-4262-88F8-49E155D89B71}</Project>
+      <Name>D3 Adventures</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\D3Bloader.csproj">
       <Project>{F06C0603-5688-4650-98A0-3F0F59C0083C}</Project>
       <Name>D3Bloader</Name>

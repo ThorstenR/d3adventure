@@ -25,7 +25,8 @@ namespace D3Bloader.Game
         public ConfigSetting _config;
         private Thread _botThread;
         public int _tickLastMove;
-        public Data.gameObject[] objs;
+        public Actor[] _monsters;
+        public Dictionary<uint, Monster> _mobList;
 
         #region Member Functions
         ///////////////////////////////////////////////////
@@ -125,6 +126,8 @@ namespace D3Bloader.Game
         /// </summary>
         public virtual bool init()
         {
+            Program.setD3Foreground();
+
             //Load Config
             _config = new Xmlconfig("config.xml", false).Settings;
 
@@ -195,6 +198,7 @@ namespace D3Bloader.Game
         /// </summary>
         public void newBot()
         {
+
             //Instance our Scripting Environment
             ScriptBot scriptBot;
             using (LogAssume.Assume(_logger))
@@ -209,7 +213,7 @@ namespace D3Bloader.Game
                 using (LogAssume.Assume(_logger))
                    scriptBot.poll();
                 //Sleep for a bit..
-                Thread.Sleep(5);
+                Thread.Sleep(100);
             }
         }
 
@@ -218,7 +222,7 @@ namespace D3Bloader.Game
         /// </summary>
         public virtual bool poll()
         {
-            objs = Data.iterateObjectList();
+            int now = Environment.TickCount;
             return true;
         }
         #endregion
@@ -227,33 +231,21 @@ namespace D3Bloader.Game
         ///////////////////////////////////////////////////
         // Accessors
         ///////////////////////////////////////////////////
-        private Data.gameObject getObjectByName(string name)
-        {
-            return objs.Where(o => o.name == name).FirstOrDefault();
-        }
 
         /// <summary>
-        /// Returns a sorted list of mobs in a given range.
+        /// Returns the closest Monster in a given range
         /// </summary>
-        public List<Monster> getMobsInRange(float x, float y, int range)
+        public Actor getClosestValidTarget(float x, float y, int range)
         {
-            List<Monster> mobs = new List<Monster>();
-            List<Data.gameObject> objList = new List<Data.gameObject>();
+            List<Actor> mobList = new List<Actor>();
 
             //Grab monsters in our given range...
-            objList = objs.Where(mob => mob.data2 == 29944 && mob.distanceFromMe <= range).ToList();
+            mobList = _monsters.Where(mob => mob.distanceFromMe < range && mob.id_acd != Data.toonID).ToList();
             
             // Sort by distance to Toon
-            objList.OrderBy(mob => mob.distanceFromMe);
+            mobList.OrderBy(mob => mob.distanceFromMe);
 
-            foreach (Data.gameObject m in objList)
-            {
-                Monster mob = new Monster();
-                mob.mobID = m.guid;
-                mobs.Add(mob);
-            }
-
-            return mobs;
+            return mobList.FirstOrDefault();
         }
 
         /// <summary>
@@ -262,31 +254,12 @@ namespace D3Bloader.Game
         public List<Item> getItemsInRange(float x, float y, int range)
         {
             List<Item> items = new List<Item>();
-            List<Data.gameObject> objList = new List<Data.gameObject>();
-
-            //Grab items in our given range...
-            objList = objs.Where(itm => itm.data == 2 && itm.data2 == -1 && itm.distanceFromMe <= range).ToList();
-
-            // Sort by distance to Toon
-            objList.OrderBy(itm => itm.distanceFromMe);
-
-            foreach (Data.gameObject i in objList)
-            {
-                Item itm = new Item();
-                itm.itemID = i.guid;
-                items.Add(itm);
-            }
-
             return items;
         }
 
-        /// <summary>
-        /// Simple Item Pickup
-        /// </summary>
-        public virtual void pickItem(Data.gameObject itm)
+        public virtual void pickItem(Data.gameObject item)
         {
         }
-
 
         /// <summary>
         /// Used for moving from point a to b
@@ -297,7 +270,6 @@ namespace D3Bloader.Game
             Actions.moveToPos(x, y, z);
             _tickLastMove = Environment.TickCount;
         }
-
         #endregion
     }
 }

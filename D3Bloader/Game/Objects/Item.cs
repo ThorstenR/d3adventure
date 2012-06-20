@@ -6,16 +6,18 @@ using System.Text;
 namespace D3Bloader.Game.Objects
 {
     public partial class Item
-    {
-        public uint itemID;
+    {   ///////////////////////////////////////////////////
+        // Member Variables
+        ///////////////////////////////////////////////////
+        public uint ID;
 
-        /*
-        public Enum itemType
-        {
-        }
-        */
+        #region Member Functions
+        ///////////////////////////////////////////////////
+        // Member Functions
+        ///////////////////////////////////////////////////
         public Item()
         {
         }
+        #endregion
     }
 }
