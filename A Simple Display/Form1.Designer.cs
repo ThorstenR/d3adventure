@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.treeViewObjects = new System.Windows.Forms.TreeView();
+            this.treeViewActors = new System.Windows.Forms.TreeView();
             this.contextMenuStripTreeNode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlDisplay = new System.Windows.Forms.TabControl();
@@ -51,6 +51,8 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.richTextBoxConsole = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripTreeNode.SuspendLayout();
             this.tabControlDisplay.SuspendLayout();
@@ -62,14 +64,14 @@
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // treeViewObjects
+            // treeViewActors
             // 
-            this.treeViewObjects.ContextMenuStrip = this.contextMenuStripTreeNode;
-            this.treeViewObjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewObjects.Location = new System.Drawing.Point(3, 3);
-            this.treeViewObjects.Name = "treeViewObjects";
-            this.treeViewObjects.Size = new System.Drawing.Size(440, 360);
-            this.treeViewObjects.TabIndex = 0;
+            this.treeViewActors.ContextMenuStrip = this.contextMenuStripTreeNode;
+            this.treeViewActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewActors.Location = new System.Drawing.Point(3, 3);
+            this.treeViewActors.Name = "treeViewActors";
+            this.treeViewActors.Size = new System.Drawing.Size(440, 360);
+            this.treeViewActors.TabIndex = 0;
             // 
             // contextMenuStripTreeNode
             // 
@@ -103,7 +105,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.treeViewObjects);
+            this.tabPage1.Controls.Add(this.treeViewActors);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -129,7 +131,7 @@
             this.treeViewItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewItems.Location = new System.Drawing.Point(3, 3);
             this.treeViewItems.Name = "treeViewItems";
-            this.treeViewItems.Size = new System.Drawing.Size(615, 360);
+            this.treeViewItems.Size = new System.Drawing.Size(440, 360);
             this.treeViewItems.TabIndex = 1;
             // 
             // tabPage3
@@ -149,7 +151,7 @@
             this.treeViewMonsters.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewMonsters.Location = new System.Drawing.Point(3, 3);
             this.treeViewMonsters.Name = "treeViewMonsters";
-            this.treeViewMonsters.Size = new System.Drawing.Size(615, 360);
+            this.treeViewMonsters.Size = new System.Drawing.Size(440, 360);
             this.treeViewMonsters.TabIndex = 1;
             // 
             // tabPage4
@@ -169,7 +171,7 @@
             this.treeViewACD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewACD.Location = new System.Drawing.Point(3, 3);
             this.treeViewACD.Name = "treeViewACD";
-            this.treeViewACD.Size = new System.Drawing.Size(615, 360);
+            this.treeViewACD.Size = new System.Drawing.Size(440, 360);
             this.treeViewACD.TabIndex = 2;
             // 
             // tabPage5
@@ -189,7 +191,7 @@
             this.treeViewMyItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewMyItems.Location = new System.Drawing.Point(3, 3);
             this.treeViewMyItems.Name = "treeViewMyItems";
-            this.treeViewMyItems.Size = new System.Drawing.Size(615, 360);
+            this.treeViewMyItems.Size = new System.Drawing.Size(440, 360);
             this.treeViewMyItems.TabIndex = 3;
             // 
             // toolStrip1
@@ -201,7 +203,9 @@
             this.toolStripSeparator2,
             this.toolStripButton3,
             this.toolStripSeparator3,
-            this.toolStripButton4});
+            this.toolStripButton4,
+            this.toolStripSeparator4,
+            this.toolStripButton5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(814, 25);
@@ -263,6 +267,21 @@
             this.toolStripButton4.Text = "isAlive";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(45, 22);
+            this.toolStripButton5.Text = "Attack";
+            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
+            // 
             // richTextBoxConsole
             // 
             this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -302,7 +321,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeViewObjects;
+        private System.Windows.Forms.TreeView treeViewActors;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTreeNode;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.TabControl tabControlDisplay;
@@ -324,6 +343,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.RichTextBox richTextBoxConsole;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolStripButton5;
     }
 }
 

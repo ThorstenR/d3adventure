@@ -141,5 +141,19 @@ namespace D3_Adventures
 
             return acds;
         }
+
+        public static Actor[] getItems()
+        {
+            return IterateActors().OrderBy(a => a.distanceFromMe).Where(a => a.unknown_data1 == 2 && a.unknown_data2 == -1).ToArray<Actor>();
+                //.Where(a => a.unknown_data1 == 2 && a.unknown_data2 == -1).OrderBy(a => a.distanceFromMe);
+        }
+
+        public static Actor[] getMonsters()
+        {
+            return IterateActors().OrderBy(a => a.distanceFromMe).Where(a => a.unknown_data2 == 29944).ToArray<Actor>();
+            //.Where(a => a.unknown_data1 == 2 && a.unknown_data2 == -1).OrderBy(a => a.distanceFromMe);
+        }
+
+
     }
 }

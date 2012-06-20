@@ -21,7 +21,7 @@ namespace D3_Adventures.Structures
         public float fUnk_Rot;     // 0x09C 
         public Vec3 Pos;     // 0x0A0 
         public float fUnk_130;     // 0x0AC 
-        public Vec3 Pos1;     // 0x0B0 
+        private Vec3 _Pos1;     // 0x0B0 
         public float fUnk_734;     // 0x0BC 
         public Vec3 Pos2;     // 0x0C0 
         public fixed byte unknown_CC[4];     // 0x0CC 
@@ -88,6 +88,8 @@ namespace D3_Adventures.Structures
                 throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
             return (id_acd == Program.mem.ReadMemoryAsUint(mem_location+0x4));
         }
+
+        public Vec3 Pos1 { get { return (Vec3)Program.mem.ReadMemory(mem_location+0xB0, typeof(Vec3));  } }
 
         public float unknownHealthPercent
         {
