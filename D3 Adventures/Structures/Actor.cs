@@ -48,7 +48,10 @@ namespace D3_Adventures.Structures
         public fixed byte unknown_388[24];     // 0x388 
         public Vec3 Vel;     // 0x3A0 
         public Vec3 Pos6;     // 0x3AC 
-        public fixed byte unknown_3B8[96];     // 0x3B8 
+        public fixed byte unknown_3B8[80];     // 0x3B8 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        private byte[] _unknown_healthPercent; // 0x408
+        public fixed byte unknown_40C[12]; // 0x40C
         public uint Frame;     // 0x418 
         public uint Diff;     // 0x41C 
         public fixed byte unknown_420[8];     // 0x420 
@@ -63,6 +66,8 @@ namespace D3_Adventures.Structures
                 return new string(_name).TrimEnd(new char[] { (char)0 });
             }
         }
+
+        //public float unknown_healthPercent { get { return (float)BitConverter.ToDouble(_unknown_healthPercent, 0); } }
 
         public double distanceFromMe
         {
@@ -82,6 +87,14 @@ namespace D3_Adventures.Structures
             if (mem_location == null)
                 throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
             return (id_acd == Program.mem.ReadMemoryAsUint(mem_location+0x4));
+        }
+
+        public float unknownHealthPercent
+        {
+            get
+            {
+                return Program.mem.ReadMemoryAsFloat(mem_location + 0x408); // 1 = full hp. Thanks to sinitreo
+            }
         }
     }
 

@@ -51,6 +51,7 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.richTextBoxConsole = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripTreeNode.SuspendLayout();
             this.tabControlDisplay.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -67,7 +68,7 @@
             this.treeViewObjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewObjects.Location = new System.Drawing.Point(3, 3);
             this.treeViewObjects.Name = "treeViewObjects";
-            this.treeViewObjects.Size = new System.Drawing.Size(615, 360);
+            this.treeViewObjects.Size = new System.Drawing.Size(440, 360);
             this.treeViewObjects.TabIndex = 0;
             // 
             // contextMenuStripTreeNode
@@ -97,7 +98,7 @@
             this.tabControlDisplay.Location = new System.Drawing.Point(0, 27);
             this.tabControlDisplay.Name = "tabControlDisplay";
             this.tabControlDisplay.SelectedIndex = 0;
-            this.tabControlDisplay.Size = new System.Drawing.Size(629, 392);
+            this.tabControlDisplay.Size = new System.Drawing.Size(454, 392);
             this.tabControlDisplay.TabIndex = 1;
             // 
             // tabPage1
@@ -106,7 +107,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(621, 366);
+            this.tabPage1.Size = new System.Drawing.Size(446, 366);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Actors";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -117,7 +118,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(621, 366);
+            this.tabPage2.Size = new System.Drawing.Size(446, 366);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Items";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -137,7 +138,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(621, 366);
+            this.tabPage3.Size = new System.Drawing.Size(446, 366);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Monsters";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -157,7 +158,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(621, 366);
+            this.tabPage4.Size = new System.Drawing.Size(446, 366);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ACD";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -177,7 +178,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(621, 366);
+            this.tabPage5.Size = new System.Drawing.Size(446, 366);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "My Items";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -203,7 +204,7 @@
             this.toolStripButton4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(629, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(814, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -262,11 +263,24 @@
             this.toolStripButton4.Text = "isAlive";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
+            // richTextBoxConsole
+            // 
+            this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxConsole.Location = new System.Drawing.Point(453, 49);
+            this.richTextBoxConsole.Name = "richTextBoxConsole";
+            this.richTextBoxConsole.ReadOnly = true;
+            this.richTextBoxConsole.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBoxConsole.Size = new System.Drawing.Size(361, 370);
+            this.richTextBoxConsole.TabIndex = 5;
+            this.richTextBoxConsole.Text = "Console:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 419);
+            this.ClientSize = new System.Drawing.Size(814, 419);
+            this.Controls.Add(this.richTextBoxConsole);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControlDisplay);
             this.Name = "Form1";
@@ -309,6 +323,7 @@
         private System.Windows.Forms.TreeView treeViewMyItems;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.RichTextBox richTextBoxConsole;
     }
 }
 

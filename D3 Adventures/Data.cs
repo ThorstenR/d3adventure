@@ -11,8 +11,13 @@ namespace D3_Adventures
     public static class Data
     {
         private static MemoryManager mem = Program.mem;
-        
+
         public static uint toonID = 0x77BC0000; // your toon's guid
+
+        public static Actor GetMe()
+        {
+            return IterateActors().Where(o => o.id_acd == toonID).FirstOrDefault();
+        }
 
         public static uint getActorCount()
         {
@@ -23,13 +28,16 @@ namespace D3_Adventures
 
         public static Vec3 getCurrentPos()
         {
+            /*
             Vec3 ret;
             ret.x = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurX);
             ret.y = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurY);
             ret.z = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurZ);
+            */
+             
             // if all three == 0 then the user needs to click first
             //  could throw an error or just send a click to the center of the window
-            return ret;
+            return Program.me.Pos1;//ret;
         }
 
         // Obsolete with new Actor struct.

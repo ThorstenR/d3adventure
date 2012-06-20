@@ -19,15 +19,18 @@ namespace A_Simple_Display
     {
         private Actor[] actors;
         private MemoryManager mem = D3_Adventures.Program.mem;
+        private TextWriter consoleLog;
 
         public Form1()
         {
             InitializeComponent();
+            consoleLog = new TextBoxStreamWriter(richTextBoxConsole);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             display();
+            Console.SetOut(consoleLog);
         }
 
         private void display()
@@ -56,7 +59,10 @@ namespace A_Simple_Display
                     new TreeNode("Z: " + a.Pos.z),
                     new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
                     new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
-                    new TreeNode("Data3: " + a.unknown_data3.ToString("X"))
+                    new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
+                    new TreeNode("MemLocation: " + a.mem_location.ToString("X")),
+                    new TreeNode("Life Percentage?: " + mem.ReadMemoryAsFloat(a.mem_location + 0x408)),
+                    //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
                 });
                 treeViewObjects.Nodes.Add(tn);
 
@@ -73,7 +79,8 @@ namespace A_Simple_Display
                         new TreeNode("Z: " + a.Pos.z),
                         new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
                         new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
-                        new TreeNode("Data3: " + a.unknown_data3.ToString("X"))
+                        new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
+                        //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
                     });
                     treeViewItems.Nodes.Add(tn);
                 }
@@ -91,7 +98,8 @@ namespace A_Simple_Display
                         new TreeNode("Z: " + a.Pos.z),
                         new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
                         new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
-                        new TreeNode("Data3: " + a.unknown_data3.ToString("X"))
+                        new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
+                        //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
                     });
                     treeViewMonsters.Nodes.Add(tn);
                 }
@@ -223,4 +231,27 @@ namespace A_Simple_Display
         }
 
     }
+
+    // Thanks to: http://saezndaree.wordpress.com/2009/03/29/how-to-redirect-the-consoles-output-to-a-textbox-in-c/
+    public class TextBoxStreamWriter : TextWriter
+    {
+        RichTextBox _output = null;
+
+        public TextBoxStreamWriter(RichTextBox output)
+        {
+            _output = output;
+        }
+
+        public override void Write(char value)
+        {
+            base.Write(value);
+            _output.AppendText(value.ToString()); // When character data is written, append it to the text box.
+        }
+
+        public override Encoding Encoding
+        {
+            get { return System.Text.Encoding.UTF8; }
+        }
+    }
+
 }
