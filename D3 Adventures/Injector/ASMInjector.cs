@@ -270,6 +270,7 @@ namespace D3_Adventures.Injector
                 this.eventWaitHandle_1.Set();
             }
         }
+        return;
         throw new Exception("Cannot execute code while process is not opened and/or Executor is not initialized!");
     }
 

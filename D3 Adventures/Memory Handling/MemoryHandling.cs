@@ -61,8 +61,27 @@ namespace D3_Adventures.Memory_Handling
 
         public void Dispose()
         {
-            this.ProcessHandle.Dispose();
-            this.Asm.Dispose();
+            if (this.Injector != null)
+            {
+                this.Injector.Dispose();
+                this.Injector = null;
+            }
+            if (this.Asm != null)
+            {
+                this.Asm.Dispose();
+                this.Asm = null;
+            }
+            if (this.ThreadHandle != IntPtr.Zero)
+            {
+                this.ThreadHandle = IntPtr.Zero;
+            }
+            if (this.ProcessHandle != null)
+            {
+
+                this.ProcessHandle.Dispose();
+                this.ProcessHandle = null;
+            }
+     
         }
 
         public static uint FindPattern(byte[] bData, byte[] bPattern, string szMask)

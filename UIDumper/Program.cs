@@ -20,11 +20,7 @@ namespace UIDumper
                 //UIElement.test();
                 ulong hash = 11552879775495564696;
                 UIElement elem1 = UIElement.GetByHash(hash);
-                for(int i=0 ; i< elem1.InternalStruct.byte_1.Length; i++)
-                {
-                    if(elem1.InternalStruct.byte_1[i] == new IntPtr(0xca37a0))
-                        Console.WriteLine(i);
-                }
+  
                 elem1.MouseEnter();
                 //System.Threading.Thread.Sleep(2000);
                 elem1.MouseOut();
