@@ -11,40 +11,27 @@ using System.Text;
 
 using System.Diagnostics;
 
-using Utilities.MemoryHandling;
+using D3_Adventures.Memory_Handling;
 using D3_Adventures.Structures;
 using System.IO;
 
 namespace D3_Adventures
 {
-    public class Program
+    public class Globals
     {
-        public static string exeName = "Diablo III";
-        public static MemoryManager mem = new MemoryManager(Utilities.GetProcessHandle(exeName));
+        // Fields
         public static bool debugMessages = false;
-        public static bool screwWarden = true; // turn to true to use things that use memory writing. Such actions might be detectable by warden in the future.
-        public static Actor me = Data.GetMe();
-        public static Actor test = Data.GetMe();
-
-        static void Main(string[] args)
+        public static string exeName = "Diablo III";
+        public static MemoryManager mem;
+        public static bool screwWarden = true;
+        public static Actor Me
         {
-            if (!Utilities.isAdmin(System.Diagnostics.Process.GetCurrentProcess().ProcessName))
+            get
             {
-                Console.WriteLine("You must be running as an administrator!");
-                Console.ReadKey();
-            }
-            else
-            {
-                ulong hash = 11552879775495564696;
-                UIElement elem1 = UIElement.GetByHash(hash);
-                int t = (int)(hash >> 20);
-                int t2 = (int)hash;
-                var elems = UIElement.GetAll().OrderBy(p => p.Name).ToList();
-                var pri = elems.Where(p => p.Text != null && p.Name.Contains("Root.NormalLayer.BattleNetAuctionHouse_main.LayoutRoot.OverlayContainer.TabContentContainer.SearchTabContent.SearchListContent.SearchItemList.ItemListContainer.ItemList.item 0 list.")).ToList();
-                foreach (var elem in elems)
-                    File.AppendAllText(@"c:\UIDump.txt", "Hash: " + elem.Hash + " " + elem.Name + Environment.NewLine);
-                Console.Read();
+                return Data.GetMe();
             }
         }
     }
+
+
 }

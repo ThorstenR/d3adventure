@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Utilities.MemoryHandling;
 using D3_Adventures.Structures;
+using D3_Adventures.Memory_Handling;
 
 namespace D3_Adventures
 {
     public static class Data
     {
-        private static MemoryManager mem = Program.mem;
+        private static MemoryManager mem = Globals.mem;
 
         public static uint toonID = 0x77BC0000; // your toon's guid
 
@@ -22,7 +22,7 @@ namespace D3_Adventures
         public static uint getActorCount()
         {
             uint count = mem.ReadMemoryAsUint(Offsets.itrObjectManagerCount);
-            if (Program.debugMessages) Console.WriteLine("Number of Actors: " + count);
+            if (Globals.debugMessages) Console.WriteLine("Number of Actors: " + count);
             return count;
         }
 
@@ -37,7 +37,7 @@ namespace D3_Adventures
              
             // if all three == 0 then the user needs to click first
             //  could throw an error or just send a click to the center of the window
-            return Program.me.Pos1;//ret;
+            return Globals.Me.Pos1;//ret;
         }
 
         // Obsolete with new Actor struct.
@@ -55,7 +55,7 @@ namespace D3_Adventures
         // Obsolete with new IterateActors
         public static gameObject[] iterateObjectList()
         {
-            if (Program.debugMessages)
+            if (Globals.debugMessages)
             {
                 Console.WriteLine("Iterating through Actors");
                 Console.WriteLine("First Actor Location At: " + Offsets.itrObjectManagerD.ToString("X"));
@@ -92,7 +92,7 @@ namespace D3_Adventures
                 objects[i].data3 = data3;
                 objects[i].distanceFromMe = distance;
 
-                if (Program.debugMessages)  Console.WriteLine(i + "\t : " + curOffset.ToString("X") + " guid: " + guid + " : " + data.ToString("X") + " : " + data2.ToString("X") + " : " + data3.ToString("X") + " \t x:" + posX + " y:" + posY + " z:" + posZ + " \t" + name);
+                if (Globals.debugMessages)  Console.WriteLine(i + "\t : " + curOffset.ToString("X") + " guid: " + guid + " : " + data.ToString("X") + " : " + data2.ToString("X") + " : " + data3.ToString("X") + " \t x:" + posX + " y:" + posY + " z:" + posZ + " \t" + name);
 
                 curOffset = curOffset + Offsets.objmanagerStrucSize;
             }
@@ -101,7 +101,7 @@ namespace D3_Adventures
 
         public static Actor[] IterateActors()
         {
-            if (Program.debugMessages)
+            if (Globals.debugMessages)
             {
                 Console.WriteLine("Iterating through Actors");
                 Console.WriteLine("First Actor Location At: " + Offsets.itrObjectManagerD.ToString("X"));
@@ -123,7 +123,7 @@ namespace D3_Adventures
 
         public static ActorCommonData[] iterateACD()
         {
-            if (Program.debugMessages)
+            if (Globals.debugMessages)
             {
                 Console.WriteLine("Iterating through ACD");
                 Console.WriteLine("First ACD Location At: " + Offsets.firstACD.ToString("X"));

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Utilities;
-using Utilities.MemoryHandling;
+using D3_Adventures.Memory_Handling;
 
 namespace D3_Adventures
 {
     public static class Offsets
     {
-        private static MemoryManager mem = Program.mem;
+        private static MemoryManager mem = Globals.mem;
         public static uint uielements
         {
             get
@@ -46,7 +45,7 @@ namespace D3_Adventures
         {
             get
             {
-                if (Program.debugMessages)  Console.WriteLine("Looking for local player");
+                if (Globals.debugMessages) Console.WriteLine("Looking for local player");
                 uint curOffset = itrObjectManagerD;
                 uint count = Data.getActorCount();
 
@@ -56,7 +55,7 @@ namespace D3_Adventures
                     string name = mem.ReadMemoryAsString(curOffset + 0x8, 64);
                     if (guid == Data.toonID) // your toon's guid
                     {
-                        if (Program.debugMessages) Console.WriteLine("My toon located at: " + curOffset.ToString("X") + " GUID: " + guid.ToString("X") + " Name: " + name);
+                        if (Globals.debugMessages) Console.WriteLine("My toon located at: " + curOffset.ToString("X") + " GUID: " + guid.ToString("X") + " Name: " + name);
                         return curOffset;
                     }
                     curOffset = curOffset + objmanagerStrucSize;

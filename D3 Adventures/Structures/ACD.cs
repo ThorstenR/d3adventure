@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace D3_Adventures.Structures
     {
         public uint id_acd;                // 0x000
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
-        private char[] _name;       // 0x004
+        public char[] _name;       // 0x004
         public uint unk_0;                 // 0x084 
         public uint id_unk1;               // 0x088 
         public uint id_unk2;               // 0x08C 
