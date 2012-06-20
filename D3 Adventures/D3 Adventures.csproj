@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="fasmdll_managed">
+      <HintPath>..\ExternalLibs\fasmdll_managed.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -52,9 +55,13 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Injector\ASMInjector.cs" />
+    <Compile Include="Injector\MemoryInjector.cs" />
     <Compile Include="Internals\Extensions.cs" />
     <Compile Include="Enumerations\SNO.cs" />
-    <Compile Include="MemoryHandling.cs" />
+    <Compile Include="Memory Handling\Imports.cs" />
+    <Compile Include="Memory Handling\MemoryHandling.cs" />
+    <Compile Include="Memory Handling\SafeProcessHandle.cs" />
     <Compile Include="Offsets.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

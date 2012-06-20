@@ -6,13 +6,14 @@ using System.Runtime.InteropServices;
 using System.Numerics;
 using System.IO;
 using D3_Adventures.Internals;
+using D3_Adventures.Injector;
 
 namespace D3_Adventures.Structures
 {
     [StructLayout(LayoutKind.Sequential)]
-    struct NUIElement
+    public struct NUIElement
     {
-        public IntPtr intptr_0;
+        public IntPtr eventHandlersPtr;
         public int int_0;
         public int int_1;
         public int int_2;
@@ -22,13 +23,13 @@ namespace D3_Adventures.Structures
         public int int_6;
         public int int_7;
         public int int_8;
-        public int visible;
-        public int int_10;
-        public ulong hash;
+        public int visible; 
+        public int int_10; // 0x28
+        public ulong hash; // 0x30
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x100)]
-        public byte[] name;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x424)]
-        private byte[] byte_1;
+        public byte[] name; //130
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x109)]
+        public IntPtr[] byte_1; // 0x554
         public IntPtr intptr_1;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 370)]
         public int[] int_11;
@@ -37,13 +38,38 @@ namespace D3_Adventures.Structures
         public int[] int_12;
         public int int_13;
     }
-   
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NUIElementHandlers
+    {
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0xD4)]
+        private IntPtr[] Handlers;
+
+        public IntPtr GetMouseEnter()
+        {
+            return Handlers[0x44 / 4];
+        }
+        public IntPtr GetMouseLeave()
+        {
+            return Handlers[0x48 / 4];
+        }
+        public IntPtr GetClick()
+        {
+            return Handlers[0x20];
+        }
+    }
     public class UIElement
     {
+        public NUIElementHandlers Handlers
+        {
+            get
+            {
+                return (NUIElementHandlers)Globals.mem.ReadMemory(InternalStruct.eventHandlersPtr, typeof(NUIElementHandlers));
+            }
+        }
         public ulong Hash { get { return InternalStruct.hash; } }
         public uint BaseAdress { get; set; }
         public string Name { get { return InternalStruct.name.ToUTF8String(); } }
-        private NUIElement InternalStruct { get; set; }
+        public NUIElement InternalStruct { get; set; }
         private Label mText;
         public Label Text
         {
@@ -57,31 +83,50 @@ namespace D3_Adventures.Structures
             }
         }
 
+        public bool IsEnabled
+        {
+            get
+            {
+                return ((this.InternalStruct.int_13 & 1) != 0);
+            }
+        }
         public bool IsVisible { get { return InternalStruct.visible == 1; } }
 
         internal UIElement(uint baseAdress)
         {
             BaseAdress = baseAdress;
-            InternalStruct = (NUIElement)Program.mem.ReadMemory(baseAdress, typeof(NUIElement));
+            InternalStruct = (NUIElement)Globals.mem.ReadMemory(baseAdress, typeof(NUIElement));
         }
-        
+        public void Click()
+        {
+            Globals.mem.Injector.CallFunction((uint)this.InternalStruct.byte_1[261], CallingConvention.ThisCall, BaseAdress); 
+        }
+        public void MouseEnter()
+        {
+               Globals.mem.Injector.CallFunction((uint)this.Handlers.GetMouseEnter(),CallingConvention.ThisCall,BaseAdress); 
+        }
+        public void MouseOut()
+        {
+            Globals.mem.Injector.CallFunction((uint)this.Handlers.GetMouseLeave(), CallingConvention.ThisCall, BaseAdress); 
+
+        }
         static public UIElement GetByHash(ulong hash)
         {            
             uint uint1 = (uint)(hash >> 32);
             uint uint2 = (uint)hash;
             
             uint tmpCalc =  uint1 ^ uint2;
-            uint pntr = Program.mem.ReadMemoryAsUint((Program.mem.ReadMemoryAsUint(Program.mem.ReadMemoryAsUint(Offsets.objectManager) + 0x924)));
-            tmpCalc &= Program.mem.ReadMemoryAsUint(pntr + 0x40);
-            uint pntFinal = Program.mem.ReadMemoryAsUint(Offsets.uielements + tmpCalc * 4);
-            while (Program.mem.ReadMemoryAsUint(pntFinal + 0x08) != uint2 && Program.mem.ReadMemoryAsUint(pntFinal + 0x0c) != uint1)
+            uint pntr = Globals.mem.ReadMemoryAsUint((Globals.mem.ReadMemoryAsUint(Globals.mem.ReadMemoryAsUint(Offsets.objectManager) + 0x924)));
+            tmpCalc &= Globals.mem.ReadMemoryAsUint(pntr + 0x40);
+            uint pntFinal = Globals.mem.ReadMemoryAsUint(Offsets.uielements + tmpCalc * 4);
+            while (Globals.mem.ReadMemoryAsUint(pntFinal + 0x08) != uint2 && Globals.mem.ReadMemoryAsUint(pntFinal + 0x0c) != uint1)
             {
                 if (pntFinal == 0)
                     throw new Exception("UIElement not found");
                 else
-                    pntFinal = Program.mem.ReadMemoryAsUint(pntFinal);
+                    pntFinal = Globals.mem.ReadMemoryAsUint(pntFinal);
             }
-            uint nPnt = Program.mem.ReadMemoryAsUint(pntFinal + 0x210);
+            uint nPnt = Globals.mem.ReadMemoryAsUint(pntFinal + 0x210);
             return new UIElement(nPnt);
         }
         static public UIElement GetByName(string name)
@@ -99,14 +144,14 @@ namespace D3_Adventures.Structures
                 try
                 {
                     counter++;
-                    uielemePointer = Program.mem.ReadMemoryAsUint((Offsets.uielements + counter * 4));
+                    uielemePointer = Globals.mem.ReadMemoryAsUint((Offsets.uielements + counter * 4));
                     while (uielemePointer != 0)
                     {
-                        uint nPnt = Program.mem.ReadMemoryAsUint(uielemePointer + 0x210);
+                        uint nPnt = Globals.mem.ReadMemoryAsUint(uielemePointer + 0x210);
                         UIElement mElem = new UIElement(nPnt);
                         elements.Add(mElem);
 
-                        uielemePointer = Program.mem.ReadMemoryAsUint(uielemePointer);
+                        uielemePointer = Globals.mem.ReadMemoryAsUint(uielemePointer);
                         //elements.Add(mElem);
                     }
 

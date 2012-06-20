@@ -56,7 +56,7 @@ namespace D3_Adventures
                 {
                     using (DirectoryEntry memberEntry = new DirectoryEntry(member))
                     {
-                        if (Program.debugMessages) Console.WriteLine(memberEntry.Path);
+                        if (Globals.debugMessages) Console.WriteLine(memberEntry.Path);
                         if (memberEntry.Path.Contains(userPath))
                         {
                             return true;

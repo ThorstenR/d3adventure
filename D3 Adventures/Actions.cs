@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using Utilities.MemoryHandling;
 using D3_Adventures.Enumerations;
 using D3_Adventures.Structures;
+using D3_Adventures.Memory_Handling;
 
 namespace D3_Adventures
 {
     public static class Actions
     {
-        private static MemoryManager mem = Program.mem;
+        private static MemoryManager mem = Globals.mem;
 
         public static System.Timers.Timer movementTimer = new System.Timers.Timer(10);
 

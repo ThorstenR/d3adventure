@@ -28,7 +28,7 @@ namespace D3_Adventures.Structures
                 byte[] buffer;
                 try
                 {
-                    if (Program.mem.ReadMemory(InternalStructure.pntCharArr, Length + 1, out buffer))
+                    if (Globals.mem.ReadMemory(InternalStructure.pntCharArr, Length + 1, out buffer))
                     {
                         return buffer.ToUTF8String();
                     }
@@ -43,7 +43,7 @@ namespace D3_Adventures.Structures
         internal Label(uint baseadre)
         {
             BaseAdress = baseadre;
-            object obj = Program.mem.ReadMemory(BaseAdress, typeof(NLabel));
+            object obj = Globals.mem.ReadMemory(BaseAdress, typeof(NLabel));
             if (obj != null)
                 InternalStructure = (NLabel)obj;
             

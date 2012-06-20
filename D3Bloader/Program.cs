@@ -6,8 +6,8 @@ using System.Threading;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using Utilities.MemoryHandling;
 using D3_Adventures;
+using D3_Adventures.Memory_Handling;
 
 namespace D3Bloader
 {
