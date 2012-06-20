@@ -16,6 +16,10 @@ namespace D3_Adventures.Structures
         public float x;    // 0x000 
         public float y;    // 0x004 
         public float z;    // 0x008 
+        public string ToString()
+        {
+            return "X: " + x + ", Y: " + y + ", Z: " + z;
+        }
     };
 
     public struct Vec4
