@@ -49,6 +49,7 @@ namespace A_Simple_Display
                     new TreeNode("ID ACD: " + a.id_acd.ToString("X")), 
                     new TreeNode("ID Actor: " + a.id_actor.ToString("X")),
                     new TreeNode("ID SNO: " + a.id_sno.ToString("X")),
+                    new TreeNode("World: "+a.guid_world.ToString("X")),
                     new TreeNode("Dist From Me: " + a.distanceFromMe),
                     new TreeNode("X: " + a.Pos.x),
                     new TreeNode("Y: " + a.Pos.y),
