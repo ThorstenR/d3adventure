@@ -8,12 +8,10 @@ using System.Diagnostics;
 using D3Bloader.Scripting;
 using D3Bloader.Game.Objects;
 
-using Utilities.MemoryHandling;
-using Utilities;
-
 using D3_Adventures;
 using D3_Adventures.Structures;
 using D3_Adventures.Enumerations;
+using D3_Adventures.Memory_Handling;
 
 namespace D3Bloader.Game
 {
