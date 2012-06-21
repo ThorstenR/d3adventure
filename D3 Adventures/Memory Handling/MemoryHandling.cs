@@ -457,7 +457,7 @@ namespace D3_Adventures.Memory_Handling
 
         public bool WriteMemory(uint memoryLocation, int bufferLength, ref byte[] lpBuffer)
         {
-            return this.WriteMemory(memoryLocation, bufferLength, ref lpBuffer);
+            return this.WriteMemory((IntPtr)memoryLocation, bufferLength, ref lpBuffer);
         }
 
         public bool WriteMemoryAsFloat(uint location, float _float)
