@@ -52,22 +52,22 @@ namespace A_Simple_Display
                 //if (o.data2 == 29944) // monsters
                 tn = new TreeNode(a.name, new TreeNode[]
                 {
-                    new TreeNode("ID ACD: " + a.InternalObject.id_acd.ToString("X")), 
-                    new TreeNode("ID Actor: " + a.InternalObject.id_actor.ToString("X")),
-                    new TreeNode("ID SNO: " + a.InternalObject.id_sno.ToString("X")),
-                    new TreeNode("World: "+a.InternalObject.guid_world.ToString("X")),
+                    new TreeNode("ID ACD: " + a.id_acd.ToString("X")), 
+                    new TreeNode("ID Actor: " + a.id_actor.ToString("X")),
+                    new TreeNode("ID SNO: " + a.id_sno.ToString("X")),
+                    new TreeNode("World: "+a.guid_world.ToString("X")),
                     new TreeNode("Dist From Me: " + a.distanceFromMe),
-                    new TreeNode("POS: "+a.InternalObject.Pos.ToString()),
+                    new TreeNode("POS: "+a.Pos.ToString()),
                     new TreeNode("POS1: "+a.Pos1.ToString()),
-                    new TreeNode("POS2: "+a.InternalObject.Pos2.ToString()),
-                    new TreeNode("POS3: "+a.InternalObject.Pos3.ToString()),
-                    new TreeNode("POS4: "+a.InternalObject.Pos4.ToString()),
-                    new TreeNode("POS6: "+a.InternalObject.Pos6.ToString()),
-                    new TreeNode("Data1: " + a.InternalObject.unknown_data1.ToString("X")),
-                    new TreeNode("Data2: " + a.InternalObject.unknown_data2.ToString("X")),
-                    new TreeNode("Data3: " + a.InternalObject.unknown_data3.ToString("X")),
-                    new TreeNode("MemLocation: 0x" + a.BaseAdress.ToString("X")),
-                    new TreeNode("Life Percentage?: " + mem.ReadMemoryAsFloat((uint)a.BaseAdress + 0x408)),
+                    new TreeNode("POS2: "+a.Pos2.ToString()),
+                    new TreeNode("POS3: "+a.Pos3.ToString()),
+                    new TreeNode("POS4: "+a.Pos4.ToString()),
+                    new TreeNode("POS6: "+a.Pos6.ToString()),
+                    new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
+                    new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
+                    new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
+                    new TreeNode("MemLocation: 0x" + a.mem_location.ToString("X")),
+                    new TreeNode("Life Percentage?: " + mem.ReadMemoryAsFloat(a.mem_location + 0x408)),
                     //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
                 });
                 treeViewActors.Nodes.Add(tn);

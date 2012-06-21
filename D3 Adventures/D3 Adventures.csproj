@@ -63,7 +63,7 @@
     <Compile Include="Memory Handling\MemoryHandling.cs" />
     <Compile Include="Memory Handling\SafeProcessHandle.cs" />
     <Compile Include="Offsets.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripting\IScript.cs" />
     <Compile Include="Structures\ACD.cs" />

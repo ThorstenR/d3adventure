@@ -15,7 +15,7 @@ namespace D3Bloader
     {
         static Game.Bot _bot;
         public static string exeName = "Diablo III";
-        public static MemoryManager mem = D3_Adventures.Program.mem;
+        public static MemoryManager mem = D3_Adventures.Globals.mem;
 
         /// <summary>
         /// Makes a note of all unhandled exceptions

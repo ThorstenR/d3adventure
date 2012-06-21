@@ -13,10 +13,9 @@ namespace UIDumper
     {
         static void Main(string[] args)
         {
-            using (MemoryManager mem = new MemoryManager(Utilities.GetProcessHandle("Diablo III")))
-            {
-                Globals.mem = mem;
-                mem.Attach();
+            
+                
+                Globals.mem.Attach();
                 //UIElement.test();
                 ulong hash = 11552879775495564696;
                 UIElement elem1 = UIElement.GetByHash(hash);
@@ -27,7 +26,7 @@ namespace UIDumper
                 elem1.Click();
                 //elem1.Click();
 
-            }
+            
 
             /*ulong hash = 11552879775495564696;
             UIElement elem1 = UIElement.GetByHash(hash);
