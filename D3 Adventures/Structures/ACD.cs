@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
+using D3_Adventures.Enumerations;
+
 namespace D3_Adventures.Structures
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4, CharSet = CharSet.Ansi, Size = 0x2D0)] //Offsets.ACDSize)
@@ -26,9 +28,10 @@ namespace D3_Adventures.Structures
         public uint id_world;              // 0x108 
         public fixed byte unknown_10C[4];  // 0x10C 
         public uint id_owner;              // 0x110 
-        public fixed byte unknown_114[12]; // 0x114 
-        public uint id_attrib;             // 0x120 
-        public uint id_unk3;               // 0x124 
+        public SNO.ItemLocation itemLoc;     // 0x114
+        public uint itemX;                   // 0x118
+        public uint itemY;                   // 0x11C
+        public uint id_attrib;               // 0x120         public uint id_unk3;               // 0x124 
         public fixed byte unknown_128[244];// 0x128 
         public byte NBAD848;               // 0x21C 
         public byte RadiusType;            // 0x21D 
@@ -45,6 +48,7 @@ namespace D3_Adventures.Structures
                 return new string(_name).TrimEnd(new char[] { (char)0 });
             }
         }
+
     }
 
 }

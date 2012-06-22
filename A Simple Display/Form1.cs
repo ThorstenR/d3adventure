@@ -132,7 +132,8 @@ namespace A_Simple_Display
                     new TreeNode("Attribute: " + acd.id_attrib.ToString("X")),
                     new TreeNode("X: " + acd.PosWorld.x),
                     new TreeNode("Y: " + acd.PosWorld.y),
-                    new TreeNode("Z: " + acd.PosWorld.z)
+                    new TreeNode("Z: " + acd.PosWorld.z),
+                    new TreeNode("ItemLocation: "+ acd.itemLoc.ToString("X"))
                 });
                 treeViewACD.Nodes.Add(tn);
 

@@ -86,9 +86,9 @@ namespace D3_Adventures
         public static uint moveToXoffset = 0x3c;
         public static uint moveToYoffset = 0x40;
         public static uint moveToZoffset = 0x44;
-        public static uint currentX = 0xA4;
-        public static uint currentY = 0xA8;
-        public static uint currentZ = 0xAC;
+        public static uint currentX = 0xA8;
+        public static uint currentY = 0xAC;
+        public static uint currentZ = 0xB0;
         public static uint rotationOffset = 0x170;
 
         public static uint clickToMoveMain = mem.ReadMemoryAsUint(myToon + objmanagerActorLinkToCTM);
