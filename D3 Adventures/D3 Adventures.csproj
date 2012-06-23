@@ -64,6 +64,7 @@
     <Compile Include="Memory Handling\Imports.cs" />
     <Compile Include="Memory Handling\MemoryHandling.cs" />
     <Compile Include="Memory Handling\SafeProcessHandle.cs" />
+    <Compile Include="Memory Handling\StructureWrapper.cs" />
     <Compile Include="Offsets.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,13 +74,16 @@
     <Compile Include="Structures\Common.cs" />
     <Compile Include="Structures\UIElements.cs" />
     <Compile Include="Structures\Label.cs" />
-    <Compile Include="Utilities\Utilities.cs" />
-    <Compile Include="Utilities\WinControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{7988C8F3-7443-455F-B9FF-D804DD235B7A}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

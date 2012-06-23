@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using D3_Adventures;
 using D3_Adventures.Memory_Handling;
+using Utilities.ProcessTools;
 
 namespace D3Bloader
 {
@@ -47,7 +48,7 @@ namespace D3Bloader
             Log.assume(handlerLogger);
 
             //Is Diablo 3 available?
-            IntPtr pHandle = D3_Adventures.Utilities.GetProcessHandle(exeName);
+            IntPtr pHandle = PT.GetProcessHandle(exeName);
             if (pHandle == IntPtr.Zero)
             {
                 Log.write("Failed to find game process, Is Diablo 3 running?");

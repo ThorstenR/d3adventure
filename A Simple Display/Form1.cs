@@ -280,7 +280,8 @@ namespace A_Simple_Display
         public override void Write(char value)
         {
             base.Write(value);
-            _output.AppendText(value.ToString()); // When character data is written, append it to the text box.
+            if (!_output.IsDisposed)
+                _output.AppendText(value.ToString()); // When character data is written, append it to the text box.
         }
 
         public override Encoding Encoding

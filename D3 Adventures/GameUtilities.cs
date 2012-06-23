@@ -5,7 +5,6 @@ using System.Text;
 using System.Drawing;
 
 using D3_Adventures.Structures;
-using D3_Adventures.Data;
 using Utilities.WinControl;
 
 namespace D3_Adventures

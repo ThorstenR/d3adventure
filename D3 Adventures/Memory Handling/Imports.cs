@@ -8,6 +8,8 @@ namespace D3_Adventures.Memory_Handling
     public static class Imports
     {
         // Methods
+        [DllImport("Kernel32.dll")]
+        internal static extern unsafe void RtlMoveMemory(void* dest, void* src, int size);
         [DllImport("kernel32.dll")]
         internal static extern bool CloseHandle(IntPtr hObject);
         [DllImport("kernel32.dll")]
@@ -34,7 +36,10 @@ namespace D3_Adventures.Memory_Handling
         internal static extern bool VirtualFreeEx(SafeProcessHandle hProcess, IntPtr dwAddress, int nSize, MemoryFree dwFreeType);
         [DllImport("kernel32.dll")]
         internal static extern bool WriteProcessMemory(IntPtr lpHandle, IntPtr lpAddress, byte[] lpBuffer, int lpSize, out int lpBytesWrote);
-
+        [DllImport("kernel32.dll")]
+        internal static extern bool WriteProcessMemory(SafeProcessHandle lpHandle, IntPtr lpAddress, byte[] lpBuffer, int lpSize, out int lpBytesWrote);
+        [DllImport("kernel32.dll")]
+        internal static extern bool VirtualProtectEx(SafeProcessHandle hProcess, IntPtr lpAddress, IntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
         // Nested Types
         [Flags]
         internal enum AllocationType
