@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="GameUtilities.cs" />
     <Compile Include="Injector\ASMInjector.cs" />
     <Compile Include="Injector\MemoryInjector.cs" />
     <Compile Include="Internals\Extensions.cs" />
@@ -71,7 +73,8 @@
     <Compile Include="Structures\Common.cs" />
     <Compile Include="Structures\UIElements.cs" />
     <Compile Include="Structures\Label.cs" />
-    <Compile Include="Utilities.cs" />
+    <Compile Include="Utilities\Utilities.cs" />
+    <Compile Include="Utilities\WinControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

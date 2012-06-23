@@ -28,16 +28,14 @@ namespace D3_Adventures
 
         public static Vec3 getCurrentPos()
         {
-            /*
             Vec3 ret;
             ret.x = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurX);
             ret.y = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurY);
             ret.z = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurZ);
-            */
              
             // if all three == 0 then the user needs to click first
             //  could throw an error or just send a click to the center of the window
-            return Globals.Me.Pos1;//ret;
+            return ret;//Globals.Me.Pos1;//
         }
 
         // Obsolete with new Actor struct.

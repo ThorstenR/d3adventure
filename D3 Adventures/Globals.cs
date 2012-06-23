@@ -22,8 +22,9 @@ namespace D3_Adventures
         // Fields
         public static bool debugMessages = false;
         public static string exeName = "Diablo III";
+        public static IntPtr winHandle = Utilities.GetProcessHandle("Diablo III");
 
-        public static MemoryManager mem = new MemoryManager(Utilities.GetProcessHandle("Diablo III"));
+        public static MemoryManager mem = new MemoryManager(winHandle);
         public static bool screwWarden = true;
         public static Actor Me
         {
