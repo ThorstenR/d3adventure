@@ -18,7 +18,14 @@ namespace D3Bloader.Game
     /// Exposes the arena methodology to scripting
     ///////////////////////////////////////////////////////
     public partial class ScriptBot : Bot
-    {	// Member variables
+    {
+        ///////////////////////////////////////////////////
+        // Constant Data
+        ///////////////////////////////////////////////////
+        private const string BT_EVENT_KEY = "BT.Build";
+        private const string ATTACK_EVENT_KEY = "Toon.AttackEnemy";
+
+        // Member variables
         ///////////////////////////////////////////////////
         private List<Scripts.IScript> _scripts;		//The scripts we're currently supporting
         private string _scriptType;					//The type of scripts we're instancing
@@ -45,6 +52,21 @@ namespace D3Bloader.Game
             //Load the associated scripts
             _scripts = Scripts.instanceScripts(this, _scriptType);
 
+
+            //If the bot implementes a BT, load it and use it.
+            _BehaviorTrees = new List<TreeSharp.Composite>();
+            if (exists(BT_EVENT_KEY))
+            {
+                //Grab all handlers (could be more then one BT).
+                foreach (var mthHandler in events[BT_EVENT_KEY].methods)
+                {
+                    TreeSharp.Composite x = mthHandler.handler(mthHandler.that, null) as TreeSharp.Composite;
+                    x.Start(null);
+                    _BehaviorTrees.Add(x);
+                }
+            }
+
+
             return true;
 
         }
@@ -60,6 +82,23 @@ namespace D3Bloader.Game
             foreach (Scripts.IScript script in _scripts)
                 script.poll();
 
+            //run all the BTs.
+            foreach (var bt in _BehaviorTrees)
+            {
+                try
+                {
+                    if (bt.Tick(null) != TreeSharp.RunStatus.Running)
+                        bt.Start(null);
+                }
+                catch
+                {
+                    bt.Stop(null);
+                    bt.Start(null);
+                    throw;
+                }
+            }
+
+
             return true;
         }
 
@@ -68,6 +107,20 @@ namespace D3Bloader.Game
         /// </summary>
         public override void pickItem(Data.gameObject itm)
         {
+        }
+
+        public override void Attack(Actor who)
+        {
+            Log.write("ATTACKING {0}", who.name);
+            isAttacking = true;
+            if (exists(ATTACK_EVENT_KEY))
+            {
+                //Grab all handlers (could be more then one BT).
+                foreach (var mthHandler in events[ATTACK_EVENT_KEY].methods)
+                {
+                    mthHandler.handler(mthHandler.that, new object[] { who });
+                }
+            }
         }
     }
 }

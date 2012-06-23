@@ -50,8 +50,14 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TreeSharp">
+      <HintPath>..\ExternalLibs\TreeSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game\Behaviors\AttackCurrentTarget.cs" />
+    <Compile Include="Game\Behaviors\FindNearestEnemy.cs" />
+    <Compile Include="Game\Bot\Helpers\Helpers.cs" />
     <Compile Include="Game\Bot\Bot.cs" />
     <Compile Include="Game\Bot\ScriptBot.cs" />
     <Compile Include="Game\Objects\Monster.cs" />
@@ -86,9 +92,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\Bot\Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\D3 Adventures\D3 Adventures.csproj">
       <Project>{116D87D7-EDD2-4262-88F8-49E155D89B71}</Project>

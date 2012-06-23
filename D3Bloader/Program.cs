@@ -55,6 +55,9 @@ namespace D3Bloader
                 return;
             }
 
+            Globals.mem.Attach();
+
+
             //Initilize the bot!
             Game.Bot bot = new Game.Bot();
             if (!bot.init())

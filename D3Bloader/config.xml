@@ -1,6 +1,6 @@
 <!-- Main configuration file -->
 <xml>
 	<General>
-		<botScript value="SimpleBot" />
+		<botScript value="BasicCombatBot" />
 	</General>
 </xml>

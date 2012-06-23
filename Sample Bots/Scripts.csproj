@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,22 +37,29 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\D3 Adventures\D3 Adventures.csproj">
+    <ProjectReference Include="..\..\d3adventure-read-only\D3 Adventures\D3 Adventures\D3 Adventures.csproj">
       <Project>{116D87D7-EDD2-4262-88F8-49E155D89B71}</Project>
       <Name>D3 Adventures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\D3Bloader.csproj">
+    <ProjectReference Include="..\..\d3adventure-read-only\D3 Adventures\D3Bloader\D3Bloader.csproj">
       <Project>{F06C0603-5688-4650-98A0-3F0F59C0083C}</Project>
       <Name>D3Bloader</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bots\SimpleBot.cs" />
+    <Compile Include="Bots\BasicCombatBot\BasicCombatBot.cs" />
+    <Compile Include="Bots\SimpleBot\SimpleBot.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="TreeSharp">
+      <HintPath>..\ExternalLibs\TreeSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)Bots" "$(ProjectDir)..\D3Bloader\bin\scripts" /E /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

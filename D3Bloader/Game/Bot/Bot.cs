@@ -16,15 +16,26 @@ using D3_Adventures.Memory_Handling;
 namespace D3Bloader.Game
 {
     public class Bot : IEventObject
-    {   ///////////////////////////////////////////////////
+    {
+        ///////////////////////////////////////////////////
         // Member Variables
         ///////////////////////////////////////////////////
+
         public new LogClient _logger;
         public ConfigSetting _config;
         private Thread _botThread;
         public int _tickLastMove;
         public Actor[] _monsters;
         public Dictionary<uint, Monster> _mobList;
+
+        protected List<TreeSharp.Composite> _BehaviorTrees;
+
+        #region Public Properties
+
+        public Actor? CurrentTarget { get; set; }
+        public bool isAttacking { get; set; }
+        public bool isMoving { get; set; }
+        #endregion
 
         #region Member Functions
         ///////////////////////////////////////////////////
@@ -98,6 +109,8 @@ namespace D3Bloader.Game
         /// </summary>
         public bool exists(string name)
         {	//Does the event exist?
+
+            if (events == null) return false;
             HandlerList list;
             return events.TryGetValue(name, out list);
         }
@@ -209,7 +222,10 @@ namespace D3Bloader.Game
             while (true)
             {
                 using (LogAssume.Assume(_logger))
-                   scriptBot.poll();
+                {
+                    scriptBot.poll();
+                }
+
                 //Sleep for a bit..
                 Thread.Sleep(100);
             }
@@ -222,6 +238,11 @@ namespace D3Bloader.Game
         {
             int now = Environment.TickCount;
             return true;
+        }
+
+        public virtual void Attack(Actor who)
+        {
+
         }
         #endregion
 

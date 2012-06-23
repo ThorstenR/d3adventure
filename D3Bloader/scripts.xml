@@ -1,9 +1,13 @@
 <!-- Script declaration file -->
 <xml>
 	<scripts>
-		<type value="SimpleBot">
+		<type value="BasicCombatBot">
 			<inheritDefaultScripts value="true" />
-			<scriptDir value="Bots\SimpleBot" />
+			<scriptDir value="BasicCombatBot" />
 		</type>
-	</scripts>
+    <type value="SimpleBot">
+      <inheritDefaultScripts value="true" />
+      <scriptDir value="SimpleBot" />
+    </type>
+  </scripts>
 </xml>
