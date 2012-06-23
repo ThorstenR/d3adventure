@@ -51,7 +51,7 @@ namespace D3_Adventures
                 X /= aspectChange;
             }
 
-            float rX = (float)((X + 1) / 2 * resolutionX, 1);
+            float rX = (float)((X + 1) / 2 * resolutionX);
             float rY = (float)((1 - Y) / 2 * resolutionY);
 
             return new PointF(rX, rY);
