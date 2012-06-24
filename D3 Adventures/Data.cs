@@ -151,7 +151,20 @@ namespace D3_Adventures
             return IterateActors().OrderBy(a => a.distanceFromMe).Where(a => a.unknown_data2 == 29944).ToArray<Actor>();
             //.Where(a => a.unknown_data1 == 2 && a.unknown_data2 == -1).OrderBy(a => a.distanceFromMe);
         }
-
+        //FOR maphack, the next version of maphack will use getMonsters.
+        public static Actor[] getMapItems()
+        {
+            List<Actor> filteredItems = new List<Actor>();
+            Actor[] items = getMonsters();
+            filteredItems = items.Where(mob =>
+                                        mob.id_acd != Data.toonID &&
+                                        mob.distanceFromMe != 0 &&
+                                        mob.isAlive() &&            /*is do NOT check if the monster is dead - use Actor.Alive*/
+                                        mob.unknown_1C4[0] == 1 && /* Were it is a "monster"*/
+                                        mob.unknown_data2 == 29944
+                                        ).ToList();
+            return filteredItems.ToArray();
+        }
 
     }
 }
