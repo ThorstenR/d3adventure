@@ -72,6 +72,7 @@ namespace A_Simple_Display
             this.treeViewActors.Name = "treeViewActors";
             this.treeViewActors.Size = new System.Drawing.Size(440, 360);
             this.treeViewActors.TabIndex = 0;
+            this.treeViewActors.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewActors_AfterSelect);
             // 
             // contextMenuStripTreeNode
             // 
@@ -89,9 +90,9 @@ namespace A_Simple_Display
             // 
             // tabControlDisplay
             // 
-            this.tabControlDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlDisplay.Controls.Add(this.tabPage1);
             this.tabControlDisplay.Controls.Add(this.tabPage2);
             this.tabControlDisplay.Controls.Add(this.tabPage3);
@@ -284,8 +285,8 @@ namespace A_Simple_Display
             // 
             // richTextBoxConsole
             // 
-            this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxConsole.Location = new System.Drawing.Point(453, 49);
             this.richTextBoxConsole.Name = "richTextBoxConsole";
             this.richTextBoxConsole.ReadOnly = true;

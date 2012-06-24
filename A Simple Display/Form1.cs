@@ -68,6 +68,7 @@ namespace A_Simple_Display
                     new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
                     new TreeNode("MemLocation: 0x" + a.mem_location.ToString("X")),
                     new TreeNode("Life Percentage?: " + mem.ReadMemoryAsFloat(a.mem_location + 0x408)),
+                    new TreeNode("Alive?: " + a.isAlive()),
                     //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
                 });
                 treeViewActors.Nodes.Add(tn);
@@ -263,6 +264,11 @@ namespace A_Simple_Display
                     Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
                     break;
             }
+        }
+
+        private void treeViewActors_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
 
     }

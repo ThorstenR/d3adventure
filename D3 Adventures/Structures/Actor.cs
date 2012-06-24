@@ -91,6 +91,19 @@ namespace D3_Adventures.Structures
             }
         }
 
+        public bool isAlive()
+        {
+
+            if (this.Alive == -1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public double distanceFromMe
         {
             get
