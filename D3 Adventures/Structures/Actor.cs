@@ -108,12 +108,8 @@ namespace D3_Adventures.Structures
         {
             get
             {
-                // old code from original AU3 was using pos1 @ 0xB0
                 Vec3 currentLoc = Data.getCurrentPos();
-                float xd = Pos1.x - currentLoc.x;
-                float yd = Pos1.y - currentLoc.y;
-                float zd = Pos1.z - currentLoc.z;
-                return Math.Sqrt(xd * xd + yd * yd + zd * zd);
+                return GameUtilities.Distance(currentLoc, Pos1);
             }
         }
         //using the Actor struct Alive, will indicate if the actor or atlest monster is alive... 
@@ -158,4 +154,5 @@ namespace D3_Adventures.Structures
         public float Direction;     // 0x170 
         public fixed byte unknown_174[707];     // 0x174 
     }; 
+
 }

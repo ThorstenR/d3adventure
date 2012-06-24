@@ -48,5 +48,13 @@ namespace D3_Adventures
             return new PointF(rX, rY);
         }
 
+        public static double Distance(Vec3 a, Vec3 b)
+        {
+            float xd = a.x - b.x;
+            float yd = a.y - b.y;
+            float zd = a.z - b.z;
+            return Math.Sqrt(xd * xd + yd * yd + zd * zd);
+        }
+
     }
 }
