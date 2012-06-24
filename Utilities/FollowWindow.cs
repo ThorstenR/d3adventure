@@ -48,14 +48,14 @@ namespace Utilities.FollowWindow
 
         public void Follower()
         {
-            EnumWindowsItem child = WC.GetChildWindow("Map", "");
+            //EnumWindowsItem child = WC.GetChildWindow("Map", "");
 
-            if (child == null)
-            {
-                return;
-            }
+            //if (child == null)
+            //{
+            //    return;
+            //}
 
-            while (WC.Hwnd2ID(child.Handle) != 0) // old way didn't work, since the handle wasn't to the child window
+            while (WC.Hwnd2ID(ParentHwnd) != 0) // old way didn't work, since the handle wasn't to the child window
             {
                 try
                 {
