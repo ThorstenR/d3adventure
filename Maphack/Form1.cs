@@ -25,13 +25,25 @@ namespace Maphack
             InitializeComponent();
             formGraphics = this.CreateGraphics();
             backgroundWorker1.RunWorkerAsync();
-            follower = new Utilities.FollowWindow.FW(this.Handle, Globals.winHandle, true);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Following thread to stalk a window or make a window stalk you
+            follower = new Utilities.FollowWindow.FW(this.Handle, Globals.winHandle, false);
             follower.Start();
 
+            // set the window to the same size as D3
             Utilities.WinControl.RECT rect;
             Utilities.WinControl.WC.GetWindowRect(Globals.winHandle, out rect);
             this.Width = rect.Width;
             this.Height = rect.Height;
+
+            // all mouseclicks on the window fall through to the window(s) behind
+            //Utilities.WinControl.WC.SetWindowLayeredMode(Globals.winHandle);
+
+            // set this window's style to d3's window's style for perfect match up of client space.
+            //Utilities.WinControl.WC.SetWindowLong(this.Handle, 0, Utilities.WinControl.WC.GetWindowLong(Globals.winHandle, 0));
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -70,6 +82,9 @@ namespace Maphack
 
         private void drawRectBuffer(int x, int y, int width, int height, string col, ref Bitmap buffer)
         {
+            if (x > this.Width)
+                return; 
+
             Graphics g = Graphics.FromImage(buffer);
             Color c = Color.FromName(col);
             Pen p = new Pen(c);
@@ -141,11 +156,6 @@ namespace Maphack
                 this.formGraphics.DrawImage(BackBuffer, 0, 0);
             }
             catch { }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            follower.Start();
         }
 
         private void Form1_Resize(object sender, EventArgs e)
