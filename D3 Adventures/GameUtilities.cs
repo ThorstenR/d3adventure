@@ -15,11 +15,15 @@ namespace D3_Adventures
         // UNTESTED!
         public static PointF FromD3toScreenCoords(Vec3 vec3)
         {
-            Console.WriteLine("FromD3toScreenCoords HAS NOT YET BEEN TESTED!");
             RECT rect;
             WC.GetClientRect(Globals.winHandle, out rect);
             int resolutionX = rect.Width;
             int resolutionY = rect.Height;
+            return FromD3toScreenCoords(vec3, resolutionX, resolutionY);
+        }
+        public static PointF FromD3toScreenCoords(Vec3 vec3, int resolutionX, int resolutionY)
+        {
+            Console.WriteLine("FromD3toScreenCoords HAS NOT YET BEEN TESTED!");
 
             double aspectChange = (resolutionX/resolutionY)/(800/600); // 800/600 = default aspect ratio
             Vec3 currentLoc = Data.getCurrentPos();
