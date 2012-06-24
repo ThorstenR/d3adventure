@@ -232,15 +232,15 @@ namespace A_Simple_Display
             {
                 case 0:
                     actor = getObjectByName(getRootNode(treeViewActors.SelectedNode).Text);
-                    MessageBox.Show(actor.isAlive().ToString());
+                    MessageBox.Show(actor.Exists().ToString());
                     break;
                 case 1:
                     actor = getObjectByName(getRootNode(treeViewItems.SelectedNode).Text);
-                    MessageBox.Show(actor.isAlive().ToString());
+                    MessageBox.Show(actor.Exists().ToString());
                     break;
                 case 2:
                     actor = getObjectByName(getRootNode(treeViewMonsters.SelectedNode).Text);
-                    MessageBox.Show(actor.isAlive().ToString());
+                    MessageBox.Show(actor.Exists().ToString());
                     break;
             }
         }

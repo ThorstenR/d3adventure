@@ -5,6 +5,12 @@ using System.Text;
 
 namespace D3_Adventures.Scripting
 {
+    public enum ScriptType
+    {
+        code, // string of code
+        file // file path
+    }
+
     interface IScript
     {
         //string EngineName;

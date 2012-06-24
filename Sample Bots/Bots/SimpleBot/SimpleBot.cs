@@ -59,7 +59,7 @@ namespace D3Bloader.Script.SimpleBot
                     continue;
 
                 //Needs work!
-                if (!actor.isAlive())
+                if (!actor.Exists())
                     continue;
 
                 //Range of 35

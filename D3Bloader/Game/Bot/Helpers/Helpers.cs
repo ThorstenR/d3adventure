@@ -12,7 +12,7 @@ namespace D3Bloader.Game
         public static  bool hasValidTarget(Bot owner)
         {
             if (!owner.CurrentTarget.HasValue) return false;
-            else if (!owner.CurrentTarget.Value.isAlive() || owner.CurrentTarget.Value.id_acd.ToString("X") == "FFFFFFFF")
+            else if (!owner.CurrentTarget.Value.Exists() || owner.CurrentTarget.Value.id_acd.ToString("X") == "FFFFFFFF")
             {
                 if (owner.isAttacking)
                 {
@@ -46,7 +46,7 @@ namespace D3Bloader.Game
             foreach (var monster in monsters)
             {
                 if (monster.unknown_data2 == 29944 && monster.id_acd != Data.toonID && Math.Abs(monster.Pos1.z - Data.getCurrentPos().z) < 2 &&
-                    monster.isAlive() && monster.distanceFromMe != 0.0 && monster.distanceFromMe < 50 && monster.id_acd.ToString("X") != "FFFFFFFF")
+                    monster.Exists() && monster.distanceFromMe != 0.0 && monster.distanceFromMe < 50 && monster.id_acd.ToString("X") != "FFFFFFFF")
                 {
                     if (monster.name.ToLower().Contains("leah")) continue;
 

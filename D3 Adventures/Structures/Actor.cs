@@ -96,7 +96,7 @@ namespace D3_Adventures.Structures
             get
             {
                 // old code from original AU3 was using pos1 @ 0xB0
-                Vec3 currentLoc = Data.GetMe().Pos1;
+                Vec3 currentLoc = Data.getCurrentPos();
                 float xd = Pos1.x - currentLoc.x;
                 float yd = Pos1.y - currentLoc.y;
                 float zd = Pos1.z - currentLoc.z;
@@ -104,7 +104,7 @@ namespace D3_Adventures.Structures
             }
         }
         //using the Actor struct Alive, will indicate if the actor or atlest monster is alive... 
-        public bool isAlive()
+        public bool Exists()
         {
             if (mem_location == null)
                 throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
