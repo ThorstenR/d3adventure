@@ -116,6 +116,18 @@ namespace D3_Adventures
         public static uint ACDSize = 0x2D0;
         #endregion
 
+        #region SNOs
+        public static uint SNOActors = 0x03EEEDC0;
+        #endregion
+        #region functions
+        public static uint fnLocalPlayerGUID = 0x97EC20;
+        public static uint fnUsePowerToActor = 0x97C9B0;
+        public static uint fnUsePowerToLocation = 0x97C770;
+        public static uint fnGetSnoInfoForSnoId = 0x895040;
+        public static uint gnGetDisplayedNameForSnoId = 0x08da140;
+        #endregion
+
+
         // UI elements pointer table is : 0x19AA2000
     }
 }

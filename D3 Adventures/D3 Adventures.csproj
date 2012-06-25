@@ -56,7 +56,9 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Enumerations\NavCellFlags.cs" />
     <Compile Include="GameUtilities.cs" />
+    <Compile Include="Injector\ASMExectuorMonitor.cs" />
     <Compile Include="Injector\ASMInjector.cs" />
     <Compile Include="Injector\MemoryInjector.cs" />
     <Compile Include="Internals\Extensions.cs" />
@@ -72,6 +74,11 @@
     <Compile Include="Structures\ACD.cs" />
     <Compile Include="Structures\Actor.cs" />
     <Compile Include="Structures\Common.cs" />
+    <Compile Include="Structures\NativeObject.cs" />
+    <Compile Include="Structures\Scene.cs" />
+    <Compile Include="Structures\SNOReader.cs" />
+    <Compile Include="Structures\SNORecord.cs" />
+    <Compile Include="Structures\SNOTable.cs" />
     <Compile Include="Structures\UIElements.cs" />
     <Compile Include="Structures\Label.cs" />
   </ItemGroup>

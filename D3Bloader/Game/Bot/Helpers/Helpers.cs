@@ -24,7 +24,7 @@ namespace D3Bloader.Game
             }
             else
             {
-                if (owner.CurrentTarget.Value.distanceFromMe >= 50 || Math.Abs(owner.CurrentTarget.Value.Pos1.z - Data.getCurrentPos().z) > 2)
+                if (owner.CurrentTarget.Value.distanceFromMe >= 50 || Math.Abs(owner.CurrentTarget.Value.Pos1.z - Data.getCurrentPos().z) > 5)
                 {
                     Log.write("LOST TARGET");
                     owner.CurrentTarget = null;
@@ -45,10 +45,11 @@ namespace D3Bloader.Game
             //should already be sorted by distance.
             foreach (var monster in monsters)
             {
-                if (monster.unknown_data2 == 29944 && monster.id_acd != Data.toonID && Math.Abs(monster.Pos1.z - Data.getCurrentPos().z) < 2 &&
+                if (monster.unknown_data2 == 29944 && monster.id_acd != Data.toonID && Math.Abs(monster.Pos1.z - Data.getCurrentPos().z) < 5 &&
                     monster.Exists() && monster.distanceFromMe != 0.0 && monster.distanceFromMe < 50 && monster.id_acd.ToString("X") != "FFFFFFFF")
                 {
                     if (monster.name.ToLower().Contains("leah")) continue;
+                    if (monster.name.ToLower().Contains("floor")) continue;
 
                     Log.write("FOUND ENEMY {0}", monster.name);
                     m = monster;

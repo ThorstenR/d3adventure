@@ -9,19 +9,19 @@ namespace D3_Adventures.Injector
     public class MemoryInjector : IDisposable
     {
         public MemoryManager Mngr { get; set; }
-        public IntPtr Adress { get; set; }
+        public IntPtr Address { get; set; }
 
 
         public MemoryInjector(MemoryManager mngr, int size)
         {
             Mngr = mngr;
-            Adress = mngr.AllocateMemory(size, Imports.AllocationType.Commit, Imports.MemoryProtection.ExecuteReadWrite);
+            Address = mngr.AllocateMemory(size, Imports.AllocationType.Commit, Imports.MemoryProtection.ExecuteReadWrite);
         }
 
         public void Dispose()
         {
-            Mngr.FreeMemory(Adress);
-            Adress = IntPtr.Zero;
+            Mngr.FreeMemory(Address);
+            Address = IntPtr.Zero;
         }
     }
 }

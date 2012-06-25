@@ -37,9 +37,9 @@ namespace D3_Adventures.Memory_Handling
         [DllImport("kernel32.dll")]
         internal static extern bool WriteProcessMemory(IntPtr lpHandle, IntPtr lpAddress, byte[] lpBuffer, int lpSize, out int lpBytesWrote);
         [DllImport("kernel32.dll")]
-        internal static extern bool WriteProcessMemory(SafeProcessHandle lpHandle, IntPtr lpAddress, byte[] lpBuffer, int lpSize, out int lpBytesWrote);
-        [DllImport("kernel32.dll")]
         internal static extern bool VirtualProtectEx(SafeProcessHandle hProcess, IntPtr lpAddress, IntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+        [DllImport("kernel32.dll")]
+        internal static extern bool WriteProcessMemory(SafeProcessHandle lpHandle, IntPtr lpAddress, byte[] lpBuffer, int lpSize, out int lpBytesWrote);
         // Nested Types
         [Flags]
         internal enum AllocationType

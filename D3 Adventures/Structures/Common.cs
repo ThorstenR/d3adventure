@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace D3_Adventures.Structures
 {
@@ -9,6 +10,10 @@ namespace D3_Adventures.Structures
     {
         public float x;    // 0x000 
         public float y;    // 0x004 
+        public override string ToString()
+        {
+            return "X: " + x + ", Y: " + y;
+        }
     };
 
     public struct Vec3
@@ -16,7 +21,7 @@ namespace D3_Adventures.Structures
         public float x;    // 0x000 
         public float y;    // 0x004 
         public float z;    // 0x008 
-        public string ToString()
+        public override string ToString()
         {
             return "X: " + x + ", Y: " + y + ", Z: " + z;
         }
@@ -29,4 +34,15 @@ namespace D3_Adventures.Structures
         public float z;    // 0x008 
         public float w;    // 0x00C 
     };
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AABB
+    {
+        public Vec3 Min;
+        public Vec3 Max;
+        public override string ToString()
+        {
+            return string.Format("Min:{0} Max:{1}", this.Min, this.Max);
+        }
+    }
 }

@@ -13,6 +13,7 @@ namespace D3_Adventures.Injector
 {
     public sealed class ASMExecutor : IDisposable
     {
+        private int _timeoutWait = 50000;
         // Fields
         private bool bool_0;
         private bool bool_1;
@@ -89,6 +90,20 @@ namespace D3_Adventures.Injector
             this.Initialize();
             this.Clear();
             this.IsInitialized = true;
+        }
+        public T CallFunction<T>(uint adress, CallingConvention callConv, params object[] args) where T : struct
+        {
+            lock (publicLock)
+            {
+                Clear();
+                foreach (string str in MakeFunctionCall(adress, callConv, args))
+                {
+                    AddLineSecured(str);
+                }
+                ExecuteBuffer(null);
+
+                return Memory.UnsafeReadToStruct<T>(ReturnPointer);
+            }
         }
         public IntPtr CallFunction(uint adress, CallingConvention callConv, params object[] args)
         {
@@ -233,46 +248,46 @@ namespace D3_Adventures.Injector
         }
 
         public void ExecuteBuffer(string debugMessage = null)
-    {
-        if (this.IsOpen && this.IsInitialized)
         {
-            lock (this.privateLock)
+            if (this.IsOpen && this.IsInitialized)
             {
-                if (this.bool_0)
+                lock (this.privateLock)
                 {
-                    if (this.bool_1)
+                    if (this.bool_0)
                     {
-                        this.Memory.Asm.Inject((uint) this.intptr_2);
-                        this.eventWaitHandle_1.Reset();
-                        this.eventWaitHandle_0.Set();
-                        if (!this.eventWaitHandle_2.WaitOne(0x2710, false))
+                        if (this.bool_1)
                         {
-                            throw new Exception("Process must have frozen or gotten out of sync: InjectionFinishedEvent_was_never_fired");
+                            this.Memory.Asm.Inject((uint)this.intptr_2);
+                            this.eventWaitHandle_1.Reset();
+                            this.eventWaitHandle_0.Set();
+                            if (!this.eventWaitHandle_2.WaitOne(_timeoutWait, false))
+                            {
+                                throw new Exception("Process must have frozen or gotten out of sync: InjectionFinishedEvent_was_never_fired");
+                            }
+                            this.bool_1 = false;
+                            return;
                         }
-                        this.bool_1 = false;
-                        return;
+                        this.Memory.Asm.Inject((uint)this.intptr_2);
+                        this.eventWaitHandle_0.Set();
+                        this.eventWaitHandle_1.Set();
+                        if (this.eventWaitHandle_2.WaitOne(_timeoutWait, false))
+                        {
+                        }
+                        throw new Exception("Process must have frozen or gotten out of sync: InjectionFinishedEvent was never fired");
                     }
-                    this.Memory.Asm.Inject((uint) this.intptr_2);
+                    this.Memory.Asm.Inject((uint)this.intptr_2);
                     this.eventWaitHandle_0.Set();
-                    this.eventWaitHandle_1.Set();
-                    if (this.eventWaitHandle_2.WaitOne(0x2710, false))
+                    if (!this.eventWaitHandle_2.WaitOne(_timeoutWait, false))
                     {
+                        throw new Exception("Process must have frozen or gotten out of sync: InjectionFinishedEvent was never fired");
                     }
-                    throw new Exception("Process must have frozen or gotten out of sync: InjectionFinishedEvent was never fired");
+                    this.eventWaitHandle_0.Reset();
+                    this.eventWaitHandle_1.Set();
                 }
-                this.Memory.Asm.Inject((uint) this.intptr_2);
-                this.eventWaitHandle_0.Set();
-                if (!this.eventWaitHandle_2.WaitOne(0x2710, false))
-                {
-                    throw new Exception("Process must have frozen or gotten out of sync: InjectionFinishedEvent was never fired");
-                }
-                this.eventWaitHandle_0.Reset();
-                this.eventWaitHandle_1.Set();
             }
+            return;
+            throw new Exception("Cannot execute code while process is not opened and/or Executor is not initialized!");
         }
-        return;
-        throw new Exception("Cannot execute code while process is not opened and/or Executor is not initialized!");
-    }
 
         ~ASMExecutor()
         {
@@ -410,58 +425,58 @@ namespace D3_Adventures.Injector
         }
 
         private void InjectStub()
-    {
-        this.Clear();
-        this.AddLineSecured("pushad");
-        this.AddLineSecured("@CheckInjection:");
-        this.AddLineSecured("mov eax, [{0}]", new object[] { this.intptr_5 });
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push eax");
-        this.AddLineSecured("call {0}", new object[] { this.pntWaitForSingleObject });
-        this.AddLineSecured("test eax, eax");
-        this.AddLineSecured("jnz @NoInjection");
-        this.AddLineSecured("call {0}", new object[] { this.intptr_2 });
-        this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_4 });
-        this.AddLineSecured("mov eax, [{0}]", new object[] { this.intptr_7 });
-        this.AddLineSecured("push eax");
-        this.AddLineSecured("call {0}", new object[] { this.pntSetEvent });
-        this.AddLineSecured("mov eax, [{0}]", new object[] { this.intptr_6 });
-        this.AddLineSecured("push 1000");
-        this.AddLineSecured("push eax");
-        this.AddLineSecured("call {0}", new object[] { this.pntWaitForSingleObject });
-        this.AddLineSecured("test eax, eax");
-        this.AddLineSecured("jz @CheckInjection");
-        this.AddLine("@NoInjection:");
-        this.AddLineSecured("popad");
-        byte[] first = this.Memory.unsafeRead(this.pntEndScene, 6, false);
-        this.byte_1 = first;
-        switch ((first.SequenceEqual<byte>(new byte[] { 0x55, 0x8b, 0xec, 0x8b, 0x45, 8 }) ? Enum4.const_1 : Enum4.const_0))
         {
-            case Enum4.const_0:
-                this.AddLineSecured("mov edi, edi");
-                this.AddLineSecured("push ebp");
-                this.AddLineSecured("mov ebp, esp");
-                this.AddLineSecured("jmp {0}", new object[] { this.pntEndScene + 5 });
-                break;
+            this.Clear();
+            this.AddLineSecured("pushad");
+            this.AddLineSecured("@CheckInjection:");
+            this.AddLineSecured("mov eax, [{0}]", new object[] { this.intptr_5 });
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push eax");
+            this.AddLineSecured("call {0}", new object[] { this.pntWaitForSingleObject });
+            this.AddLineSecured("test eax, eax");
+            this.AddLineSecured("jnz @NoInjection");
+            this.AddLineSecured("call {0}", new object[] { this.intptr_2 });
+            this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_4 });
+            this.AddLineSecured("mov eax, [{0}]", new object[] { this.intptr_7 });
+            this.AddLineSecured("push eax");
+            this.AddLineSecured("call {0}", new object[] { this.pntSetEvent });
+            this.AddLineSecured("mov eax, [{0}]", new object[] { this.intptr_6 });
+            this.AddLineSecured("push 1000");
+            this.AddLineSecured("push eax");
+            this.AddLineSecured("call {0}", new object[] { this.pntWaitForSingleObject });
+            this.AddLineSecured("test eax, eax");
+            this.AddLineSecured("jz @CheckInjection");
+            this.AddLine("@NoInjection:");
+            this.AddLineSecured("popad");
+            byte[] first = this.Memory.unsafeRead(this.pntEndScene, 6, false);
+            this.byte_1 = first;
+            switch ((first.SequenceEqual<byte>(new byte[] { 0x55, 0x8b, 0xec, 0x8b, 0x45, 8 }) ? Enum4.const_1 : Enum4.const_0))
+            {
+                case Enum4.const_0:
+                    this.AddLineSecured("mov edi, edi");
+                    this.AddLineSecured("push ebp");
+                    this.AddLineSecured("mov ebp, esp");
+                    this.AddLineSecured("jmp {0}", new object[] { this.pntEndScene + 5 });
+                    break;
 
-            case Enum4.const_1:
-                this.AddLineSecured("push ebp");
-                this.AddLineSecured("mov ebp, esp");
-                this.AddLineSecured("mov eax, [ebp+8]");
-                this.AddLineSecured("jmp {0}", new object[] { this.pntEndScene + 6 });
-                break;
+                case Enum4.const_1:
+                    this.AddLineSecured("push ebp");
+                    this.AddLineSecured("mov ebp, esp");
+                    this.AddLineSecured("mov eax, [ebp+8]");
+                    this.AddLineSecured("jmp {0}", new object[] { this.pntEndScene + 6 });
+                    break;
+            }
+            if (!this.Memory.Asm.Inject((uint)this.intptr_1))
+            {
+                throw new Exception("Could not assemble and inject trampoline");
+            }
+            this.Clear();
+            this.AddLine("jmp {0}", new object[] { this.intptr_1 });
+            if (!this.Memory.Asm.Inject((uint)this.pntEndScene))
+            {
+                throw new Exception("Could not assemble and inject detour");
+            }
         }
-        if (!this.Memory.Asm.Inject((uint) this.intptr_1))
-        {
-            throw new Exception("Could not assemble and inject trampoline");
-        }
-        this.Clear();
-        this.AddLine("jmp {0}", new object[] { this.intptr_1 });
-        if (!this.Memory.Asm.Inject((uint) this.pntEndScene))
-        {
-            throw new Exception("Could not assemble and inject detour");
-        }
-    }
 
         public void method_0()
         {
@@ -488,39 +503,39 @@ namespace D3_Adventures.Injector
         }
 
         private bool method_18(IntPtr eventStub, IntPtr injectionWaitingNamePtr, IntPtr injectionContinueNamePtr, IntPtr injectionFinishedNamePtr)
-    {
-        this.Clear();
-        this.AddLineSecured("push {0}", new object[] { injectionWaitingNamePtr });
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("call {0}", new object[] { this.pntCreateEventA });
-        this.AddLineSecured("test eax, eax");
-        this.AddLineSecured("jz @ReturnFalse");
-        this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_5 });
-        this.AddLineSecured("push {0}", new object[] { injectionContinueNamePtr });
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("call {0}", new object[] { this.pntCreateEventA });
-        this.AddLineSecured("test eax, eax");
-        this.AddLineSecured("jz @ReturnFalse");
-        this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_6 });
-        this.AddLineSecured("push {0}", new object[] { injectionFinishedNamePtr });
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("push 0");
-        this.AddLineSecured("call {0}", new object[] { this.pntCreateEventA });
-        this.AddLineSecured("test eax, eax");
-        this.AddLineSecured("jz @ReturnFalse");
-        this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_7 });
-        this.AddLine("mov eax, 1");
-        this.AddLine("retn");
-        this.AddLine("@ReturnFalse:");
-        this.AddLine("xor eax, eax");
-        this.AddLine("retn");
-        return (this.Memory.Asm.InjectAndExecute((uint) eventStub) == 1);
-    }
+        {
+            this.Clear();
+            this.AddLineSecured("push {0}", new object[] { injectionWaitingNamePtr });
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("call {0}", new object[] { this.pntCreateEventA });
+            this.AddLineSecured("test eax, eax");
+            this.AddLineSecured("jz @ReturnFalse");
+            this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_5 });
+            this.AddLineSecured("push {0}", new object[] { injectionContinueNamePtr });
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("call {0}", new object[] { this.pntCreateEventA });
+            this.AddLineSecured("test eax, eax");
+            this.AddLineSecured("jz @ReturnFalse");
+            this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_6 });
+            this.AddLineSecured("push {0}", new object[] { injectionFinishedNamePtr });
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("push 0");
+            this.AddLineSecured("call {0}", new object[] { this.pntCreateEventA });
+            this.AddLineSecured("test eax, eax");
+            this.AddLineSecured("jz @ReturnFalse");
+            this.AddLineSecured("mov [{0}], eax", new object[] { this.intptr_7 });
+            this.AddLine("mov eax, 1");
+            this.AddLine("retn");
+            this.AddLine("@ReturnFalse:");
+            this.AddLine("xor eax, eax");
+            this.AddLine("retn");
+            return (this.Memory.Asm.InjectAndExecute((uint)eventStub) == 1);
+        }
 
         private string RandomString(int length)
         {
@@ -647,4 +662,4 @@ namespace D3_Adventures.Injector
     }
 
 }
- 
+

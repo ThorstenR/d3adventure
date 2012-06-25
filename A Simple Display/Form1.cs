@@ -30,6 +30,7 @@ namespace A_Simple_Display
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Globals.mem.Attach();
             display();
             Console.SetOut(consoleLog);
         }
@@ -155,6 +156,31 @@ namespace A_Simple_Display
 
             }
 
+
+            //hacking in scenese for now
+            var scenes = SceneManager.getScenes();
+
+            tn = new TreeNode("!!SCENE HACK TEMP!!");
+             treeViewActors.Nodes.Add(tn);
+
+            foreach (var s in scenes)
+            {
+
+                var d = s.SceneInfo.NavZone;
+
+                tn = new TreeNode(s.SceneId.ToString("X"), new TreeNode[]
+                {
+                    new TreeNode("Scene SNO: " + s.SceneSNO), 
+                    new TreeNode("Scene X: " + s.SquareCountX), 
+                    new TreeNode("Scene Y: " + s.SquareCountY), 
+                    new TreeNode("LevelArea SNO: " + s.LevelAreaSNO), 
+                    new TreeNode("WordID: " + s.DynamicWorldId.ToString("X")), 
+                    new TreeNode("Position: " + s.Position), 
+                    new TreeNode("MarkerSetBounds: " + s.MarkerSetBounds.ToString()), 
+                });
+
+                treeViewActors.Nodes.Add(tn);
+            }
 
 
         }

@@ -373,13 +373,36 @@ namespace D3_Adventures.Memory_Handling
             this.ReadMemory(location, length, out buffer);
             return Encoding.ASCII.GetString(buffer, 0, length).TrimEnd(new char[1]);
         }
-
+        public string ReadMemoryAsString(uint location, int length, Encoding encoding)
+        {
+            byte[] buffer;
+            this.ReadMemory(location, length, out buffer);
+            return encoding.GetString(buffer, 0, length).TrimEnd(new char[1]);
+        }
         public uint ReadMemoryAsUint(uint location)
         {
             byte[] buffer;
             this.ReadMemory(location, 4, out buffer);
             return BitConverter.ToUInt32(buffer, 0);
         }
+
+
+        public unsafe T UnsafeReadToStruct<T>(IntPtr address) where T : struct
+        {
+
+            byte[] buffer = new byte[Marshal.SizeOf(typeof(T))];
+            fixed (byte* numRef = buffer)
+            {
+                if (((buffer = unsafeRead(address, Marshal.SizeOf(typeof(T)))) != null) && (buffer.Length != 0))
+                {
+                    return UnsafeReadStructure<T>((IntPtr)numRef);
+                }
+                else
+                    return new T();
+            }
+
+        }
+
 
         public bool ReadMemoryRetry(uint memoryLocation, int bufferLength, out byte[] lpBuffer)
         {
@@ -407,6 +430,24 @@ namespace D3_Adventures.Memory_Handling
             return true;
         }
 
+        public unsafe T UnsafeReadPointersToStruct<T>(bool isRelative = false, params IntPtr[] addresses) where T : struct
+        {
+            if (addresses.Length == 0)
+            {
+                throw new InvalidOperationException("Cannot read a value from unspecified addresses.");
+            }
+            if (addresses.Length == 1)
+            {
+                return this.UnsafeReadToStruct<T>(addresses[0]);
+            }
+            IntPtr ptr = this.UnsafeReadToStruct<IntPtr>(addresses[0]);
+            for (int i = 1; i < (addresses.Length - 1); i++)
+            {
+                ptr = this.UnsafeReadToStruct<IntPtr>(ptr + ((int)addresses[i]));
+            }
+            return this.UnsafeReadToStruct<T>(ptr + ((int)addresses[addresses.Length - 1]));
+        }
+
         public unsafe byte[] unsafeRead(IntPtr address, int count, bool isRelative = false)
         {
             byte[] buffer3;
@@ -429,6 +470,123 @@ namespace D3_Adventures.Memory_Handling
                 throw new AccessViolationException(string.Format("Could not read bytes from  {0:X}", address), new Win32Exception(Marshal.GetLastWin32Error()));
             }
             return null;
+        }
+
+        public T ReadMemory<T>(IntPtr address) where T : struct
+        {
+            byte[] buffer;
+            this.ReadMemory(address, Marshal.SizeOf(typeof(T)), out buffer);
+            return (T)RawDeserialize(buffer, 0, typeof(T));
+        }
+
+        public unsafe T[] ReadArray<T>(IntPtr address, int elements, bool isRelative = false) where T : struct
+        {
+            T[] result = new T[elements];
+            int size = Marshal.SizeOf(typeof(T));
+            for (int i = 0; i < elements; i++)
+            {
+                result[i] = ReadMemory<T>(address + i * size);
+            }
+            return result;
+        }
+
+        public IntPtr GetPtrFromVTable(IntPtr address, int index)
+        {
+            IntPtr ptr = this.UnsafeReadToStruct<IntPtr>(address);
+            return this.UnsafeReadToStruct<IntPtr>(ptr + (index * 4));
+        }
+
+        [System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptions]
+        private unsafe T UnsafeReadStructure<T>(IntPtr address) where T : struct
+        {
+            T local2;
+            try
+            {
+                object obj2;
+                if (address == IntPtr.Zero)
+                {
+                    throw new InvalidOperationException("Cannot retrieve a value at address 0");
+                }
+                switch (StructureWrapper<T>.typeCode_0)
+                {
+                    case TypeCode.Object:
+                        if (!(StructureWrapper<T>.type_0 == typeof(IntPtr)))
+                        {
+                            break;
+                        }
+                        return (T)Convert.ChangeType(address, typeof(T));
+
+                    case TypeCode.Boolean:
+                        obj2 = !(address == IntPtr.Zero);
+                        goto Label_01BE;
+
+                    case TypeCode.Char:
+                        obj2 = (char)address;
+                        goto Label_01BE;
+
+                    case TypeCode.SByte:
+                        obj2 = (sbyte)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Byte:
+                        obj2 = (byte)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Int16:
+                        obj2 = (short)address;
+                        goto Label_01BE;
+
+                    case TypeCode.UInt16:
+                        obj2 = (ushort)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Int32:
+                        obj2 = (int)address;
+                        goto Label_01BE;
+
+                    case TypeCode.UInt32:
+                        obj2 = (uint)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Int64:
+                        obj2 = (long)address;
+                        goto Label_01BE;
+
+                    case TypeCode.UInt64:
+                        obj2 = (ulong)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Single:
+                        obj2 = (float)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Double:
+                        obj2 = (double)address;
+                        goto Label_01BE;
+
+                    case TypeCode.Decimal:
+                        obj2 = (decimal)address;
+                        goto Label_01BE;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                if (!StructureWrapper<T>.bool_0)
+                {
+                    T local = default(T);
+                    Imports.RtlMoveMemory(StructureWrapper<T>.delegate1_0(ref local), (void*)address, StructureWrapper<T>.int_0);
+                    return local;
+                }
+                obj2 = Marshal.PtrToStructure(address, typeof(T));
+            Label_01BE:
+                local2 = (T)obj2;
+            }
+            catch (AccessViolationException)
+            {
+                Trace.WriteLine(string.Concat(new object[] { "Access Violation on ", address, " with type ", typeof(T).Name }));
+                local2 = default(T);
+            }
+            return local2;
         }
 
         private static void wardenCheck()
@@ -480,6 +638,22 @@ namespace D3_Adventures.Memory_Handling
             }
             byte[] bytes = encoding.GetBytes(value);
             return this.WriteMemory(address, bytes.Length, ref bytes);
+        }
+
+        public bool WriteStructure<T>(IntPtr address, T value) where T : struct
+        {
+            int num;
+            uint num2;
+            int Size = Marshal.SizeOf(value);
+            IntPtr ptr = Marshal.AllocHGlobal(Size);
+            Marshal.StructureToPtr(value, ptr, false);
+            byte[] destination = new byte[Size];
+            Marshal.Copy(ptr, destination, 0, Size);
+            Marshal.FreeHGlobal(ptr);
+            Imports.VirtualProtectEx(ProcessHandle, address, (IntPtr)Size, 0x40, out num2);
+            bool flag = Imports.WriteProcessMemory(ProcessHandle.DangerousGetHandle(), address, destination, Size, out num);
+            Imports.VirtualProtectEx(ProcessHandle, address, (IntPtr)Size, num2, out num2);
+            return flag;
         }
 
         // Properties

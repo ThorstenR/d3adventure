@@ -26,6 +26,7 @@ namespace D3_Adventures
         public static IntPtr winHandle = PT.GetProcessHandle("Diablo III");
 
         public static MemoryManager mem = new MemoryManager(winHandle);
+        public static SNOReader SNO = new SNOReader();
         public static bool screwWarden = true;
         public static Actor Me
         {
