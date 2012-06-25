@@ -40,10 +40,12 @@ namespace Maphack
             this.Height = rect.Height;
 
             // all mouseclicks on the window fall through to the window(s) behind
-            //Utilities.WinControl.WC.SetWindowLayeredMode(Globals.winHandle);
+            Utilities.WinControl.WC.SetWindowLayeredMode(Globals.winHandle);
 
             // set this window's style to d3's window's style for perfect match up of client space.
             //Utilities.WinControl.WC.SetWindowLong(this.Handle, 0, Utilities.WinControl.WC.GetWindowLong(Globals.winHandle, 0));
+
+            Utilities.WinControl.WC.winSetTopMost(this.Handle);
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
