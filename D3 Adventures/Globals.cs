@@ -27,7 +27,7 @@ namespace D3_Adventures
 
         public static MemoryManager mem = new MemoryManager(winHandle);
         public static SNOReader SNO = new SNOReader();
-        public static bool screwWarden = true;
+        public static bool screwWarden = false;
         public static Actor Me
         {
             get
