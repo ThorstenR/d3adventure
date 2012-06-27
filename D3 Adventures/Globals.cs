@@ -18,7 +18,7 @@ using Utilities.ProcessTools;
 
 namespace D3_Adventures
 {
-    public class Globals
+    public static class Globals
     {
         // Fields
         public static bool debugMessages = false;

@@ -25,47 +25,47 @@ namespace D3_Adventures.Structures
                 switch (table)
                 {
                     case SNO.ClientSNOTable.Actor:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.Actor;
                         break;
 
                     case SNO.ClientSNOTable.Worlds:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.Worlds;
                         break;
 
                     case SNO.ClientSNOTable.Monster:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.Monster;
                         break;
 
                     case SNO.ClientSNOTable.Act:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.Act;
                         break;
 
                     case SNO.ClientSNOTable.Power:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.Power;
                         break;
 
                     case SNO.ClientSNOTable.Scene:
-                        zero = (IntPtr)0x15f2190;
+                        zero = Offsets.Sno.Scene;
                         break;
 
                     case SNO.ClientSNOTable.MarkerSet:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.MarkerSet;
                         break;
 
                     case SNO.ClientSNOTable.Quest:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.Quest;
                         break;
 
                     case SNO.ClientSNOTable.SkillKit:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.SkillKit;
                         break;
 
                     case SNO.ClientSNOTable.StringList:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.StringList;
                         break;
 
                     case SNO.ClientSNOTable.GameBalance:
-                        zero = (IntPtr)Offsets.SNOActors;
+                        zero = Offsets.Sno.GameBalance;
                         break;
                 }
                 this.dictionary_1.Add(table, new SNOTable(zero, table));
