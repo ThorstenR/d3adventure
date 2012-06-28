@@ -1,4 +1,4 @@
-﻿using System;
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,7 @@ namespace D3_Adventures
             }
         }
         #region Object Manager
-        public static uint objectManager = 0x15A1BEC;
+        public static uint objectManager = 0x15A1BEC; // 1.0.3.100235
         public static uint objmanagerActorOffsetA = 0x8b0;
         public static uint objmanagerActorCount = 0x108;
         public static uint objmanagerActorOffsetB = 0x148;
@@ -65,7 +65,7 @@ namespace D3_Adventures
         }
 
         #region Interaction
-        public static uint interact = 0x15A1BD4;
+        public static uint interact = 0x15A1BD4; // 1.0.3.100235
         public static uint interactOffsetA = 0xA8;
         public static uint interactOffsetB = 0x58;
         public static uint interactOffsetUNK1 = 0x7F20; // set to 777C
@@ -105,7 +105,7 @@ namespace D3_Adventures
 
         #region Actor Common Data 
         // http://www.ownedcore.com/forums/diablo-3/diablo-3-bots-programs/diablo-3-memory-editing/356250-autoit-diablo-3-click-move-interaction-actor-indexing.html#post2311789
-        public static uint ACDBase = 0x15A1BEC;
+        public static uint ACDBase = 0x15A1BEC; // 1.0.3.100235
         public static uint ACDOffset1 = 0x850;
         public static uint ACDOffset2 = 0;
         public static uint ACDOffset3 = 0x11C;
@@ -138,8 +138,8 @@ namespace D3_Adventures
         public static uint fnLocalPlayerGUID = 0x97EC20;
         public static uint fnUsePowerToActor = 0x97C9B0;
         public static uint fnUsePowerToLocation = 0x97C770;
-        public static uint fnGetSnoInfoForSnoId = 0x8A7500;
-        public static uint gnGetDisplayedNameForSnoId = 0x826B10;
+        public static uint fnGetSnoInfoForSnoId = 0x8A7500; // 1.0.3.100235
+        public static uint gnGetDisplayedNameForSnoId = 0x826B10; // 1.0.3.100235
         #endregion
 
 
