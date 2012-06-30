@@ -26,7 +26,7 @@ namespace D3_Adventures
                 return new PointF(0, 0);
 
             double aspectChange = (resolutionX/resolutionY)/(800/600); // 800/600 = default aspect ratio
-            Vec3 currentLoc = Data.getCurrentPos();
+            Vec3 currentLoc = Data.GetCurrentPos();
 
             double xd = vec3.x - currentLoc.x;
             double yd = vec3.y - currentLoc.y;

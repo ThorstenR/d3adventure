@@ -31,7 +31,7 @@ namespace D3_Adventures
 
         private static void movementTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Vec3 pos = Data.getCurrentPos();
+            Vec3 pos = Data.GetCurrentPos();
             double distance = Math.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
             if (distance < 2 || mem.ReadMemoryAsFloat(Offsets.clickToMoveToggle) == 0)
             {
@@ -46,7 +46,7 @@ namespace D3_Adventures
         //  timered for now until someone changes it, or sees how it works first 
         public static void interactGUID(uint guid, uint snoPower)
         {
-            Vec3 pos = Data.getCurrentPos();
+            Vec3 pos = Data.GetCurrentPos();
             
             mem.WriteMemoryAsInt(Offsets.itrInteractE + Offsets.interactOffsetUNK1, 0x777C);
             mem.WriteMemoryAsInt(Offsets.itrInteractE + Offsets.interactOffsetUNK2, 0x1);

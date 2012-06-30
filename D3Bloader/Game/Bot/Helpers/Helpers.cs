@@ -24,7 +24,7 @@ namespace D3Bloader.Game
             }
             else
             {
-                if (owner.CurrentTarget.Value.distanceFromMe >= 50 || Math.Abs(owner.CurrentTarget.Value.Pos1.z - Data.getCurrentPos().z) > 5)
+                if (owner.CurrentTarget.Value.distanceFromMe >= 50 || Math.Abs(owner.CurrentTarget.Value.Pos1.z - Data.GetCurrentPos().z) > 5)
                 {
                     Log.write("LOST TARGET");
                     owner.CurrentTarget = null;
@@ -38,14 +38,14 @@ namespace D3Bloader.Game
         //THIS NEEDS A LOT OF WORK.
         public static Actor? getNearestEnemy()
         {
-            var monsters = Data.getMonsters();
+            var monsters = Data.GetMonsters();
 
             Actor? m = null;
 
             //should already be sorted by distance.
             foreach (var monster in monsters)
             {
-                if (monster.unknown_data2 == 29944 && monster.id_acd != Data.toonID && Math.Abs(monster.Pos1.z - Data.getCurrentPos().z) < 5 &&
+                if (monster.unknown_data2 == 29944 && monster.id_acd != Data.toonID && Math.Abs(monster.Pos1.z - Data.GetCurrentPos().z) < 5 &&
                     monster.Exists() && monster.distanceFromMe != 0.0 && monster.distanceFromMe < 50 && monster.id_acd.ToString("X") != "FFFFFFFF")
                 {
                     if (monster.name.ToLower().Contains("leah")) continue;
@@ -70,7 +70,7 @@ namespace D3Bloader.Game
 
             if (owner.isMoving)
             {
-                Vec3 pos = Data.getCurrentPos();
+                Vec3 pos = Data.GetCurrentPos();
 
 //                 float xd = _vMovingTo.x - pos.x;
 //                 float yd = _vMovingTo.y - pos.y;
@@ -93,7 +93,7 @@ namespace D3Bloader.Game
                     return false;
                 }
 
-                Vec3 pos = Data.getCurrentPos();
+                Vec3 pos = Data.GetCurrentPos();
                 double distance = Math.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z);
                 if (distance < 2 || Globals.mem.ReadMemoryAsFloat(Offsets.clickToMoveToggle) == 0)
                 {

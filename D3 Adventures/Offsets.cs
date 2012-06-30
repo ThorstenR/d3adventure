@@ -47,7 +47,7 @@ namespace D3_Adventures
             {
                 if (Globals.debugMessages) Console.WriteLine("Looking for local player");
                 uint curOffset = itrObjectManagerD;
-                uint count = Data.getActorCount();
+                uint count = Data.GetActorCount();
 
                 for (int i = 0; i < count; i++)
                 {

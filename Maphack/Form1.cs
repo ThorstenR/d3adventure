@@ -52,7 +52,10 @@ namespace Maphack
         {
             while (true)
             {
-                updateMapV2();
+                if (this.ClientSize.Height > 0 && this.ClientSize.Width > 0)
+                {
+                    updateMapV2();
+                }
                 Thread.Sleep(10);
             }
         }
@@ -103,7 +106,7 @@ namespace Maphack
             //formGraphics = this.CreateGraphics();
 
             Actor[] _monsters;
-            _monsters = Data.getMapItems();
+            _monsters = Data.GetMapItems();
 
 
             //formGraphics.DrawLine(myPen, 0, 0, 2000, 2000);
@@ -135,7 +138,7 @@ namespace Maphack
             drawRectBuffer(0, 0, ClientSize.Width, ClientSize.Height, "Gray", ref BackBuffer);
 
             Actor[] _monsters;
-            _monsters = Data.getMapItems();//getMapItems();
+            _monsters = Data.GetMapItems();//getMapItems();
 
             foreach (Actor actor in _monsters)
             {

@@ -105,7 +105,7 @@ namespace D3Bloader.Game
         /// <summary>
         /// Simple Item Pickup
         /// </summary>
-        public override void pickItem(Data.gameObject itm)
+        public override void pickItem(Actor itm)
         {
         }
 

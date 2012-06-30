@@ -40,8 +40,8 @@ namespace A_Simple_Display
             TreeNode tn;
 
             actors = Data.IterateActors();
-            items = Data.getItems();
-            monsters = Data.getMonsters();
+            items = Data.GetItems();
+            monsters = Data.GetMonsters();
 
             treeViewActors.Nodes.Clear();
             treeViewItems.Nodes.Clear();
@@ -121,7 +121,7 @@ namespace A_Simple_Display
                 treeViewMonsters.Nodes.Add(tn);
             }
 
-            ActorCommonData[] acds = Data.iterateACD();
+            ActorCommonData[] acds = Data.IterateACD();
             treeViewACD.Nodes.Clear();
 
             foreach (ActorCommonData acd in acds)

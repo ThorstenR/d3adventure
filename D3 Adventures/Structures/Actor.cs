@@ -108,7 +108,7 @@ namespace D3_Adventures.Structures
         {
             get
             {
-                Vec3 currentLoc = Data.getCurrentPos();
+                Vec3 currentLoc = Data.GetCurrentPos();
                 return GameUtilities.Distance(currentLoc, Pos1);
             }
         }

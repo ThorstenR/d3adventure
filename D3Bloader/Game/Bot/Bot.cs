@@ -276,7 +276,7 @@ namespace D3Bloader.Game
             return items;
         }
 
-        public virtual void pickItem(Data.gameObject item)
+        public virtual void pickItem(Actor item)
         {
         }
 

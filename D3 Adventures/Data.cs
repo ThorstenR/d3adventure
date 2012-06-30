@@ -19,14 +19,14 @@ namespace D3_Adventures
             return IterateActors().Where(o => o.id_acd == toonID).FirstOrDefault();
         }
 
-        public static uint getActorCount()
+        public static uint GetActorCount()
         {
             uint count = mem.ReadMemoryAsUint(Offsets.itrObjectManagerCount);
             if (Globals.debugMessages) Console.WriteLine("Number of Actors: " + count);
             return count;
         }
 
-        public static Vec3 getCurrentPos()
+        public static Vec3 GetCurrentPos()
         {
             Vec3 ret;
             ret.x = mem.ReadMemoryAsFloat(Offsets.clickToMoveCurX);
@@ -38,65 +38,6 @@ namespace D3_Adventures
             return ret;//Globals.Me.Pos1;//
         }
 
-        // Obsolete with new Actor struct.
-        public struct gameObject
-        {
-            public uint guid;
-            public string name;
-            public Vec3 position;
-            public int data;
-            public int data2;
-            public int data3;
-            public double distanceFromMe;
-        }
-
-        // Obsolete with new IterateActors
-        public static gameObject[] iterateObjectList()
-        {
-            if (Globals.debugMessages)
-            {
-                Console.WriteLine("Iterating through Actors");
-                Console.WriteLine("First Actor Location At: " + Offsets.itrObjectManagerD.ToString("X"));
-            }
-            uint curOffset = Offsets.itrObjectManagerD;
-            uint count = getActorCount();
-            gameObject[] objects = new gameObject[count];
-
-            for (int i = 0; i < count; i++)
-            {
-                uint guid = mem.ReadMemoryAsUint(curOffset + 0x4);
-                string name = mem.ReadMemoryAsString(curOffset + 0x8, 64);
-                float posX = mem.ReadMemoryAsFloat(curOffset + 0xB0);
-                float posY = mem.ReadMemoryAsFloat(curOffset + 0xB4);
-                float posZ = mem.ReadMemoryAsFloat(curOffset + 0xB8);
-                int data = mem.ReadMemoryAsInt(curOffset + 0x1FC);
-                int data2 = mem.ReadMemoryAsInt(curOffset + 0x1CC);
-                int data3 = mem.ReadMemoryAsInt(curOffset + 0x1C0);
-
-                Vec3 currentLoc = getCurrentPos();
-                float xd = posX - currentLoc.x;
-                float yd = posY - currentLoc.y;
-                float zd = posZ - currentLoc.z;
-                double distance = Math.Sqrt(xd * xd + yd * yd + zd * zd);
-
-                //objects[i][0] = i;
-                objects[i].guid = guid;
-                objects[i].name = name;
-                objects[i].position.x = posX;
-                objects[i].position.y = posY;
-                objects[i].position.z = posZ;
-                objects[i].data = data;
-                objects[i].data2 = data2;
-                objects[i].data3 = data3;
-                objects[i].distanceFromMe = distance;
-
-                if (Globals.debugMessages)  Console.WriteLine(i + "\t : " + curOffset.ToString("X") + " guid: " + guid + " : " + data.ToString("X") + " : " + data2.ToString("X") + " : " + data3.ToString("X") + " \t x:" + posX + " y:" + posY + " z:" + posZ + " \t" + name);
-
-                curOffset = curOffset + Offsets.objmanagerStrucSize;
-            }
-            return objects;
-        }
-
         public static Actor[] IterateActors()
         {
             if (Globals.debugMessages)
@@ -106,7 +47,7 @@ namespace D3_Adventures
             }
 
             uint curOffset = Offsets.itrObjectManagerD;
-            uint count = getActorCount();
+            uint count = GetActorCount();
             Actor[] actors = new Actor[count];
 
             for (int i = 0; i < count; i++)
@@ -119,7 +60,7 @@ namespace D3_Adventures
             return actors;
         }
 
-        public static ActorCommonData[] iterateACD()
+        public static ActorCommonData[] IterateACD()
         {
             if (Globals.debugMessages)
             {
@@ -140,20 +81,20 @@ namespace D3_Adventures
             return acds;
         }
 
-        public static Actor[] getItems()
+        public static Actor[] GetItems()
         {
             return IterateActors().OrderBy(a => a.distanceFromMe).Where(a => a.unknown_data1 == 2 && a.unknown_data2 == uint.MaxValue).ToArray<Actor>();
         }
 
-        public static Actor[] getMonsters()
+        public static Actor[] GetMonsters()
         {
             return IterateActors().OrderBy(a => a.distanceFromMe).Where(a => a.unknown_data2 == 29944).ToArray<Actor>();
         }
         //FOR maphack, the next version of maphack will use getMonsters.
-        public static Actor[] getMapItems()
+        public static Actor[] GetMapItems()
         {
             List<Actor> filteredItems = new List<Actor>();
-            Actor[] items = getMonsters();
+            Actor[] items = GetMonsters();
             filteredItems = items.Where(mob =>
                                         //mob.id_acd != Data.toonID &&
                                         mob.distanceFromMe != 0 &&

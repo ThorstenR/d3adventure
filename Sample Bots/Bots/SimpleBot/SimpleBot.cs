@@ -43,7 +43,7 @@ namespace D3Bloader.Script.SimpleBot
         public bool poll()
         {
             int now = Environment.TickCount;
-            _monsters = Data.getMonsters();
+            _monsters = Data.GetMonsters();
 
             Log.write(String.Format("X: {0} Y: {1}", Data.GetMe().Pos1.x, Data.GetMe().Pos1.y));
 
