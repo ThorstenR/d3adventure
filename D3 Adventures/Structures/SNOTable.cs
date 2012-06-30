@@ -24,7 +24,7 @@ namespace D3_Adventures.Structures
 
         public void Dispose()
         {
-            if (!this.IsDisposed)
+            if (!this.IsDisposed && base.Memory.Injector != null)
             {
                 this.IsDisposing = true;
                 using (new ASMExecutorMonitor(base.Memory.Injector))
