@@ -17,8 +17,7 @@ namespace D3_Adventures.Structures
         private char[] _name;     // 0x008               //The name the actor, not the name that are shown ingame, most likely model name
         public uint id_sno;     // 0x088                //Actor type, every mob type have it's own ID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] unknown_8C;
-        //public fixed byte unknown_8C[4];     // 0x08C 
+        public byte[] unknown_8C;// 0x08C 
         public Vec3 Rot;     // 0x090 
         public float fUnk_Rot;     // 0x09C 
         public Vec3 Pos;     // 0x0A0 
@@ -27,58 +26,49 @@ namespace D3_Adventures.Structures
         public float fUnk_734;                  // 0x0BC 
         public Vec3 Pos2;                       // 0x0C0 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] unknown_CC;
-        //public fixed byte unknown_CC[4];        // 0x0CC 
+        public byte[] unknown_CC;// 0x0CC 
         public float RadiusDefault;             // 0x0D0 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public byte[] unknown_D4;
-        //public fixed byte unknown_D4[4];        // 0x0D4 
+        public byte[] unknown_D4; // 0x0D4 
         public uint guid_world;                 // 0x0D8 
         public uint guid_Unk;                   // 0x0DC
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-        public byte[] unknown_E0;
-        //public fixed byte unknown_E0[32];       // 0x0E0
+        public byte[] unknown_E0; // 0x0E0
         public Vec3 Pos3;                       // 0x100
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 52)]
-        public byte[] unknown_10C;
-        //public fixed byte unknown_10C[52];      // 0x10C 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
+        public byte[] unknown_10C;// 0x10C
+        public uint FAG; // 0x120                               // FastAttribGroups
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 28)]
+        public byte[] unknown_124;// 0x124
         public Vec3 Pos4;                       // 0x140
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public byte[] unknown_14C;
-        //public fixed byte unknown_14C[16];      // 0x14C 
+        public byte[] unknown_14C; // 0x14C
         public uint N13E1EB50;                  // 0x15C
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 96)]
-        public byte[] unknown_160;
-        //public fixed byte unknown_160[96];      // 0x160 
+        public byte[] unknown_160; // 0x160
         public uint unknown_data3;              // 0x1C0
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] unknown_1C4;
-        //public fixed byte unknown_1C4[8];// 0x1C4
+        public byte[] unknown_1C4; // 0x1C4
         public uint unknown_data2; // 0x1CC
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 44)]
-        public byte[] unknown_1D0;
-        //public fixed byte unknown_1D0[44]; // 0x1D0
+        public byte[] unknown_1D0; // 0x1D0
         public uint unknown_data1;// 0x1FC
         public Vec3 PosObj;     // 0x210 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 356)]
-        public byte[] unknown_21C;
-        //public fixed byte unknown_21C[356];     // 0x21C 
+        public byte[] unknown_21C; // 0x21C 
         public ActorMovement* Mov;     // 0x380 
         public float Direction;     // 0x384 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
-        public byte[] unknown_388;
-        //public fixed byte unknown_388[24];     // 0x388 
+        public byte[] unknown_388; // 0x388 
         public Vec3 Vel;     // 0x3A0 
         public Vec3 Pos6;     // 0x3AC 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 88)]
         public byte[] unknown_3B8;
-		public long Alive;
-        //public fixed byte unknown_3B8[96];     // 0x3B8 
+		public long Alive; // 0x3B8 
         public uint Frame;     // 0x418 
         public uint Diff;     // 0x41C 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public byte[] unknown_420;
-        //public fixed byte unknown_420[8];     // 0x420 
+        public byte[] unknown_420; // 0x420
         // END OF MEM STRUCT
 
         public uint mem_location; // used for checking for changes later on
