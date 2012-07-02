@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Util
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maphack", "Maphack\Maphack.csproj", "{3339CD14-B965-47E1-BF0C-768C9BF604B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maphack_v2_Xna", "Maphack_v2_Xna\Maphack_v2_Xna.csproj", "{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,12 @@ Global
 		{3339CD14-B965-47E1-BF0C-768C9BF604B2}.Release|Any CPU.ActiveCfg = Release|x86
 		{3339CD14-B965-47E1-BF0C-768C9BF604B2}.Release|x86.ActiveCfg = Release|x86
 		{3339CD14-B965-47E1-BF0C-768C9BF604B2}.Release|x86.Build.0 = Release|x86
+		{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}.Debug|x86.ActiveCfg = Debug|x86
+		{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}.Debug|x86.Build.0 = Debug|x86
+		{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}.Release|Any CPU.ActiveCfg = Release|x86
+		{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}.Release|x86.ActiveCfg = Release|x86
+		{E909FDB5-AB18-4419-9D9E-D2FEB5B0EE13}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
