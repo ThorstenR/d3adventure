@@ -96,11 +96,12 @@ namespace D3_Adventures
             List<Actor> filteredItems = new List<Actor>();
             Actor[] items = GetMonsters();
             filteredItems = items.Where(mob =>
-                                        //mob.id_acd != Data.toonID &&
+                                        mob.id_acd != Data.toonID &&
                                         mob.distanceFromMe != 0 &&
                                         mob.Exists() &&            /*is do NOT check if the monster is dead - use Actor.Alive*/
                                         mob.unknown_1C4[0] == 1 && /* Were it is a "monster"*/
-                                        mob.unknown_data2 == 29944
+                                        mob.unknown_data2 == 29944 &&
+                                        mob.isAlive() == true
                                         ).ToList();
             return filteredItems.ToArray();
         }
