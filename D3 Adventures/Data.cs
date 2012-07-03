@@ -235,6 +235,7 @@ namespace D3_Adventures
                         {
                             atribData = mem.ReadMemoryAsUint(data + 0x4);
                             if (atribData.ToString("X").StartsWith("FFFFF")) // MUST BE  WAY BETTER WAY TO TEST LIKE SHIFTING BYTES
+                            //if((atribData & 0xFFFFF000) == 0xFFFFF000)             - Not sure i understand the comment, but looking at the code I think this might be what you are looking for?
                             {
                                 if (atribData.ToString("X").EndsWith(attribute.offset.ToString("X")))
                                 {
