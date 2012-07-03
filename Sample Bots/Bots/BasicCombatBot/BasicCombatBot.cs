@@ -63,7 +63,7 @@ namespace D3Bloader.Script.BasicCombatBot
         [Scripts.Event("Toon.AttackEnemy")]
         public bool attackEnemy(Actor who)
         {
-            Actions.interactGUID(who.id_acd, SNO.SNOPowerId.Barbarian_Bash);
+            Actions.PowerUseGUID(who.id_acd, SNO.SNOPowerId.Barbarian_Bash);
             return true;
         }
 

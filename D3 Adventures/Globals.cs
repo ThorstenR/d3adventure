@@ -16,6 +16,9 @@ using D3_Adventures.Structures;
 using System.IO;
 using Utilities.ProcessTools;
 
+// need to do proper documentation 
+//  http://msdn.microsoft.com/en-us/library/b2s063f7.aspx
+
 namespace D3_Adventures
 {
     public static class Globals

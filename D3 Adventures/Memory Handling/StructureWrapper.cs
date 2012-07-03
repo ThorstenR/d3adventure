@@ -1,63 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using System.Text;
 using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Runtime.InteropServices;
-
 
 namespace D3_Adventures.Memory_Handling
 {
-
-    internal static class StructureWrapper<T>
+    public unsafe static class StructureWrapper<T>
     {
-        public static bool bool_0;
-        internal static readonly Delegate1 delegate1_0;
-        [CompilerGenerated]
-        private static Func<FieldInfo, bool> func_0;
-        public static int int_0;
-        public static Type type_0;
-        public static TypeCode typeCode_0;
+        public static TypeCode TypeCode = Type.GetTypeCode(typeof(T));
+        public static int Size;
+        public static Type Type;
+        public static bool HasMarshaledFields;
+        internal static readonly StructureWrapper<T>.Delegate1 PinnedPointer;
 
-        static unsafe StructureWrapper()
+        static StructureWrapper()
         {
-            StructureWrapper<T>.typeCode_0 = Type.GetTypeCode(typeof(T));
             if (typeof(T) == typeof(bool))
             {
-                StructureWrapper<T>.int_0 = 1;
-                StructureWrapper<T>.type_0 = typeof(T);
+                StructureWrapper<T>.Size = 1;
+                StructureWrapper<T>.Type = typeof(T);
             }
             else if (typeof(T).IsEnum)
             {
                 Type enumUnderlyingType = typeof(T).GetEnumUnderlyingType();
-                StructureWrapper<T>.int_0 = Marshal.SizeOf(enumUnderlyingType);
-                StructureWrapper<T>.type_0 = enumUnderlyingType;
-                StructureWrapper<T>.typeCode_0 = Type.GetTypeCode(enumUnderlyingType);
+                StructureWrapper<T>.Size = Marshal.SizeOf(enumUnderlyingType);
+                StructureWrapper<T>.Type = enumUnderlyingType;
+                StructureWrapper<T>.TypeCode = Type.GetTypeCode(enumUnderlyingType);
             }
             else
             {
-                StructureWrapper<T>.int_0 = Marshal.SizeOf(typeof(T));
-                StructureWrapper<T>.type_0 = typeof(T);
+                StructureWrapper<T>.Size = Marshal.SizeOf(typeof(T));
+                StructureWrapper<T>.Type = typeof(T);
             }
-            if (StructureWrapper<T>.func_0 == null)
-            {
-                StructureWrapper<T>.func_0 = new Func<FieldInfo, bool>(StructureWrapper<T>.smethod_0);
-            }
-            StructureWrapper<T>.bool_0 = StructureWrapper<T>.type_0.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).Any<FieldInfo>(StructureWrapper<T>.func_0);
-            DynamicMethod method = new DynamicMethod(string.Format("GetPinnedPtr<{0}>", typeof(T).FullName.Replace(".", "<>")), typeof(void*), new Type[] { typeof(T).MakeByRefType() }, typeof(StructureWrapper<>).Module);
-            ILGenerator iLGenerator = method.GetILGenerator();
-            iLGenerator.Emit(OpCodes.Ldarg_0);
-            iLGenerator.Emit(OpCodes.Conv_U);
-            iLGenerator.Emit(OpCodes.Ret);
-            StructureWrapper<T>.delegate1_0 = (Delegate1)method.CreateDelegate(typeof(Delegate1));
+            StructureWrapper<T>.HasMarshaledFields = Enumerable.Any<FieldInfo>((IEnumerable<FieldInfo>)StructureWrapper<T>.Type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic), (Func<FieldInfo, bool>)(m => Enumerable.Any<object>((IEnumerable<object>)m.GetCustomAttributes(typeof(MarshalAsAttribute), true))));
+            DynamicMethod dynamicMethod = new DynamicMethod(string.Format("GetPinnedPtr<{0}>", (object)typeof(T).FullName.Replace(".", "<>")), typeof(void*), new Type[1]
+      {
+        typeof (T).MakeByRefType()
+      }, typeof(StructureWrapper<T>).Module);
+            ILGenerator ilGenerator = dynamicMethod.GetILGenerator();
+            ilGenerator.Emit(OpCodes.Ldarg_0);
+            ilGenerator.Emit(OpCodes.Conv_U);
+            ilGenerator.Emit(OpCodes.Ret);
+            StructureWrapper<T>.PinnedPointer = (StructureWrapper<T>.Delegate1)dynamicMethod.CreateDelegate(typeof(StructureWrapper<T>.Delegate1));
         }
 
-        [CompilerGenerated]
-        private static bool smethod_0(FieldInfo m)
-        {
-            return m.GetCustomAttributes(typeof(MarshalAsAttribute), true).Any<object>();
-        }
-
-        internal unsafe delegate void* Delegate1(ref T value);
+        internal delegate void* Delegate1(ref T value);
     }
 }

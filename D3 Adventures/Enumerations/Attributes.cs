@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace D3_Adventures.Enumerations
 {
     // datagram from Actor Attributes
     public struct ActorAttribute
     {
-        public uint offset { get; set; }
-        public Type type { get; set; }
+        public uint offset;// { get; set; }
+        public Type type;// { get; set; }
 
         public ActorAttribute(uint offset, Type type)
         {
@@ -21,6 +23,38 @@ namespace D3_Adventures.Enumerations
     // had to use struct since I couldn't have an abstract enum
     public struct ActorAttributes
     {
+        public static Dictionary<string, ActorAttribute> _all
+        {
+            get
+            {
+                FieldInfo[] fields = typeof(ActorAttributes).GetFields();
+                Dictionary<string, ActorAttribute> ret = new Dictionary<string,ActorAttribute>();
+
+                foreach (FieldInfo fi in fields)
+                {
+                    ret.Add(fi.Name , (ActorAttribute)fi.GetValue(null));
+                }
+                return ret;
+            }
+        }
+
+        public static string[] _names
+        {
+            get
+            {
+                FieldInfo[] fields = typeof(ActorAttributes).GetFields();
+                string[] ret = new string[fields.Length];
+                int i = 0;
+
+                foreach (FieldInfo fi in fields)
+                {
+                    ret[i] = fi.Name;
+                    i++;
+                }
+                return ret;
+            }
+        }
+        #region Attributes
         public static ActorAttribute Axe_Bad_Data = new ActorAttribute(0x000, typeof(int));
         public static ActorAttribute Attribute_Timer = new ActorAttribute(0x001, typeof(float));
         public static ActorAttribute Attribute_Pool = new ActorAttribute(0x002, typeof(float));
@@ -847,5 +881,6 @@ namespace D3_Adventures.Enumerations
         public static ActorAttribute Never_Deactivates = new ActorAttribute(0x337, typeof(float));
         public static ActorAttribute Account_Under_Review = new ActorAttribute(0x338, typeof(float));
         public static ActorAttribute Projectile_Detonate_Time = new ActorAttribute(0x339, typeof(float));
+        #endregion
     }
 }

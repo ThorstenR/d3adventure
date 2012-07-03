@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Enumerations\Attributes.cs" />
     <Compile Include="Enumerations\NavCellFlags.cs" />
     <Compile Include="GameUtilities.cs" />
     <Compile Include="Injector\ASMExectuorMonitor.cs" />

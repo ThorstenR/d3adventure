@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
-
+using System.Reflection;
 
 namespace D3_Adventures.Structures
 {
@@ -108,6 +108,38 @@ namespace D3_Adventures.Structures
             if (mem_location == null)
                 throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
             return (id_acd == Globals.mem.ReadMemoryAsUint(mem_location + 0x4));
+        }
+
+        public string ToString()
+        {
+            FieldInfo[] fis = typeof(Actor).GetFields();
+            
+            StringBuilder sb = new StringBuilder();
+
+            foreach (FieldInfo fi in fis)
+            {
+                if (fi.FieldType.Name == "UInt32")
+                    sb.Append(" [" + fi.Name + " = 0x" + ((uint)fi.GetValue(this)).ToString("X") + "] ");
+                else
+                    sb.Append(" [" + fi.Name + " = " + fi.GetValue(this) + "] ");
+            }
+            return sb.ToString(); ;
+        }
+
+        public Dictionary<string, string> Fields()
+        {
+            Dictionary<string, string> fields = new Dictionary<string, string>();
+            FieldInfo[] fis = typeof(Actor).GetFields();
+
+            foreach (FieldInfo fi in fis)
+            {
+                if (fi.FieldType.Name == "UInt32")
+                    fields.Add(fi.Name, "0x" + ((uint)fi.GetValue(this)).ToString("X"));
+                else
+                    fields.Add(fi.Name, fi.GetValue(this).ToString());
+            }
+
+            return fields;
         }
     }
 

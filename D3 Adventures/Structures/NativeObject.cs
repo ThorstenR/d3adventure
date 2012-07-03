@@ -16,6 +16,11 @@ namespace D3_Adventures.Structures
             this.mPntr = ptr;
         }
 
+        protected NativeObject(uint ptr)
+        {
+            this.mPntr = (IntPtr)ptr;
+        }
+
         protected IntPtr GetVFunc(IntPtr vtable, int index)
         {
             return this.Memory.GetPtrFromVTable(vtable, index);

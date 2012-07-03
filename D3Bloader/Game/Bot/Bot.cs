@@ -286,7 +286,7 @@ namespace D3Bloader.Game
         public void moveTo(float x, float y, float z)
         {
             Log.write(String.Format("Moving to {0},{1}", x, y));
-            Actions.moveToPos(x, y, z);
+            Actions.MoveToPos(x, y, z);
             _tickLastMove = Environment.TickCount;
         }
         #endregion

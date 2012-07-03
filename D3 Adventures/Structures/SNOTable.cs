@@ -15,7 +15,7 @@ namespace D3_Adventures.Structures
         internal SNO.ClientSNOTable clientSNOTable_0;
         internal readonly Dictionary<int, SNORecord> dictionary_0;
 
-        internal SNOTable(IntPtr ptr, SNO.ClientSNOTable type)
+        internal SNOTable(uint ptr, SNO.ClientSNOTable type)
             : base(ptr)
         {
             this.dictionary_0 = new Dictionary<int, SNORecord>();

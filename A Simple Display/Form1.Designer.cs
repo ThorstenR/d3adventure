@@ -33,6 +33,7 @@ namespace A_Simple_Display
             this.treeViewActors = new System.Windows.Forms.TreeView();
             this.contextMenuStripTreeNode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.getAttributeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlDisplay = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -53,6 +54,10 @@ namespace A_Simple_Display
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBoxAttributes = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.richTextBoxConsole = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripTreeNode.SuspendLayout();
             this.tabControlDisplay.SuspendLayout();
@@ -77,22 +82,29 @@ namespace A_Simple_Display
             // contextMenuStripTreeNode
             // 
             this.contextMenuStripTreeNode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.getAttributeToolStripMenuItem});
             this.contextMenuStripTreeNode.Name = "contextMenuStripTreeNode";
-            this.contextMenuStripTreeNode.Size = new System.Drawing.Size(120, 26);
+            this.contextMenuStripTreeNode.Size = new System.Drawing.Size(143, 48);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuItem1.Text = "Get Item";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // getAttributeToolStripMenuItem
+            // 
+            this.getAttributeToolStripMenuItem.Name = "getAttributeToolStripMenuItem";
+            this.getAttributeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.getAttributeToolStripMenuItem.Text = "Get Attribute";
+            // 
             // tabControlDisplay
             // 
-            this.tabControlDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlDisplay.Controls.Add(this.tabPage1);
             this.tabControlDisplay.Controls.Add(this.tabPage2);
             this.tabControlDisplay.Controls.Add(this.tabPage3);
@@ -206,7 +218,11 @@ namespace A_Simple_Display
             this.toolStripSeparator3,
             this.toolStripButton4,
             this.toolStripSeparator4,
-            this.toolStripButton5});
+            this.toolStripButton5,
+            this.toolStripSeparator5,
+            this.toolStripLabel1,
+            this.toolStripComboBoxAttributes,
+            this.toolStripButton6});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(814, 25);
@@ -283,10 +299,36 @@ namespace A_Simple_Display
             this.toolStripButton5.Text = "Attack";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(59, 22);
+            this.toolStripLabel1.Text = "Attributes";
+            // 
+            // toolStripComboBoxAttributes
+            // 
+            this.toolStripComboBoxAttributes.Name = "toolStripComboBoxAttributes";
+            this.toolStripComboBoxAttributes.Size = new System.Drawing.Size(240, 25);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(79, 22);
+            this.toolStripButton6.Text = "Get Attribute";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
             // richTextBoxConsole
             // 
-            this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxConsole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxConsole.Location = new System.Drawing.Point(453, 49);
             this.richTextBoxConsole.Name = "richTextBoxConsole";
             this.richTextBoxConsole.ReadOnly = true;
@@ -346,6 +388,11 @@ namespace A_Simple_Display
         private System.Windows.Forms.RichTextBox richTextBoxConsole;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripMenuItem getAttributeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxAttributes;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
     }
 }
 

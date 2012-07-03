@@ -4,15 +4,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 using D3_Adventures;
 using D3_Adventures.Structures;
 using D3_Adventures.Enumerations;
-
-using System.IO;
 using D3_Adventures.Memory_Handling;
+using Utilities;
 
 namespace A_Simple_Display
 {
@@ -30,9 +31,11 @@ namespace A_Simple_Display
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Globals.mem.Attach();
+            // Globals.mem.Attach();
             display();
             Console.SetOut(consoleLog);
+
+            toolStripComboBoxAttributes.Items.AddRange(ActorAttributes._names);
         }
 
         private void display()
@@ -49,30 +52,17 @@ namespace A_Simple_Display
 
             foreach (Actor a in actors)
             {
-                //if (o.data == 2 && o.data2 == -1) // just items 
-                //if (o.data2 == 29944) // monsters
-                tn = new TreeNode(a.name, new TreeNode[]
+                tn = new TreeNode("TEST");
+                Dictionary<string, string> fields = a.Fields();
+                TreeNode[] nodes = new TreeNode[fields.Count];
+                int i = 0;
+
+                foreach (KeyValuePair<string, string> f in fields)
                 {
-                    new TreeNode("ID ACD: " + a.id_acd.ToString("X")), 
-                    new TreeNode("ID Actor: " + a.id_actor.ToString("X")),
-                    new TreeNode("ID SNO: " + a.id_sno.ToString("X")),
-                    new TreeNode("World: "+a.guid_world.ToString("X")),
-                    new TreeNode("Dist From Me: " + a.distanceFromMe),
-                    new TreeNode("POS: "+a.Pos.ToString()),
-                    new TreeNode("POS1: "+a.Pos1.ToString()),
-                    new TreeNode("POS2: "+a.Pos2.ToString()),
-                    new TreeNode("POS3: "+a.Pos3.ToString()),
-                    new TreeNode("POS4: "+a.Pos4.ToString()),
-                    new TreeNode("POS6: "+a.Pos6.ToString()),
-                    new TreeNode("Data1: " + a.unknown_data1.ToString("X")),
-                    new TreeNode("Data2: " + a.unknown_data2.ToString("X")),
-                    new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
-                    new TreeNode("MemLocation: 0x" + a.mem_location.ToString("X")),
-                    new TreeNode("Life Percentage?: " + mem.ReadMemoryAsFloat(a.mem_location + 0x408)),
-                    new TreeNode("Alive?: " + a.isAlive()),
-                    //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
-                });
-                treeViewActors.Nodes.Add(tn);
+                    nodes[i] = new TreeNode(f.Key + " = " + f.Value);
+                    i++;
+                }
+                treeViewActors.Nodes.Add(new TreeNode(a.name, nodes));
             }
 
             foreach (Actor a in items)
@@ -118,6 +108,7 @@ namespace A_Simple_Display
                     new TreeNode("Data3: " + a.unknown_data3.ToString("X")),
                     //new TreeNode("Life Percentage?: " + a.unknown_healthPercent)
                 });
+
                 treeViewMonsters.Nodes.Add(tn);
             }
 
@@ -158,6 +149,7 @@ namespace A_Simple_Display
 
 
             //hacking in scenese for now
+            /*
             var scenes = SceneManager.getScenes();
 
             tn = new TreeNode("!!SCENE HACK TEMP!!");
@@ -181,7 +173,7 @@ namespace A_Simple_Display
 
                 treeViewActors.Nodes.Add(tn);
             }
-
+            */
 
         }
 
@@ -204,7 +196,7 @@ namespace A_Simple_Display
         {
             //MessageBox.Show(getRootNode(treeView1.SelectedNode).Text);
             Actor actor = getObjectByName(getRootNode(treeViewActors.SelectedNode).Text);
-            Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_Gizmo);
+            Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_Gizmo);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -220,11 +212,11 @@ namespace A_Simple_Display
                 case 0:
                     actor = getObjectByName(getRootNode(treeViewActors.SelectedNode).Text);
                     if (actor.unknown_data1 == 2 && actor.unknown_data2 == -1)
-                        Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_Gizmo);
+                        Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_Gizmo);
                     break;
                 case 1:
                     actor = getObjectByName(getRootNode(treeViewItems.SelectedNode).Text);
-                    Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_Gizmo);
+                    Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_Gizmo);
                     break;
                 case 2:
                     MessageBox.Show("Too Many Bad Dead Bodies");
@@ -240,14 +232,14 @@ namespace A_Simple_Display
                 case 0:
                     actor = getObjectByName(getRootNode(treeViewActors.SelectedNode).Text);
                     if (actor.unknown_data2 == 29944)
-                        Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_NPC);
+                        Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_NPC);
                     break;
                 case 1:
                     MessageBox.Show("Too Many Bad Dead Bodies");
                     break;
                 case 2:
                     actor = getObjectByName(getRootNode(treeViewMonsters.SelectedNode).Text);
-                    Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_NPC);
+                    Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Axe_Operate_NPC);
                     break;
             }
         }
@@ -279,15 +271,15 @@ namespace A_Simple_Display
             {
                 case 0:
                     actor = getObjectByName(getRootNode(treeViewActors.SelectedNode).Text);
-                    Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
+                    Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
                     break;
                 case 1:
                     actor = getObjectByName(getRootNode(treeViewItems.SelectedNode).Text);
-                    Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
+                    Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
                     break;
                 case 2:
                     actor = getObjectByName(getRootNode(treeViewMonsters.SelectedNode).Text);
-                    Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
+                    Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.Wizard_ArcaneOrb);
                     break;
             }
         }
@@ -295,6 +287,17 @@ namespace A_Simple_Display
         private void treeViewActors_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            Type t = ActorAttributes.Hitpoints_Cur.type;
+            int test = Data.GetAttribute<int>(ActorAttributes.Hitpoints_Max);
+            int testx = Data.GetAttribute<int>(ActorAttributes.Hitpoints_Cur);
+            //int testy = Data.GetAttribute<int>(Globals.Me.FAG, ActorAttributes.Hitpoints_Max.offset);
+
+            int i = Data.GetAttributeInt(Data.toonID, ActorAttributes.Hitpoints_Max);
+            int test2;
         }
 
     }

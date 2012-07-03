@@ -78,7 +78,7 @@ namespace D3Bloader.Script.SimpleBot
                 //Log.write(String.Format("Attacking: {0} Distance: {1}", actor.id_acd.ToString("X"), actor.distanceFromMe));
 
                 //Attack!
-                Actions.interactGUID(actor.id_acd, SNO.SNOPowerId.DemonHunter_BolaShot);
+                Actions.PowerUseGUID(actor.id_acd, SNO.SNOPowerId.DemonHunter_BolaShot);
 
             }
 

@@ -85,6 +85,10 @@
       <Project>{116D87D7-EDD2-4262-88F8-49E155D89B71}</Project>
       <Name>D3 Adventures</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{7988C8F3-7443-455F-B9FF-D804DD235B7A}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

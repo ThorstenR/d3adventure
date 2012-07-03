@@ -5,6 +5,7 @@ using System.Text;
 
 using D3_Adventures.Structures;
 using D3_Adventures.Memory_Handling;
+using D3_Adventures.Enumerations;
 
 namespace D3_Adventures
 {
@@ -16,7 +17,28 @@ namespace D3_Adventures
 
         public static Actor GetMe()
         {
-            return IterateActors().Where(o => o.id_acd == toonID).FirstOrDefault();
+            return ActorByGUID(toonID);
+        }
+
+        /// <summary>
+        /// Returns the given Actor by it's unique ID from a fresh IterateActors()
+        /// </summary>
+        /// <param name="guid">Unique ID of the actor you would like to find in the collection</param>
+        /// <returns>Matching Actor</returns>
+        public static Actor ActorByGUID(uint guid)
+        {
+            return ActorByGUID(IterateActors(), guid);
+        }
+
+        /// <summary>
+        /// Returns the given Actor by it's unique ID from the given collection of Actors
+        /// </summary>
+        /// <param name="actors">A collection of actors</param>
+        /// <param name="guid">Unique ID of the actor you would like to find in the collection</param>
+        /// <returns>Matching Actor</returns>
+        public static Actor ActorByGUID(Actor[] actors, uint guid)
+        {
+            return actors.Where(o => o.id_actor == guid).FirstOrDefault();
         }
 
         public static uint GetActorCount()
@@ -26,6 +48,24 @@ namespace D3_Adventures
             return count;
         }
 
+        public static uint GetLocalActorCount()
+        {
+            return Offsets.LocalActor_Count;
+        }
+
+        public static uint GetAttributeCount()
+        {
+            return mem.ReadMemoryAsUint(Offsets.ActorAtrib_Count);
+        }
+
+        /*;;================================================================================
+        ; Function:			GetCurrentPos($_offset)
+        ; Description:		Returns your current offset in a array
+        ; Parameter(s):		none
+        ;								 
+        ; Note(s):			This will return your current position as a array.
+        ;					[0] = X, [1] = Y, [2] = Z
+        ;==================================================================================*/
         public static Vec3 GetCurrentPos()
         {
             Vec3 ret;
@@ -81,6 +121,21 @@ namespace D3_Adventures
             return acds;
         }
 
+        public static Actor[] IterateLocalActors()
+        {
+            uint count = GetLocalActorCount();
+            uint currentOffset = Offsets.LocalActor_3;
+            Actor[] localActors = new Actor[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                localActors[i] = (Actor)mem.ReadMemory(currentOffset, typeof(Actor));//mem.ReadMemory<Actor>(currentOffset);
+                currentOffset += Offsets.ofs_LocalActor_StrucSize;
+            }
+
+            return localActors;
+        }
+
         public static Actor[] GetItems()
         {
             return IterateActors().OrderBy(a => a.distanceFromMe).Where(a => a.unknown_data1 == 2 && a.unknown_data2 == uint.MaxValue).ToArray<Actor>();
@@ -106,5 +161,175 @@ namespace D3_Adventures
             return filteredItems.ToArray();
         }
 
+        /// <summary>
+        /// Get an actor attribute (health, armor etc.)
+        /// </summary>
+        /// <typeparam name="T">int or float</typeparam>
+        /// <param name="attribute">Attribute to get</param>
+        /// <returns>Value of attribute</returns>
+        public static T GetAttribute<T>(ActorAttribute attribute) where T : struct
+        {
+            uint ret = GetAttribute((uint)attribute.offset | 0xFFFFF000);
+
+            //if (!ret.IsValid())
+            //{
+            //    return default(T);
+            //}
+
+            return mem.ReadMemory<T>(ret + 8);
+        }
+
+        private static uint GetAttribute(uint attribute)
+        {
+            uint CAttribFormula = mem.ReadMemory<uint>(Offsets.ActorAtrib_4 + 0x10);
+
+            uint _418 = mem.ReadMemory<uint>(CAttribFormula + 0x418);
+
+            uint AttributesMap = mem.ReadMemory<uint>(CAttribFormula + 0x8);
+
+            uint IndexMask = (_418 & (attribute ^ (attribute >> 0x10)));
+
+            uint _res = (AttributesMap + 4 * IndexMask);
+
+            uint result = mem.ReadMemory<uint>(_res);
+
+            if (result != 0)
+            {
+                while (mem.ReadMemory<uint>(result + 0x4) != attribute)
+                {
+                    result = mem.ReadMemory<uint>(result);
+
+                    if (result == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static int GetAttributeInt(uint guid, ActorAttribute attribute)
+        {
+            Actor[] localActors = IterateLocalActors();
+            Actor actor = ActorByGUID(localActors, guid);
+            uint count = GetAttributeCount();
+            uint currentOffset = Offsets.ActorAtrib_4;
+            uint actorAtrib, data, atribData;
+            const uint ATTIBUTE_COUNT = 825;
+
+            for (int i = 0; i < count; i++)
+            {
+                actorAtrib = mem.ReadMemoryAsUint(currentOffset);
+                if (actorAtrib == actor.FAG)
+                {
+                    currentOffset = mem.ReadMemoryAsUint(currentOffset + 0x10);
+                    for(int u = 0; u < ATTIBUTE_COUNT; u++)
+                    {
+                        data = mem.ReadMemoryAsUint(currentOffset);
+                        currentOffset += 0x4;
+                        if (data != 0x0)
+                        {
+                            atribData = mem.ReadMemoryAsUint(data + 0x4);
+                            if (atribData.ToString("X").StartsWith("FFFFF")) // MUST BE  WAY BETTER WAY TO TEST LIKE SHIFTING BYTES
+                            {
+                                if (atribData.ToString("X").EndsWith(attribute.offset.ToString("X")))
+                                {
+                                    return mem.ReadMemoryAsInt(data+0x8);
+                                }
+                            }
+                        }
+                    }
+                }
+                currentOffset = currentOffset + Offsets.ofs_ActorAtrib_StrucSize;
+            }
+            return 0x666;
+        }
+
+
+        //These are direct translations of D3s lookup methods. This might need to stay in sync if they make code changes to it.
+        //or if the structure offsets change.
+        public static IntPtr AcdToFAG(int FagGuid)
+        {
+            int result = 0;
+            var objMgr = mem.SafeMapPointerToStructure<IntPtr>((IntPtr)Offsets.objectManager);
+            IntPtr ptr = mem.SafeMapPointerToStructure<IntPtr>(objMgr + (0x844));
+            ptr = mem.SafeMapPointerToStructure<IntPtr>(ptr + 0x70);
+
+
+            uint max = mem.SafeMapPointerToStructure<uint>(ptr + 0x100);
+            int size = 0x180;
+
+            if ((FagGuid & 0xFFFF) < max)
+            {
+                int _148 = mem.SafeMapPointerToStructure<int>(ptr + 0x148);
+                int _18c = mem.SafeMapPointerToStructure<int>(ptr + 0x18c);
+
+                int a = (_148 + 4 * 0);
+                int b = (size * (FagGuid & ((1 << (int)_18c) - 1)));
+
+                int v3 = mem.SafeMapPointerToStructure<int>((IntPtr)(a)) + b;
+                result = v3 & -1;
+            }
+
+            return (IntPtr)result;
+        }
+        private static IntPtr GetAttribute(IntPtr fagPtr, uint attribute_index)
+        {
+            attribute_index = attribute_index | 0xFFFFF000;
+
+            int _38 = mem.SafeMapPointerToStructure<int>(fagPtr + 0x38);
+            int _c8 = mem.SafeMapPointerToStructure<int>(fagPtr + 0xC8);
+            int v4 = (int)(_c8 & (attribute_index ^ (attribute_index >> 0x10)));
+            v4 = (_38 + 4 * v4);
+
+            v4 = mem.SafeMapPointerToStructure<int>((IntPtr)v4);
+            if (v4 != 0)
+            {
+                while (mem.SafeMapPointerToStructure<uint>((IntPtr)(v4 + 4)) != attribute_index)
+                {
+                    v4 = mem.SafeMapPointerToStructure<int>((IntPtr)(v4));
+                    if (v4 == 0)
+                        goto NEXT_SCAN;
+                }
+
+                return (IntPtr)v4 + 8;
+            }
+
+        NEXT_SCAN:
+            int _10 = mem.SafeMapPointerToStructure<int>((IntPtr)(fagPtr + 0x10));
+            int _8 = mem.SafeMapPointerToStructure<int>((IntPtr)(_10 + 0x8));
+            int _418 = mem.SafeMapPointerToStructure<int>((IntPtr)(_10 + 0x418));
+
+            int v5 = (int)(_418 & (attribute_index ^ (attribute_index >> 0x10)));
+            int _res = (_8 + 4 * v5);
+            v5 = mem.SafeMapPointerToStructure<int>((IntPtr)_res);
+            if (v5 != 0)
+            {
+                while (mem.SafeMapPointerToStructure<uint>((IntPtr)(v5 + 4)) != attribute_index)
+                {
+                    v5 = mem.SafeMapPointerToStructure<int>((IntPtr)(v5));
+                    if (v5 == 0)
+                        return IntPtr.Zero;
+                }
+                return (IntPtr)v5 + 8;
+            }
+
+            return IntPtr.Zero;
+
+        }
+
+        public static T GetAttribute<T>(uint FagGuid, uint attribute_index) where T : struct
+        {
+            var fagPtr = AcdToFAG((int)FagGuid);
+            if (fagPtr == IntPtr.Zero) return default(T);
+
+            var attrPtr = GetAttribute(fagPtr, attribute_index);
+            if (attrPtr == IntPtr.Zero) return default(T);
+
+            T data = mem.SafeMapPointerToStructure<T>(attrPtr);
+            return data;
+
+        }
     }
 }
