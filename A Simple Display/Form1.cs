@@ -292,9 +292,9 @@ namespace A_Simple_Display
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
             Type t = ActorAttributes.Hitpoints_Cur.type;
-            int testA = Data.GetAttribute<int>(ActorAttributes.Intelligence_Total); // irc (??)
-            int testB = Data.GetAttributeInt(0x77BC0000, ActorAttributes.Intelligence_Total); // AU3 Owned's
-            int testC = Data.GetAttributeInt(Globals.Me.FAG, ActorAttributes.Intelligence_Total.offset); // shadwd
+            float testA = Data.GetAttributeIRC<float>(ActorAttributes.Intelligence_Total); // irc (??)
+            float testB = Data.GetAttributeAU3<float>(0x77BC0000, ActorAttributes.Intelligence_Total); // AU3 Owned's
+            float testC = Data.GetAttributeShadwd<float>(Globals.Me.FAG, ActorAttributes.Intelligence_Total.offset); // shadwd
 
             int test2;
         }

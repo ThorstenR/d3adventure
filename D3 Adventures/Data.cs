@@ -168,7 +168,7 @@ namespace D3_Adventures
         /// <param name="attribute">Attribute to get</param>
         /// <returns>Value of attribute</returns>
         /// // irc (??)
-        public static T GetAttribute<T>(ActorAttribute attribute) where T : struct
+        public static T GetAttributeIRC<T>(ActorAttribute attribute) where T : struct
         {
             uint ret = GetAttribute((uint)attribute.offset | 0xFFFFF000);
 
@@ -211,7 +211,8 @@ namespace D3_Adventures
         }
 
         // AU3 Owned's
-        public static int GetAttributeInt(uint guid, ActorAttribute attribute)
+        /// <param name="type">true = int, false = float</param>
+        public static T GetAttributeAU3<T>(uint guid, ActorAttribute attribute) where T : struct
         {
             Actor[] localActors = IterateLocalActors();
             Actor actor = ActorByGUID(localActors, guid);
@@ -237,7 +238,7 @@ namespace D3_Adventures
                             {
                                 if (atribData.ToString("X").EndsWith(attribute.offset.ToString("X")))
                                 {
-                                    return mem.ReadMemoryAsInt(data+0x8);
+                                    return mem.ReadMemory<T>(data + 0x8);
                                 }
                             }
                         }
@@ -245,19 +246,19 @@ namespace D3_Adventures
                 }
                 currentOffset = currentOffset + Offsets.ofs_ActorAtrib_StrucSize;
             }
-            return -1;
+            return default(T);
         }
 
         // shadwd
-        public static int GetAttributeInt(uint FagGuid, uint attribute_index)
+        public static T GetAttributeShadwd<T>(uint FagGuid, uint attribute_index)  where T : struct
         {
             var fagPtr = AcdToFAG((int)FagGuid);
-            if (fagPtr == IntPtr.Zero) return -1;
+            if (fagPtr == IntPtr.Zero) return default(T);
 
             var attrPtr = GetAttribute(fagPtr, attribute_index);
-            if (attrPtr == IntPtr.Zero) return -1; ;
+            if (attrPtr == IntPtr.Zero) return default(T);
 
-            return mem.ReadMemoryAsInt((uint)attrPtr);
+            return mem.ReadMemory<T>((uint)attrPtr);
         }
 
         private static IntPtr GetAttribute(IntPtr fagPtr, uint attribute_index)
