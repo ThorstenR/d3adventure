@@ -167,6 +167,7 @@ namespace D3_Adventures
         /// <typeparam name="T">int or float</typeparam>
         /// <param name="attribute">Attribute to get</param>
         /// <returns>Value of attribute</returns>
+        /// // irc (??)
         public static T GetAttribute<T>(ActorAttribute attribute) where T : struct
         {
             uint ret = GetAttribute((uint)attribute.offset | 0xFFFFF000);
@@ -209,6 +210,7 @@ namespace D3_Adventures
             return result;
         }
 
+        // AU3 Owned's
         public static int GetAttributeInt(uint guid, ActorAttribute attribute)
         {
             Actor[] localActors = IterateLocalActors();
@@ -243,37 +245,21 @@ namespace D3_Adventures
                 }
                 currentOffset = currentOffset + Offsets.ofs_ActorAtrib_StrucSize;
             }
-            return 0x666;
+            return -1;
         }
 
-
-        //These are direct translations of D3s lookup methods. This might need to stay in sync if they make code changes to it.
-        //or if the structure offsets change.
-        public static IntPtr AcdToFAG(int FagGuid)
+        // shadwd
+        public static int GetAttributeInt(uint FagGuid, uint attribute_index)
         {
-            int result = 0;
-            var objMgr = mem.ReadMemoryAsUint(Offsets.objectManager);
-            uint ptr = mem.ReadMemoryAsUint(objMgr + (0x844));
-            ptr = mem.ReadMemoryAsUint(ptr + 0x70);
+            var fagPtr = AcdToFAG((int)FagGuid);
+            if (fagPtr == IntPtr.Zero) return -1;
 
+            var attrPtr = GetAttribute(fagPtr, attribute_index);
+            if (attrPtr == IntPtr.Zero) return -1; ;
 
-            uint max = mem.ReadMemoryAsUint(ptr + 0x100);
-            int size = 0x180;
-
-            if ((FagGuid & 0xFFFF) < max)
-            {
-                int _148 = mem.ReadMemoryAsInt(ptr + 0x148);
-                int _18c = mem.ReadMemoryAsInt(ptr + 0x18c);
-
-                int a = (_148 + 4 * 0);
-                int b = (size * (FagGuid & ((1 << (int)_18c) - 1)));
-
-                int v3 = mem.ReadMemoryAsInt((uint)(a)) + b;
-                result = v3 & -1;
-            }
-
-            return (IntPtr)result;
+            return mem.ReadMemoryAsInt((uint)attrPtr);
         }
+
         private static IntPtr GetAttribute(IntPtr fagPtr, uint attribute_index)
         {
             attribute_index = attribute_index | 0xFFFFF000;
@@ -319,15 +305,32 @@ namespace D3_Adventures
 
         }
 
-        public static int GetAttributeInt(uint FagGuid, uint attribute_index)
+        //These are direct translations of D3s lookup methods. This might need to stay in sync if they make code changes to it.
+        //or if the structure offsets change.
+        public static IntPtr AcdToFAG(int FagGuid)
         {
-            var fagPtr = AcdToFAG((int)FagGuid);
-            if (fagPtr == IntPtr.Zero) return -1;
+            int result = 0;
+            var objMgr = mem.ReadMemoryAsUint(Offsets.objectManager);
+            uint ptr = mem.ReadMemoryAsUint(objMgr + (0x844));
+            ptr = mem.ReadMemoryAsUint(ptr + 0x70);
 
-            var attrPtr = GetAttribute(fagPtr, attribute_index);
-            if (attrPtr == IntPtr.Zero) return -1; ;
 
-            return mem.ReadMemoryAsInt((uint)attrPtr);
+            uint max = mem.ReadMemoryAsUint(ptr + 0x100);
+            int size = 0x180;
+
+            if ((FagGuid & 0xFFFF) < max)
+            {
+                int _148 = mem.ReadMemoryAsInt(ptr + 0x148);
+                int _18c = mem.ReadMemoryAsInt(ptr + 0x18c);
+
+                int a = (_148 + 4 * 0);
+                int b = (size * (FagGuid & ((1 << (int)_18c) - 1)));
+
+                int v3 = mem.ReadMemoryAsInt((uint)(a)) + b;
+                result = v3 & -1;
+            }
+
+            return (IntPtr)result;
         }
     }
 }
