@@ -252,23 +252,23 @@ namespace D3_Adventures
         public static IntPtr AcdToFAG(int FagGuid)
         {
             int result = 0;
-            var objMgr = mem.SafeMapPointerToStructure<IntPtr>((IntPtr)Offsets.objectManager);
-            IntPtr ptr = mem.SafeMapPointerToStructure<IntPtr>(objMgr + (0x844));
-            ptr = mem.SafeMapPointerToStructure<IntPtr>(ptr + 0x70);
+            var objMgr = mem.ReadMemoryAsUint(Offsets.objectManager);
+            uint ptr = mem.ReadMemoryAsUint(objMgr + (0x844));
+            ptr = mem.ReadMemoryAsUint(ptr + 0x70);
 
 
-            uint max = mem.SafeMapPointerToStructure<uint>(ptr + 0x100);
+            uint max = mem.ReadMemoryAsUint(ptr + 0x100);
             int size = 0x180;
 
             if ((FagGuid & 0xFFFF) < max)
             {
-                int _148 = mem.SafeMapPointerToStructure<int>(ptr + 0x148);
-                int _18c = mem.SafeMapPointerToStructure<int>(ptr + 0x18c);
+                int _148 = mem.ReadMemoryAsInt(ptr + 0x148);
+                int _18c = mem.ReadMemoryAsInt(ptr + 0x18c);
 
                 int a = (_148 + 4 * 0);
                 int b = (size * (FagGuid & ((1 << (int)_18c) - 1)));
 
-                int v3 = mem.SafeMapPointerToStructure<int>((IntPtr)(a)) + b;
+                int v3 = mem.ReadMemoryAsInt((uint)(a)) + b;
                 result = v3 & -1;
             }
 
@@ -278,17 +278,17 @@ namespace D3_Adventures
         {
             attribute_index = attribute_index | 0xFFFFF000;
 
-            int _38 = mem.SafeMapPointerToStructure<int>(fagPtr + 0x38);
-            int _c8 = mem.SafeMapPointerToStructure<int>(fagPtr + 0xC8);
+            int _38 = mem.ReadMemoryAsInt((uint)fagPtr + 0x38);
+            int _c8 = mem.ReadMemoryAsInt((uint)fagPtr + 0xC8);
             int v4 = (int)(_c8 & (attribute_index ^ (attribute_index >> 0x10)));
             v4 = (_38 + 4 * v4);
 
-            v4 = mem.SafeMapPointerToStructure<int>((IntPtr)v4);
+            v4 = mem.ReadMemoryAsInt((uint)v4);
             if (v4 != 0)
             {
-                while (mem.SafeMapPointerToStructure<uint>((IntPtr)(v4 + 4)) != attribute_index)
+                while (mem.ReadMemoryAsUint((uint)(v4 + 4)) != attribute_index)
                 {
-                    v4 = mem.SafeMapPointerToStructure<int>((IntPtr)(v4));
+                    v4 = mem.ReadMemoryAsInt((uint)(v4));
                     if (v4 == 0)
                         goto NEXT_SCAN;
                 }
@@ -297,18 +297,18 @@ namespace D3_Adventures
             }
 
         NEXT_SCAN:
-            int _10 = mem.SafeMapPointerToStructure<int>((IntPtr)(fagPtr + 0x10));
-            int _8 = mem.SafeMapPointerToStructure<int>((IntPtr)(_10 + 0x8));
-            int _418 = mem.SafeMapPointerToStructure<int>((IntPtr)(_10 + 0x418));
+            int _10 = mem.ReadMemoryAsInt((uint)(fagPtr + 0x10));
+            int _8 = mem.ReadMemoryAsInt((uint)(_10 + 0x8));
+            int _418 = mem.ReadMemoryAsInt((uint)(_10 + 0x418));
 
             int v5 = (int)(_418 & (attribute_index ^ (attribute_index >> 0x10)));
             int _res = (_8 + 4 * v5);
-            v5 = mem.SafeMapPointerToStructure<int>((IntPtr)_res);
+            v5 = mem.ReadMemoryAsInt((uint)_res);
             if (v5 != 0)
             {
-                while (mem.SafeMapPointerToStructure<uint>((IntPtr)(v5 + 4)) != attribute_index)
+                while (mem.ReadMemoryAsUint((uint)(v5 + 4)) != attribute_index)
                 {
-                    v5 = mem.SafeMapPointerToStructure<int>((IntPtr)(v5));
+                    v5 = mem.ReadMemoryAsInt((uint)(v5));
                     if (v5 == 0)
                         return IntPtr.Zero;
                 }
@@ -319,17 +319,15 @@ namespace D3_Adventures
 
         }
 
-        public static T GetAttribute<T>(uint FagGuid, uint attribute_index) where T : struct
+        public static int GetAttributeInt(uint FagGuid, uint attribute_index)
         {
             var fagPtr = AcdToFAG((int)FagGuid);
-            if (fagPtr == IntPtr.Zero) return default(T);
+            if (fagPtr == IntPtr.Zero) return -1;
 
             var attrPtr = GetAttribute(fagPtr, attribute_index);
-            if (attrPtr == IntPtr.Zero) return default(T);
+            if (attrPtr == IntPtr.Zero) return -1; ;
 
-            T data = mem.SafeMapPointerToStructure<T>(attrPtr);
-            return data;
-
+            return mem.ReadMemoryAsInt((uint)attrPtr);
         }
     }
 }
