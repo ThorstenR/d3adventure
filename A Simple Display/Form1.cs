@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 using D3_Adventures;
 using D3_Adventures.Structures;
@@ -291,10 +292,44 @@ namespace A_Simple_Display
 
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            Type t = ActorAttributes.Hitpoints_Cur.type;
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
             float testA = Data.GetAttributeIRC<float>(ActorAttributes.Intelligence_Total); // irc (??)
+            stopwatch.Stop();
+            consoleLog.WriteLine("IRC: "+stopwatch.Elapsed);
+            stopwatch.Reset();
+
+            stopwatch.Start();
             float testB = Data.GetAttributeAU3<float>(0x77BC0000, ActorAttributes.Intelligence_Total); // AU3 Owned's
+            stopwatch.Stop();
+            consoleLog.WriteLine("AU3: " + stopwatch.Elapsed);
+            stopwatch.Reset();
+
+            stopwatch.Start();
             float testC = Data.GetAttributeShadwd<float>(Globals.Me.FAG, ActorAttributes.Intelligence_Total.offset); // shadwd
+            stopwatch.Stop();
+            consoleLog.WriteLine("Sh: " + stopwatch.Elapsed);
+            stopwatch.Reset();
+
+
+            stopwatch.Start();
+            float testD = Data.GetAttributeIRC<float>(ActorAttributes.Hitpoints_Cur); // irc (??)
+            stopwatch.Stop();
+            consoleLog.WriteLine("IRC: " + stopwatch.Elapsed);
+            stopwatch.Reset();
+
+            stopwatch.Start();
+            float testE = Data.GetAttributeAU3<float>(0x77BC0000, ActorAttributes.Hitpoints_Cur); // AU3 Owned's
+            stopwatch.Stop();
+            consoleLog.WriteLine("AU3: " + stopwatch.Elapsed);
+            stopwatch.Reset();
+
+            stopwatch.Start();
+            float testF = Data.GetAttributeShadwd<float>(Globals.Me.FAG, ActorAttributes.Hitpoints_Cur.offset); // shadwd
+            stopwatch.Stop();
+            consoleLog.WriteLine("SH: " + stopwatch.Elapsed);
+            stopwatch.Reset();
 
             int test2;
         }
