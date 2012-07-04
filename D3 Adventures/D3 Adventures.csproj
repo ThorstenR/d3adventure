@@ -69,6 +69,7 @@
     <Compile Include="Memory Handling\MemoryHandling.cs" />
     <Compile Include="Memory Handling\SafeProcessHandle.cs" />
     <Compile Include="Memory Handling\StructureWrapper.cs" />
+    <Compile Include="Memory Handling\StructureWrapperOld.cs" />
     <Compile Include="Offsets.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -507,10 +507,10 @@ namespace D3_Adventures.Memory_Handling
                 {
                     throw new InvalidOperationException("Cannot retrieve a value at address 0");
                 }
-                switch (StructureWrapper<T>.typeCode_0)
+                switch (StructureWrapperOld<T>.typeCode_0)
                 {
                     case TypeCode.Object:
-                        if (!(StructureWrapper<T>.type_0 == typeof(IntPtr)))
+                        if (!(StructureWrapperOld<T>.type_0 == typeof(IntPtr)))
                         {
                             break;
                         }
@@ -571,10 +571,10 @@ namespace D3_Adventures.Memory_Handling
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                if (!StructureWrapper<T>.bool_0)
+                if (!StructureWrapperOld<T>.bool_0)
                 {
                     T local = default(T);
-                    Imports.RtlMoveMemory(StructureWrapper<T>.delegate1_0(ref local), (void*)address, StructureWrapper<T>.int_0);
+                    Imports.RtlMoveMemory(StructureWrapperOld<T>.delegate1_0(ref local), (void*)address, StructureWrapperOld<T>.int_0);
                     return local;
                 }
                 obj2 = Marshal.PtrToStructure(address, typeof(T));
