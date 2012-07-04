@@ -49,6 +49,7 @@ namespace D3_Adventures.Memory_Handling
 
         public void Attach()
         {
+            wardenCheck();
             ProcessModule d3d = GetProcessModule("d3d9.dll");
 
             this.Injector = new ASMExecutor(this, new IntPtr(d3d.BaseAddress.ToInt32() + 0x2279f));
