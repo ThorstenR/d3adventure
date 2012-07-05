@@ -41,12 +41,23 @@ namespace D3_Adventures.Structures
         public float RadiusScaled;         // 0x238 
         public fixed byte unknown_23C[148];// 0x23C 
 
+        public uint mem_location; // used for checking for changes later on
+
         public string name
         {
             get
             {
                 return new string(_name).TrimEnd(new char[] { (char)0 });
             }
+        }
+
+        /// <summary>
+        /// Checks to see if the object at the memory location is still the same.
+        /// </summary>
+        /// <returns>Returns true if the GUID/id_actor has not changed.</returns>
+        public bool IsValid()
+        {
+            return (Globals.mem.ReadMemoryAsUint(mem_location) == id_acd);
         }
 
     }

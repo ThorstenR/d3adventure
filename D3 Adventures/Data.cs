@@ -115,6 +115,7 @@ namespace D3_Adventures
             for (int i = 0; i < count; i++)
             {
                 acds[i] = (ActorCommonData)mem.ReadMemory(curOffset, typeof(ActorCommonData));
+                acds[i].mem_location = curOffset;
                 curOffset = curOffset + Offsets.ACDSize;
             }
 

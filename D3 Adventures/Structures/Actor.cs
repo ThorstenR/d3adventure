@@ -107,7 +107,16 @@ namespace D3_Adventures.Structures
         {
             if (mem_location == null)
                 throw new Exception("Memory Location of The Actor Must Be Set Before isAlive Can Be Called.");
-            return (id_acd == Globals.mem.ReadMemoryAsUint(mem_location + 0x4));
+            return (id_acd == Globals.mem.ReadMemoryAsUint(mem_location + 0x4)); // maybe just check the id_actor and base address
+        }
+
+        /// <summary>
+        /// Checks to see if the object at the memory location is still the same.
+        /// </summary>
+        /// <returns>Returns true if the GUID/id_actor has not changed.</returns>
+        public bool IsValid()
+        {
+            return (Globals.mem.ReadMemoryAsUint(mem_location) == id_actor);
         }
 
         public string ToString()
