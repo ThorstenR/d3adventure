@@ -15,14 +15,16 @@ namespace D3_Adventures
         {
             get
             {
-                return mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(objectManager) + 0x924)) + 0x08);
+                return mem.ReadMemory(objectManager, new uint[] { 0x924, 0x0, 0x08 }); // UNTESTED
+                // return mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(objectManager) + 0x924)) + 0x08);
             }
         }
         public static uint UIelementCount
         {
             get
             {
-                return mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(objectManager) + 0x924)) + 0x40);
+                return mem.ReadMemory(objectManager, new uint[] { 0x924, 0x0, 0x40 }); // UNTESTED
+                //return mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(mem.ReadMemoryAsUint(objectManager) + 0x924)) + 0x40);
             }
         }
 
@@ -34,14 +36,14 @@ namespace D3_Adventures
         public static uint objmanagerActorLinkToCTM = 0x380;
         public static uint objmanagerStrucSize = 0x428;
 
-        public static uint itrObjectManagerA = mem.ReadMemoryAsUint(objectManager);
-        public static uint itrObjectManagerB = mem.ReadMemoryAsUint(itrObjectManagerA + objmanagerActorOffsetA);
+        public static uint itrObjectManagerA { get { return mem.ReadMemoryAsUint(objectManager); } }
+        public static uint itrObjectManagerB { get { return mem.ReadMemoryAsUint(itrObjectManagerA + objmanagerActorOffsetA); } }
 
-        public static uint itrObjectManagerCount = itrObjectManagerB + objmanagerActorCount;
-        public static uint itrObjectManagerC = mem.ReadMemoryAsUint(itrObjectManagerB + objmanagerActorOffsetB);
+        public static uint itrObjectManagerCount { get { return  itrObjectManagerB + objmanagerActorCount; } }
+        public static uint itrObjectManagerC { get { return  mem.ReadMemoryAsUint(itrObjectManagerB + objmanagerActorOffsetB); } }
 
-        public static uint itrObjectManagerD = mem.ReadMemoryAsUint(itrObjectManagerC);
-        public static uint itrObjectManagerE = mem.ReadMemoryAsUint(itrObjectManagerD);
+        public static uint itrObjectManagerD { get { return  mem.ReadMemoryAsUint(itrObjectManagerC); } }
+        public static uint itrObjectManagerE { get { return mem.ReadMemoryAsUint(itrObjectManagerD); } }
         #endregion
 
         #region Attributes
@@ -132,9 +134,9 @@ namespace D3_Adventures
 
         public static uint fixSpeed = 0x20; // 69736
         public static uint toggleMove = 0x34;
-        public static uint moveToXoffset = 0x3c;
-        public static uint moveToYoffset = 0x40;
-        public static uint moveToZoffset = 0x44;
+        public static uint moveToXoffset = 0x40;
+        public static uint moveToYoffset = 0x44;
+        public static uint moveToZoffset = 0x48;
         public static uint currentX = 0xA8;
         public static uint currentY = 0xAC;
         public static uint currentZ = 0xB0;
