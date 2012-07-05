@@ -81,7 +81,7 @@ namespace D3_Adventures.Structures
             }
         }
 
-        public bool isAlive()
+        public bool IsAlive()
         {
 
             if (this.Alive == -1)

@@ -157,7 +157,7 @@ namespace D3_Adventures
                                         mob.Exists() &&            /*is do NOT check if the monster is dead - use Actor.Alive*/
                                         mob.unknown_1C4[0] == 1 && /* Were it is a "monster"*/
                                         mob.unknown_data2 == 29944 &&
-                                        mob.isAlive() == true
+                                        mob.IsAlive() == true
                                         ).ToList();
             return filteredItems.ToArray();
         }
